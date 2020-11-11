@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "p4t4p-front"
+    }
+  },
+  "defaultProject": "p4t4p-front",
+  "cli": {
+    "analytics": false
+  }
 }
