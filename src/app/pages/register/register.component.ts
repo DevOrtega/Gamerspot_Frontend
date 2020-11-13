@@ -12,41 +12,48 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   submitted = false;
+  fieldTextType: boolean;
+  repeatFieldTextType: boolean;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-      this.registerForm = this.formBuilder.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          // validates date format yyyy-mm-dd
-          dob: ['', [Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
-          email: ['', [Validators.required, Validators.email]],
-          password: ['', [Validators.required, Validators.minLength(6)]],
-          confirmPassword: ['', Validators.required]
-      }, {
-        validator: PasswordMatch('password', 'confirmPassword')
-      });
+    this.registerForm = this.formBuilder.group({
+      userName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: PasswordMatch('password', 'confirmPassword')
+    });
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
 
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
+
+  toggleRepeatFieldTextType() {
+    this.repeatFieldTextType = !this.repeatFieldTextType;
+  }
+
   onSubmit() {
-      this.submitted = true;
+    this.submitted = true;
 
-      // stop here if form is invalid
-      if (this.registerForm.invalid) {
-          return;
-      }
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
 
-      // display form values on success
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
+    // display form values on success
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
   }
 
   onReset() {
-      this.submitted = false;
-      this.registerForm.reset();
+    this.submitted = false;
+    this.registerForm.reset();
   }
 
 }

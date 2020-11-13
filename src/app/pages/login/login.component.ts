@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
+  fieldTextType: boolean;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -21,8 +22,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
+  /*
+  // convenience getter for easy access to form fields*/
   get f() { return this.loginForm.controls; }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
 
   onSubmit() {
     this.submitted = true;
