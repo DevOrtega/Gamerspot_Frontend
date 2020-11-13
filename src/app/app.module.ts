@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfileDataComponent } from './components/profile-data/profile-data.component';
 import { ProfileFormComponent } from './components/profile-form/profile-form.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ProfileFormComponent } from './components/profile-form/profile-form.com
     HomeComponent,
     ProfileComponent,
     ProfileDataComponent,
-    ProfileFormComponent
+    ProfileFormComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
