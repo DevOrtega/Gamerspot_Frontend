@@ -1,6 +1,10 @@
 <!-- main app container -->
-<div class="card w-75 mx-auto text-center register-card">
-  <h5 class="card-header">Register</h5>
+<div class="card mx-auto text-center register-card">
+  <h5 class="card-header">
+    <button class="btn btn-info mr-2 float-left" (click)="backClicked()">
+      <i class="fas fa-chevron-circle-left"></i></button
+    >Register
+  </h5>
   <div class="card-body">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
