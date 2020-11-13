@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 
 // import custom validator to validate that password and confirm password fields match
 import { PasswordMatch } from '../../validators/password.validator';
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   fieldTextType: boolean;
   repeatFieldTextType: boolean;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private _location: Location) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -30,6 +31,10 @@ export class RegisterComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
+
+  backClicked() {
+    this._location.back();
+  }
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;

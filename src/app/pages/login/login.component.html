@@ -1,5 +1,5 @@
 <!-- main app container -->
-<div class="card w-75 mx-auto text-center login-card">
+<div class="card mx-auto text-center login-card">
   <h5 class="card-header">Login</h5>
   <div class="card-body">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="form-row mt-4">
-        <div class="form-group col-5">
+        <div class="form-group col">
           <label for="userName">User or Email</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -79,9 +79,10 @@
       </div>
       <div class="text-center mt-4">
         <p>
-          If you forget your password click
-          <a href="#" rel="noopener noreferrer">here</a>
+          If you forget your password click the button below
         </p>
+        <button type="button" class="btn btn-warning" [routerLink]="'/reset'">
+          Reset Password</button>
       </div>
     </form>
   </div>
