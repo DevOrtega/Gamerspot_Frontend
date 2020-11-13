@@ -1,0 +1,15 @@
+<div class="jumbotron profile">
+  <div class="card" style="width: 20rem;">
+    <img src="../../../../assets/profile/image-profile.png" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Name</h5>
+      <p class="card-text">@Username</p>
+      <p class="card-text">Email</p>
+    </div>
+  </div>
+
+  <div class="data">
+    <app-profile-form (saveEmitter)="saveProfile($event)"></app-profile-form>
+    <app-profile-data [userProfile]="userProfile"></app-profile-data>
+  </div>
+</div>
