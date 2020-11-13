@@ -8,6 +8,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileDataComponent } from './components/profile-data/profile-data.component';
+import { ProfileFormComponent } from './components/profile-form/profile-form.component';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    ProfileDataComponent,
+    ProfileFormComponent
   ],
   imports: [
     BrowserModule,
