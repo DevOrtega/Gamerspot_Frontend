@@ -47,7 +47,12 @@ export class LoginComponent implements OnInit {
   }
 
   async checkLoginData() {
-    //await this.userService.getUserByUsername(this.loginForm.value.userName);
+    let userData = {
+      username: this.loginForm.value.userName,
+      password: this.loginForm.value.password
+    };
+    let data = await this.userService.postToken(userData);
+    localStorage.setItem('token', JSON.stringify(data.token));
   }
 
   onReset() {
