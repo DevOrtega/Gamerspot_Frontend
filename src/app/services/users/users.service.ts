@@ -18,11 +18,15 @@ export class UsersService {
     return axios.get(`${this.serverUrl}/${username}`).then(response => response.data);
   }
 
+  postToken(userData) {
+    return axios.post(`${this.serverUrl}/login`, userData).then(response => response.data);
+  }
+
   registerUser(user) {
     return axios.post(`${this.serverUrl}/register`, user).then(response => response.data);
   }
 
-  /*addUserProfile(profile) {
+  addUserProfile(profile) {
     return axios.post(`${this.serverUrl}`, profile).then(response => response.data);
-  }*/
+  }
 }
