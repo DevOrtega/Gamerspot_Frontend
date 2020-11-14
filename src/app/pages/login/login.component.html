@@ -1,6 +1,10 @@
 <!-- main app container -->
 <div class="card mx-auto text-center login-card">
-  <h5 class="card-header">Login</h5>
+  <h5 class="card-header">
+    <button class="btn btn-info mr-2 float-left" (click)="backClicked()">
+      <i class="fas fa-chevron-circle-left"></i></button
+    >Login
+  </h5>
   <div class="card-body">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
@@ -25,13 +29,13 @@
               formControlName="userName"
               class="form-control"
               placeholder="User"
-              [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"
+              [ngClass]="{ 'is-invalid': submitted && form.userName.errors }"
             />
             <div
-              *ngIf="submitted && f.userName.errors"
+              *ngIf="submitted && form.userName.errors"
               class="invalid-feedback"
             >
-              <div *ngIf="f.userName.errors.required">
+              <div *ngIf="form.userName.errors.required">
                 User Name is required
               </div>
             </div>
@@ -45,7 +49,7 @@
               formControlName="password"
               class="form-control"
               placeholder="Password"
-              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+              [ngClass]="{ 'is-invalid': submitted && form.password.errors }"
             />
             <div class="input-group-prepend">
               <span class="input-group-text">
@@ -60,11 +64,11 @@
               </span>
             </div>
             <div
-              *ngIf="submitted && f.password.errors"
+              *ngIf="submitted && form.password.errors"
               class="invalid-feedback"
             >
-              <div *ngIf="f.password.errors.required">Password is required</div>
-              <div *ngIf="f.password.errors.minlength">
+              <div *ngIf="form.password.errors.required">Password is required</div>
+              <div *ngIf="form.password.errors.minlength">
                 Password must be at least 6 characters
               </div>
             </div>
@@ -77,13 +81,13 @@
           Cancel
         </button>
       </div>
-      <div class="text-center mt-4">
+     <!-- <div class="text-center mt-4">
         <p>
           If you forget your password click the button below
         </p>
         <button type="button" class="btn btn-warning" [routerLink]="'/reset'">
           Reset Password</button>
-      </div>
+      </div>-->
     </form>
   </div>
 </div>

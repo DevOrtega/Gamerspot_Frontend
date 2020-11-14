@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { UsersService } from 'src/app/services/users/users.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   fieldTextType: boolean;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private _location: Location, private formBuilder: FormBuilder, private userService: UsersService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -22,9 +22,15 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  backClicked() {
+    this._location.back();
+  }
+
   /*
   // convenience getter for easy access to form fields*/
-  get f() { return this.loginForm.controls; }
+  get form() {
+    return this.loginForm.controls;
+  }
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
@@ -37,9 +43,11 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+    this.checkLoginData();
+  }
 
-    // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value, null, 4));
+  async checkLoginData() {
+    //await this.userService.getUserByUsername(this.loginForm.value.userName);
   }
 
   onReset() {
