@@ -4,6 +4,9 @@ import { Location } from '@angular/common';
 
 // import custom validator to validate that password and confirm password fields match
 import { PasswordMatch } from '../../validators/password.validator';
+import { UsersService } from 'src/app/services/users/users.service';
+import { User } from 'src/app/interfaces/user';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -16,11 +19,12 @@ export class RegisterComponent implements OnInit {
   fieldTextType: boolean;
   repeatFieldTextType: boolean;
 
-  constructor(private formBuilder: FormBuilder, private _location: Location) { }
+  constructor(private formBuilder: FormBuilder, private _location: Location, private userService: UsersService, private router: Router) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       userName: ['', Validators.required],
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
@@ -30,7 +34,9 @@ export class RegisterComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.registerForm.controls; }
+  get form() {
+    return this.registerForm.controls;
+  }
 
   backClicked() {
     this._location.back();
@@ -46,14 +52,23 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
+    this.saveUser();
+  }
 
-    // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
+  async saveUser() {
+    let newUser:User = {
+      username: this.registerForm.value.userName,
+      name: this.registerForm.value.name,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+      role: 'Gamer',
+      country: 's'
+    }
+    await this.userService.registerUser(newUser);
+    this.router.navigateByUrl('home');
   }
 
   onReset() {
