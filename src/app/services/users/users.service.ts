@@ -6,7 +6,7 @@ import axios from 'axios';
 })
 export class UsersService {
 
-  private serverUrl = '';
+  private serverUrl = 'http://ec2-15-237-13-78.eu-west-3.compute.amazonaws.com:3000/users';
 
   constructor() { }
 
@@ -18,7 +18,11 @@ export class UsersService {
     return axios.get(`${this.serverUrl}/${username}`).then(response => response.data);
   }
 
-  addUserProfile(profile) {
-    return axios.post(`${this.serverUrl}`, profile).then(response => response.data);
+  registerUser(user) {
+    return axios.post(`${this.serverUrl}/register`, user).then(response => response.data);
   }
+
+  /*addUserProfile(profile) {
+    return axios.post(`${this.serverUrl}`, profile).then(response => response.data);
+  }*/
 }
