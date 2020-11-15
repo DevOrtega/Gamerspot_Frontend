@@ -18,13 +18,25 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   fieldTextType: boolean;
   repeatFieldTextType: boolean;
+  public roles: string[]  = ['User', 'Team', 'Sponsor'];
+  public countries: string[] = ['Spain', 'EEUU'];
 
   constructor(private formBuilder: FormBuilder, private _location: Location, private userService: UsersService, private router: Router) { }
+
+  onChangeRole(data) {
+    this.registerForm['controls'].role.setValue(data);
+  }
+
+  onChangeCountry(data) {
+    this.registerForm['controls'].country.setValue(data);
+  }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       userName: ['', Validators.required],
       name: ['', Validators.required],
+      role: ['', Validators.required],
+      country: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
@@ -64,8 +76,8 @@ export class RegisterComponent implements OnInit {
       name: this.registerForm.value.name,
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
-      role: 'Gamer',
-      country: 's'
+      role: this.registerForm.value.role,
+      country: this.registerForm.value.country
     }
     await this.userService.registerUser(newUser);
     this.router.navigateByUrl('home');

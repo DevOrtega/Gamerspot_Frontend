@@ -67,7 +67,7 @@ export class ProfileFormComponent implements OnInit {
   }
   initLink() {
     return this.formBuilder.group({
-      'L': ['']
+      'linkName': ['']
     });
   }
 
@@ -83,7 +83,7 @@ export class ProfileFormComponent implements OnInit {
   }
   initGame() {
     return this.formBuilder.group({
-      'G': ['']
+      'gameName': [''], 'gameUser': ['']
     });
   }
   removeGame(i) {
