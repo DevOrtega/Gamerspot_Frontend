@@ -80,6 +80,36 @@
       </div>
       <div class="form-row">
         <div class="form-group col">
+          <label>Role</label>
+          <select
+            class="custom-select custom-select-lg mb-3"
+            [ngClass]="{ 'is-invalid': submitted && form.role.errors }"
+            (change)="onChangeRole($event.target.value)"
+          >
+            <option selected disabled>Your job?</option>
+            <option *ngFor="let rol of roles">{{ rol }}</option>
+          </select>
+          <div *ngIf="submitted && form.role.errors" class="invalid-feedback">
+            <div *ngIf="form.role.errors.required">Debes elegir uno</div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label>Country</label>
+          <select
+            class="custom-select custom-select-lg mb-3"
+            [ngClass]="{ 'is-invalid': submitted && form.country.errors }"
+            (change)="onChangeCountry($event.target.value)"
+          >
+            <option selected disabled>Country</option>
+            <option *ngFor="let countri of countries">{{ countri }}</option>
+          </select>
+          <div *ngIf="submitted && form.country.errors" class="invalid-feedback">
+            <div *ngIf="form.country.errors.required">Debes elegir uno</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
           <label>Password</label>
           <div class="input-group">
             <input

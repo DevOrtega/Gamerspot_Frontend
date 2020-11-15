@@ -52,7 +52,7 @@
       <div formArrayName="linkList">
         <div
           *ngFor="
-            let L of newProfile['controls'].linkList['controls'];
+            let linkName of newProfile['controls'].linkList['controls'];
             let i = index
           "
         >
@@ -61,7 +61,7 @@
           </div>
           <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
           <div [formGroupName]="i">
-            <input type="text" placeholder="Enter Link" formControlName="L" />
+            <input type="text" placeholder="Enter Link" formControlName="linkName" />
             <span *ngIf="newProfile['controls'].linkList['controls'].length > 1"
               ><input
                 name="link"
@@ -90,7 +90,7 @@
       <div formArrayName="gameList">
         <div
           *ngFor="
-            let G of newProfile['controls'].gameList['controls'];
+            let gameName of newProfile['controls'].gameList['controls'];
             let i = index
           "
         >
@@ -98,7 +98,8 @@
             <span>Game {{ i + 1 }}</span>
           </div>
           <div [formGroupName]="i">
-            <input type="text" placeholder="Enter game" formControlName="G" />
+            <input type="text" placeholder="Enter game name" formControlName="gameName" />
+            <input type="text" placeholder="Enter game user" formControlName="gameUser" />
             <span *ngIf="newProfile['controls'].gameList['controls'].length > 1"
               ><input
                 *ngIf="i !== 0"
@@ -106,7 +107,8 @@
                 type="button"
                 (click)="removeGame(i)"
                 value="Remove"
-            /></span>
+            />
+            </span>
           </div>
         </div>
         <input
