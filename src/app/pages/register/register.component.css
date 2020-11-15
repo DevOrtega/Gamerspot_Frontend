@@ -3,3 +3,7 @@
   margin-bottom: 10%;
   width: 45%;
 }
+
+select {
+  font-size: 15px;
+}
