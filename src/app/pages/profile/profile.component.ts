@@ -98,7 +98,7 @@ export class ProfileComponent implements OnInit {
     this.userService.revokeToken();
     localStorage.clear();
     this.router.navigateByUrl('login');
-    this.cookieService.deleteAll();
+    this.cookieService.delete('refresh-token');
   }
 
 }
