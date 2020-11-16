@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/interfaces/user'
 
 @Injectable({
@@ -14,7 +13,9 @@ export class UsersService {
   private token:string = '';
   private user:User;
 
-  constructor(private cookieService:CookieService) { }
+  constructor() {
+    axios.defaults.withCredentials = true;
+  }
 
   getUsers() {
     return axios.get(this.serverUrl).then(response => response.data);
@@ -39,18 +40,16 @@ export class UsersService {
   }
 
   postToken(userData) {
-    return axios.post(`${this.serverUrl}/login`, userData, {
-      withCredentials: true
-    }).then(response => {
+    return axios.post(`${this.serverUrl}/login`, userData)
+    .then(response => {
       localStorage.setItem('token', JSON.stringify(response.data.token));
       return response.data;
     });
   }
 
   revokeToken() {
-    return axios.post(`${this.serverUrl}/revoke-token`,{
-      withCredentials: true
-    }).then(response => response.data);
+    return axios.post(`${this.serverUrl}/revoke-token`)
+    .then(response => response.data);
   }
 
   setUserProfile(username) {
