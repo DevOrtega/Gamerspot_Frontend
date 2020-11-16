@@ -1,33 +1,56 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
+import { User } from 'src/app/interfaces/user'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  private serverUrl:string = 'http://ec2-15-237-13-78.eu-west-3.compute.amazonaws.com:3000/users';
-  private token:string = JSON.parse(localStorage.getItem('token'));
-  private user:string;
-  private localUser = JSON.parse(localStorage.getItem('user'));
+  //private serverUrl:string = 'http://ec2-15-237-13-78.eu-west-3.compute.amazonaws.com:3000/users';
+  private serverUrl:string = 'http://localhost:3000/users';
+  private token:string = '';
+  private user:User;
 
-  constructor() { }
+  constructor(private cookieService:CookieService) { }
 
   getUsers() {
     return axios.get(this.serverUrl).then(response => response.data);
   }
 
-  getUserByUsername() {
-    return axios.get(`${this.serverUrl}/${this.localUser}`, {
-      headers: {
-        Authorization: 'Bearer ' + this.token
-      }
-    }).then(response => response.data);
+  async getUserByUsername(username) {
+    if (username != null) {
+      return axios.get(`${this.serverUrl}/${username}`, {
+        headers: {
+          Authorization: 'Bearer ' + this.token
+        }
+      }).then(response => response.data);
+    }
+
+  }
+  async getDecodeAccessToken():Promise<any> {
+      this.token = JSON.parse(localStorage.getItem('token'));
+      let promise = new Promise((resolve, reject) => {
+        resolve(jwt_decode(this.token));
+      });
+      return promise;
   }
 
   postToken(userData) {
-    return axios.post(`${this.serverUrl}/login`, userData).then(response => response.data);
+    return axios.post(`${this.serverUrl}/login`, userData, {
+      withCredentials: true
+    }).then(response => {
+      localStorage.setItem('token', JSON.stringify(response.data.token));
+      return response.data;
+    });
+  }
+
+  revokeToken() {
+    return axios.post(`${this.serverUrl}/revoke-token`,{
+      withCredentials: true
+    }).then(response => response.data);
   }
 
   setUserProfile(username) {
@@ -46,12 +69,5 @@ export class UsersService {
     }).then(response => response.data);
   }
 
-  getDecodeAccessToken(token:string) {
-    try {
-      return jwt_decode(token);
-    }
-    catch(Error) {
-      return null;
-    }
-  }
+
 }
