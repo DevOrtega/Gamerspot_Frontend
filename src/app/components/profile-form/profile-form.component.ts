@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { Userprofileform } from 'src/app/interfaces/userprofileform';
 
 @Component({
   selector: 'app-profile-form',
@@ -8,58 +10,65 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProfileFormComponent implements OnInit {
 
+  @Input() userProfile:Userprofileform;
   @Output() saveEmitter = new EventEmitter();
 
   public newProfile:FormGroup;
-
-  public roles: string[]  = ['user', 'team', 'sponsor'];
   public countries: string[] = ['spain', 'eeuu'];
-  //public roleSelected:string = '';
-
   public submitted:boolean = false;
-  private roleSelected:string = '';
+  public gameUser:string = '';
+  public gameName:string = '';
+  public linkName:string = '';
+  public dateFormated:string = '';
+  private dateWithoutZ;
+  private gameGroups = [];
+  private linkGroups = [];
 
-  constructor(private formBuilder:FormBuilder) { }
-
-  onChangeRole(data) {
-    this.newProfile['controls'].role.setValue(data);
-  }
+  constructor(private formBuilder:FormBuilder, private datePipe:DatePipe) { }
 
   onChangeCountry(data) {
     this.newProfile['controls'].country.setValue(data);
   }
 
-
   ngOnInit(): void {
+
+    this.userProfile.gameList.forEach(game => {
+      this.gameName = game.gameName;
+      this.gameUser = game.gameUser;
+      this.gameGroups.push(this.initGame());
+    });
+    this.userProfile.linkList.forEach(link =>{
+      this.linkName = link.link;
+      this.linkGroups.push(this.initLink());
+    });
+
+    this.dateWithoutZ = this.userProfile.bornDate.toString().substring(0, this.userProfile.bornDate.toString().length - 1);
+    this.dateFormated = this.datePipe.transform(this.dateWithoutZ,"yyyy-MM-dd");
+
     this.newProfile = this.formBuilder.group({
-      role: ['', Validators.required],
-      country: ['', Validators.required],
+      //role: ['', Validators.required],
+      country: [this.userProfile.country, Validators.required],
       //validates date format yyyy-mm-dd
-      bornDate: ['', Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)],
-      biography: [''],
-      'gameList': this.formBuilder.array([this.initGame()]),
-      'linkList': this.formBuilder.array([this.initLink()])
+      bornDate: [this.dateFormated, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)],
+      biography: [this.userProfile.biography],
+      'gameList': this.formBuilder.array(this.gameGroups),
+      'linkList': this.formBuilder.array(this.linkGroups)
     });
   }
-
 
   onSubmit() {
     this.submitted = true;
     if ( this.newProfile.invalid ) {
       return;
     }
-    alert('niiiice'+ JSON.stringify(this.newProfile.value, null, 6));
+    //alert('niiiice'+ JSON.stringify(this.newProfile.value, null, 6));
     this.emitSave();
-  }
-
-  emitSave() {
-    this.saveEmitter.emit(this.newProfile['controls']);
   }
 
   //LINK
   addLink() {
     const control = <FormArray>this.newProfile.controls['linkList'];
-    control.push(this.initLink());
+    control.push(this.newLink());
   }
   removeLink(i: number) {
     const control = <FormArray>this.newProfile.controls['linkList'];
@@ -67,7 +76,12 @@ export class ProfileFormComponent implements OnInit {
   }
   initLink() {
     return this.formBuilder.group({
-      'linkName': ['']
+      'link': [this.linkName]
+    });
+  }
+  newLink() {
+    return this.formBuilder.group({
+      'link': ['']
     });
   }
 
@@ -75,20 +89,37 @@ export class ProfileFormComponent implements OnInit {
   get gamesData() {
     return <FormArray>this.newProfile.get('gameList');
   }
-
-  //GAME
   addGame() {
     const control = <FormArray>this.newProfile.controls['gameList'];
-    control.push(this.initGame());
+    control.push(this.newGame());
   }
   initGame() {
     return this.formBuilder.group({
-      'gameName': [''], 'gameUser': ['']
-    });
+        'gameName': [this.gameName], 'gameUser': [this.gameUser]
+    })
+  }
+  newGame() {
+
+    return this.formBuilder.group({
+        'gameName': [''], 'gameUser': ['']
+    })
+
   }
   removeGame(i) {
     const control = <FormArray>this.newProfile.controls['gameList'];
     control.removeAt(i);
+  }
+
+  emitSave() {
+    let userToEmit = {
+      country: this.newProfile['controls'].country.value,
+      bornDate: this.newProfile['controls'].bornDate.value,
+      gameList: this.newProfile['controls'].gameList.value,
+      linkList: this.newProfile['controls'].linkList.value,
+      biography: this.newProfile['controls'].biography.value
+    };
+
+    this.saveEmitter.emit(userToEmit);
   }
 
   get f() {

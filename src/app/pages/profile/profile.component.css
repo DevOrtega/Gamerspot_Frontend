@@ -2,9 +2,5 @@
   margin: 20px auto;
   width: 60vw;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.data {
-  margin-top: 50px;
+  grid-template-columns: 40% 60%;
 }

@@ -14,10 +14,10 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm: FormGroup;
-  submitted = false;
-  fieldTextType: boolean;
-  repeatFieldTextType: boolean;
+  public registerForm: FormGroup;
+  public submitted = false;
+  public fieldTextType: boolean;
+  public repeatFieldTextType: boolean;
   public roles: string[]  = ['User', 'Team', 'Sponsor'];
   public countries: string[] = ['Spain', 'EEUU'];
 

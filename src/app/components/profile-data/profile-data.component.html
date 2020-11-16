@@ -1,1 +1,24 @@
-{{userProfile | json}}
+<div class="mx-auto">
+  <div class="card-body">
+    <div class="card user-country">
+      <h5>Country:</h5>
+      <span>{{userProfile.country}}</span>
+    </div>
+    <div class="card user-bornDate">
+      <h5>Born date:</h5>
+      <span>{{userProfile.bornDate}}</span>
+    </div>
+    <div class="card user-gameList">
+      <h5>Games list</h5>
+      <span *ngFor="let game of userProfile.gameList">{{game.gameName}} | {{game.gameUser}}</span>
+    </div>
+    <div class="card user-linkList">
+      <h5>Social links</h5>
+      <span *ngFor="let link of userProfile.linkList">{{link.link}}</span>
+    </div>
+    <div class="card user-biography">
+      <h5>Biography</h5>
+      <span>{{userProfile.biography}}</span>
+    </div>
+  </div>
+</div>

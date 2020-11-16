@@ -13,6 +13,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfileDataComponent } from './components/profile-data/profile-data.component';
 import { ProfileFormComponent } from './components/profile-form/profile-form.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
