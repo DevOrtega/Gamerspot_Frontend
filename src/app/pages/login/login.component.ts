@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { UsersService } from 'src/app/services/users/users.service';
-import { CookieService } from "ngx-cookie-service";
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,11 +14,17 @@ import { CookieService } from "ngx-cookie-service";
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
-  submitted = false;
-  fieldTextType: boolean;
+  public loginForm: FormGroup;
+  public submitted = false;
+  public fieldTextType: boolean;
 
-  constructor(private _location: Location, private formBuilder: FormBuilder, private userService: UsersService, private cookieService: CookieService) { }
+  constructor(
+    private _location: Location,
+    private formBuilder: FormBuilder,
+    private userService: UsersService,
+    private router: Router,
+    private cookieService: CookieService
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -55,11 +65,17 @@ export class LoginComponent implements OnInit {
     let data = await this.userService.postToken(userData);
     this.cookieService.set('Refresh_Token', data.refresh_token);
     localStorage.setItem('token', JSON.stringify(data.token));
+    localStorage.setItem('user', JSON.stringify(this.loginForm.value.userName));
+    this.router.navigateByUrl(`${userData.username}`);
   }
 
   onReset() {
     this.submitted = false;
     this.loginForm.reset();
+  }
+
+  ngOnDestroy() {
+    this.userService.setUserProfile(this.loginForm.value.userName);
   }
 
 }

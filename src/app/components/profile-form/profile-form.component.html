@@ -1,5 +1,5 @@
-<form [formGroup]="newProfile" (ngSubmit)="onSubmit()">
-  <div class="form-row">
+<form [formGroup]="newProfile" (ngSubmit)="onSubmit()" class="form">
+ <!-- <div class="form-row">
     <div class="form-group col">
       <select
         class="custom-select custom-select-lg mb-3"
@@ -13,16 +13,16 @@
         <div *ngIf="f.role.errors.required">Debes elegir uno</div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="form-row">
     <div class="form-group col">
       <select
-        class="custom-select custom-select-lg mb-3"
+        class="custom-select custom-select mb-3"
         [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
         (change)="onChangeCountry($event.target.value)"
       >
-        <option selected disabled>Country</option>
+        <!--<option selected disabled>Your country?</option>-->
         <option *ngFor="let countri of countries">{{ countri }}</option>
       </select>
       <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
@@ -32,11 +32,11 @@
   </div>
 
   <div class="form-group col">
-    <label>Date of Birth</label>
+    <!--<label>Date of Birth</label>-->
     <input
       type="date"
       formControlName="bornDate"
-      class="form-control"
+      class="form-control date"
       [ngClass]="{ 'is-invalid': submitted && f.bornDate.errors }"
     />
     <div *ngIf="submitted && f.bornDate.errors" class="invalid-feedback">
@@ -56,12 +56,12 @@
             let i = index
           "
         >
-          <div class="mt-2">
+          <!--<div class="mt-2">
             <span>Link {{ i + 1 }}</span>
-          </div>
+          </div>-->
           <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
-          <div [formGroupName]="i">
-            <input type="text" placeholder="Enter Link" formControlName="linkName" />
+          <div [formGroupName]="i" class="links">
+            <input type="text" [placeholder]="'Enter link '++i" formControlName="link" [value]="userProfile.linkList" />
             <span *ngIf="newProfile['controls'].linkList['controls'].length > 1"
               ><input
                 name="link"
@@ -94,10 +94,10 @@
             let i = index
           "
         >
-          <div class="mt-2">
+          <!--<div class="mt-2">
             <span>Game {{ i + 1 }}</span>
-          </div>
-          <div [formGroupName]="i">
+          </div>-->
+          <div [formGroupName]="i" class="games">
             <input type="text" placeholder="Enter game name" formControlName="gameName" />
             <input type="text" placeholder="Enter game user" formControlName="gameUser" />
             <span *ngIf="newProfile['controls'].gameList['controls'].length > 1"
