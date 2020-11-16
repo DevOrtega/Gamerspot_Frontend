@@ -14,7 +14,7 @@ import { Userprofileform } from 'src/app/interfaces/userprofileform';
 })
 export class ProfileComponent implements OnInit {
 
-  public editing:boolean = false;
+
   public userData:User = {
     name: '',
     username: '',
@@ -35,7 +35,10 @@ export class ProfileComponent implements OnInit {
     biography: ''
   };
 
+  public editing:boolean = false;
   public showSelect:boolean = false;
+
+  private token;
 
   constructor(
     private userService: UsersService,
@@ -44,44 +47,47 @@ export class ProfileComponent implements OnInit {
     private datePipe:DatePipe
     ) { }
 
-  ngOnInit(): void {
-    this.getProfile();
+  async ngOnInit(): Promise<void> {
+    this.token = await this.userService.getDecodeAccessToken();
+    this.getProfile(this.token);
   }
 
-  async getProfile() {
-    const user = await this.userService.getUserByUsername();
-    this.userData = {
-      name: user.name,
-      username: user.username,
-      role: user.role
+
+
+  async getProfile(token) {
+    const user = await this.userService.getUserByUsername(token.user.username);    if (user != undefined) {
+      this.userData = {
+        name: user.name,
+        username: user.username,
+        role: user.role
+      };
+
+      const dateWithoutZ = user.bornDate.toString().substring(0, user.bornDate.toString().length - 1);
+      const dateFormated = this.datePipe.transform(dateWithoutZ,"dd/MM/yyyy");
+
+      this.userProfileForm = {
+        country: user.country,
+        bornDate: user.bornDate,
+        gameList: user.gameList,
+        linkList: user.linkList,
+        biography: user.biography
+      };
+
+      this.userProfileData = {
+        country: user.country,
+        bornDate: dateFormated,
+        gameList: user.gameList,
+        linkList: user.linkList,
+        biography: user.biography
+      };
     }
-    const dateWithoutZ = user.bornDate.toString().substring(0, user.bornDate.toString().length - 1);
-    const dateFormated = this.datePipe.transform(dateWithoutZ,"dd/MM/yyyy");
 
-    this.userProfileForm = {
-      country: user.country,
-      bornDate: user.bornDate,
-      gameList: user.gameList,
-      linkList: user.linkList,
-      biography: user.biography
-    };
-
-    this.userProfileData = {
-      country: user.country,
-      bornDate: dateFormated,
-      gameList: user.gameList,
-      linkList: user.linkList,
-      biography: user.biography
-    };
   }
-
-
 
   async editProfile(event) {
-    console.log(event);
     this.editing = !this.editing;
     await this.userService.editUserProfile(this.userData.username, event);
-    this.getProfile();
+    this.getProfile(this.token);
   }
 
   showEditForm() {
@@ -89,6 +95,7 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
+    this.userService.revokeToken();
     localStorage.clear();
     this.router.navigateByUrl('login');
     this.cookieService.deleteAll();
