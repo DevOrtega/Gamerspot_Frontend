@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { UsersService } from 'src/app/services/users/users.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { ApexstatisticsService } from 'src/app/services/playerstatistics/apexstatistics.service';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +22,16 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UsersService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private apexstatistics: ApexstatisticsService
   ) { }
 
   private cookie;
   ngOnInit() {
+    const data = this.apexstatistics.getPlayerStatistics("twitch _ apryze");
+    console.log("Entro por aqui");
+    console.log("Y te muestro data?: " + data);
+
     this.loginForm = this.formBuilder.group({
       userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
