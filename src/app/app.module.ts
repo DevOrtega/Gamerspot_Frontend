@@ -14,6 +14,7 @@ import { ProfileDataComponent } from './components/profile-data/profile-data.com
 import { ProfileFormComponent } from './components/profile-form/profile-form.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import {DatePipe} from '@angular/common';
+import { PlayerstatisticsComponent } from './components/playerstatistics/playerstatistics.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {DatePipe} from '@angular/common';
     ProfileComponent,
     ProfileDataComponent,
     ProfileFormComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    PlayerstatisticsComponent
   ],
   imports: [
     BrowserModule,

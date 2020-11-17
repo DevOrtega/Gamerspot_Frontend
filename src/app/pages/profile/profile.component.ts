@@ -52,10 +52,9 @@ export class ProfileComponent implements OnInit {
     this.getProfile(this.token);
   }
 
-
-
   async getProfile(token) {
-    const user = await this.userService.getUserByUsername(token.user.username);    if (user != undefined) {
+    const user = await this.userService.getUserByUsername(token.user.username);
+    if (user != undefined) {
       this.userData = {
         name: user.name,
         username: user.username,
@@ -84,7 +83,6 @@ export class ProfileComponent implements OnInit {
         biography: user.biography
       };
     }
-
   }
 
   async editProfile(event) {
