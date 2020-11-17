@@ -8,11 +8,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
-  //{ path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path:'login', component: LoginComponent },
   { path:'register', component: RegisterComponent },
   //{ path:'', component: HomeComponent },
-  { path:':username', component: ProfileComponent, canActivate:[UserloginGuard] },
+  { path:':username', component: ProfileComponent },
   { path:'reset', component: ResetPasswordComponent}
 ];
 
