@@ -62,8 +62,11 @@ export class ProfileComponent implements OnInit {
         role: user.role
       };
 
-      const dateWithoutZ = user.bornDate.toString().substring(0, user.bornDate.toString().length - 1);
-      const dateFormated = this.datePipe.transform(dateWithoutZ,"dd/MM/yyyy");
+      let dateFormated:string;
+      if(user.bornDate != undefined) {
+        const dateWithoutZ = user.bornDate.toString().substring(0, user.bornDate.toString().length - 1);
+        dateFormated = this.datePipe.transform(dateWithoutZ,"dd/MM/yyyy");
+      }
 
       this.userProfileForm = {
         country: user.country,
