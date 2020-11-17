@@ -10,7 +10,10 @@
     </div>
     <div class="card user-gameList">
       <h5>Games list</h5>
-      <span *ngFor="let game of userProfile.gameList">{{game.gameName}} | {{game.gameUser}}</span>
+      <div *ngFor="let game of userProfile.gameList">
+        <span>{{game.gameName}} | {{game.gameUser}}</span>
+        <app-playerstatistics [gameData]="game"></app-playerstatistics>
+      </div>
     </div>
     <div class="card user-linkList">
       <h5>Social links</h5>
