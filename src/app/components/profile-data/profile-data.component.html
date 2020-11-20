@@ -1,5 +1,9 @@
 <div class="mx-auto">
   <div class="card-body">
+    <div *ngIf="userProfile.email" class="card user-email">
+      <h5>Email:</h5>
+      <span>{{userProfile.email}}</span>
+    </div>
     <div class="card user-country">
       <h5>Country:</h5>
       <span>{{userProfile.country}}</span>

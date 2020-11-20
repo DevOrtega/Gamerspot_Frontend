@@ -1,35 +1,37 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApexstatisticsService {
+  private apexurl:string = `${environment.corsProxy}/${environment.trackerggApiUrl}/apex/standard/profile`;
+  public statistics: any;
 
-  private url:string = 'https://public-api.tracker.gg/v2/apex/standard/profile';
+  constructor() {}
 
-  constructor() { }
-
-  getPlayerStatistics(gameuser: String) {
+  async getPlayerStatistics(gameuser: String) {
     const platforms: string[] = ['origin', 'psn', 'xbl'];
-    let data: any;
 
     for (let platform of platforms) {
-      data = this.checkPlatform(gameuser, platform);
-      if (!data.errors) break;
+      await this.checkPlatform(gameuser, platform);
+      if (this.statistics && !this.statistics.errors) break;
     }
 
-    return data;
+    return this.statistics;
   }
 
-  private async checkPlatform(gameuser: String, platform: String) {
-    return axios.get(`${this.url}/${platform}/${gameuser}`, {
+  async checkPlatform(gameuser: String, platform: String) {
+    return axios.get(`${this.apexurl}/${platform}/${gameuser}`, {
       headers: {
         "TRN-Api-Key": "cfe19ea4-d2a6-4667-b9bd-da5f473c6baf"
-      }
+      },
+      withCredentials: false
     })
-    .then(response => {
-      return response.data;
+    .then(response => {;
+      this.statistics = response.data;
     })
+    .catch(() =>  null)
   }
 }

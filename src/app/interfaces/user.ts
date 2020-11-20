@@ -1,8 +1,10 @@
 export interface User {
-  username?: string,
-  name?: string,
-  email?: string,
+  username: string,
   password?: string,
-  role?: string,
-  country?: string
+  role: string,
+  email?: string,
+  name: string,
+  country: string,
+  bornDate?: string,
+  token?: string
 }
