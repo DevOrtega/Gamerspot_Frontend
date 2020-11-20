@@ -17,7 +17,7 @@
       </div>
       <div class="form-row mt-4">
         <div class="form-group col">
-          <label for="userName">User or Email</label>
+          <label for="username">User or Email</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
@@ -26,16 +26,16 @@
             </div>
             <input
               type="text"
-              formControlName="userName"
+              formControlName="username"
               class="form-control"
               placeholder="User"
-              [ngClass]="{ 'is-invalid': submitted && form.userName.errors }"
+              [ngClass]="{ 'is-invalid': submitted && form.username.errors }"
             />
             <div
-              *ngIf="submitted && form.userName.errors"
+              *ngIf="submitted && form.username.errors"
               class="invalid-feedback"
             >
-              <div *ngIf="form.userName.errors.required">
+              <div *ngIf="form.username.errors.required">
                 User Name is required
               </div>
             </div>

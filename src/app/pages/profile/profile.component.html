@@ -25,12 +25,9 @@
         <div class="card" style="width: 20rem;">
           <img src="../../../../assets/profile/image-profile.png" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">{{userData.name}}</h5>
-            <p class="card-text" *ngIf="userData.username != undefined">{{userData.username}}</p>
-            <p class="card-text">{{userData.role}}</p>
-            <p class="card-text">
-              <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
-            </p>
+            <h5 class="card-title">{{userProfileData.name}}</h5>
+            <p class="card-text">{{userProfileData.username}}</p>
+            <p class="card-text">{{userProfileData.role}}</p>
           </div>
         </div>
       </div>

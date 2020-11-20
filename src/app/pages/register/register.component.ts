@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      userName: ['', Validators.required],
+      username: ['', Validators.required],
       name: ['', Validators.required],
       role: ['', Validators.required],
       country: ['', Validators.required],
@@ -71,15 +71,15 @@ export class RegisterComponent implements OnInit {
   }
 
   async saveUser() {
-    let newUser:User = {
-      username: this.registerForm.value.userName,
+    let newUser : User = {
+      username: this.registerForm.value.username,
       name: this.registerForm.value.name,
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
       role: this.registerForm.value.role,
       country: this.registerForm.value.country
     }
-    await this.userService.registerUser(newUser);
+    //await this.userService.registerUser(newUser);
     this.router.navigateByUrl('home');
   }
 
