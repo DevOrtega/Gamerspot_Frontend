@@ -1,33 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users/users.service';
 import { DatePipe } from '@angular/common';
 import { Userprofiledata } from 'src/app/interfaces/userprofiledata';
 import { Userprofileform } from 'src/app/interfaces/userprofileform';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+  private sub: any;
+  username: string;
+  loading = false;
+  error = '';
 
-
-  public userData:User = {
-    name: '',
+  public userProfileData : Userprofiledata = {
     username: '',
-    role: ''
-  };
-  public userProfileData:Userprofiledata = {
+    role: '',
+    email: '',
+    name: '',
     country: '',
     bornDate: '',
     gameList: [],
     linkList: [],
     biography: ''
   };
-  public userProfileForm:Userprofileform = {
+
+  public userProfileForm : Userprofileform = {
+    email: '',
+    name: '',
     country: '',
     bornDate: new Date(),
     gameList: [],
@@ -38,70 +44,78 @@ export class ProfileComponent implements OnInit {
   public editing:boolean = false;
   public showSelect:boolean = false;
 
-  private token;
-
   constructor(
+    private route: ActivatedRoute,
     private userService: UsersService,
-    private router:Router,
-    private cookieService: CookieService,
-    private datePipe:DatePipe
-    ) { }
+    private datePipe: DatePipe,
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    this.token = await this.userService.getDecodeAccessToken();
-    this.getProfile(this.token);
+    this.sub = this.route.params.subscribe(params => {
+      this.username = params['username'];
+
+      this.loading = true;
+      this.userService.getUserByUsername(params['username'])
+      .pipe(first())
+      .subscribe({
+        next: user => {
+          this.getProfileData(user);
+          this.getProfileForm(user);
+        },
+        error: error => {
+          this.error = error;
+          this.loading = false;
+        }
+      })
+    });
   }
 
-
-
-  async getProfile(token) {
-    const user = await this.userService.getUserByUsername(token.user.username);    if (user != undefined) {
-      this.userData = {
-        name: user.name,
-        username: user.username,
-        role: user.role
-      };
-
-      let dateFormated:string;
-      if(user.bornDate != undefined) {
-        const dateWithoutZ = user.bornDate.toString().substring(0, user.bornDate.toString().length - 1);
-        dateFormated = this.datePipe.transform(dateWithoutZ,"dd/MM/yyyy");
-      }
-
-      this.userProfileForm = {
-        country: user.country,
-        bornDate: user.bornDate,
-        gameList: user.gameList,
-        linkList: user.linkList,
-        biography: user.biography
-      };
-
-      this.userProfileData = {
-        country: user.country,
-        bornDate: dateFormated,
-        gameList: user.gameList,
-        linkList: user.linkList,
-        biography: user.biography
-      };
+  getProfileData(user: Userprofiledata) {
+    let dateFormated:string;
+    
+    if (user.bornDate != undefined) {
+      const dateWithoutZ = user.bornDate.toString().substring(0, user.bornDate.toString().length - 1);
+      dateFormated = this.datePipe.transform(dateWithoutZ,"dd/MM/yyyy");
     }
 
+    this.userProfileData = {
+      username: user.username,
+      role: user.role,
+      email: user.email,
+      name: user.name,
+      country: user.country,
+      bornDate: dateFormated,
+      gameList: user.gameList,
+      linkList: user.linkList,
+      biography: user.biography
+    };
   }
 
-  async editProfile(event) {
+  getProfileForm(user: Userprofileform) {
+    this.userProfileForm = {
+      email: user.email,
+      name: user.name,
+      country: user.country,
+      bornDate: user.bornDate,
+      gameList: user.gameList,
+      linkList: user.linkList,
+      biography: user.biography
+    };
+  }
+
+  /*
+  async editProfile(event: any) {
     this.editing = !this.editing;
     await this.userService.editUserProfile(this.userData.username, event);
-    this.getProfile(this.token);
+    this.getProfile();
   }
 
   showEditForm() {
     this.editing = !this.editing;
   }
+  */
 
-  logout() {
-    this.userService.revokeToken();
-    localStorage.clear();
-    this.router.navigateByUrl('login');
-    this.cookieService.delete('refresh-token');
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
-
 }

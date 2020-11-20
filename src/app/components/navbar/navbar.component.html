@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a *ngIf="user" class="navbar-brand" href="/home" [routerLink]="'/home'">P4T4P</a>
+    <a *ngIf="!user" class="navbar-brand">P4T4P</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <form class="form-inline my-2 my-lg-0 mr-auto">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a *ngIf="user" class="nav-link" href="/home" [routerLink]="'/home'">Home</a>
+        </li>
+        <li *ngIf="user" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Menu
+          </a>
+          <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item p-2" href="{{'/' + user.username}}" [routerLink]="['/', user.username]">My Profile</a>
+            <div class="dropdown-divider m-0"></div>
+            <button class="dropdown-item bg-danger text-white p-2" (click)="logout()">Log Out</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
