@@ -1,36 +1,58 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { User } from 'src/app/interfaces/user'
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Userprofiledata } from 'src/app/interfaces/userprofiledata';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+  private profileSubject: BehaviorSubject<Userprofiledata>;
+  public profile: Observable<Userprofiledata>;
 
-  //private serverUrl:string = 'http://ec2-15-237-13-78.eu-west-3.compute.amazonaws.com:3000/users';
-  private serverUrl:string = 'http://localhost:3000/users';
+  constructor(private router: Router, private http: HttpClient) {
+    this.profileSubject = new BehaviorSubject<Userprofiledata>(null);
+    this.profile = this.profileSubject.asObservable();
+  }
+
+  public get profileData(): Userprofiledata {
+    return this.profileSubject.value;
+  }
+
+  getUserByUsername(username: string) {
+    return this.http.get<any>(`${environment.apiUrl}/users/${username}`, { withCredentials: true })
+    .pipe(map(user => {
+      this.profileSubject.next(user);
+
+      return user;
+    })
+    )
+  }
+
+
+
+  /*
   private token:string = '';
   private user:User;
 
-  constructor() {
-    axios.defaults.withCredentials = true;
-  }
+  constructor() {}
 
-  getUsers() {
-    return axios.get(this.serverUrl).then(response => response.data);
+  async getUsers() {
+    return axios.get(environment.apiUrl).then(response => response.data);
   }
 
   async getUserByUsername(username) {
     if (username != null) {
-      return axios.get(`${this.serverUrl}/${username}`, {
-        headers: {
-          Authorization: 'Bearer ' + this.token
-        }
-      }).then(response => response.data);
+      return axios.get(`${environment.apiUrl}/${username}`)
+      .then(response => response.data);
     }
-
   }
+
   async getDecodeAccessToken():Promise<any> {
       this.token = JSON.parse(localStorage.getItem('token'));
       let promise = new Promise((resolve, reject) => {
@@ -40,7 +62,7 @@ export class UsersService {
   }
 
   postToken(userData) {
-    return axios.post(`${this.serverUrl}/login`, userData)
+    return axios.post(`${environment.apiUrl}/login`, userData)
     .then(response => {
       localStorage.setItem('token', JSON.stringify(response.data.token));
       return response.data;
@@ -48,7 +70,7 @@ export class UsersService {
   }
 
   revokeToken() {
-    return axios.post(`${this.serverUrl}/revoke-token`)
+    return axios.post(`${environment.apiUrl}/revoke-token`, {} , { withCredentials: true })
     .then(response => response.data);
   }
 
@@ -57,16 +79,16 @@ export class UsersService {
   }
 
   registerUser(user) {
-    return axios.post(`${this.serverUrl}/register`, user).then(response => response.data);
+    return axios.post(`${environment.apiUrl}/register`, user).then(response => response.data);
   }
 
   editUserProfile(user, profile) {
-    return axios.patch(`${this.serverUrl}/${user}`, profile, {
+    return axios.patch(`${environment.apiUrl}/${user}`, profile, {
       headers: {
         Authorization: 'Bearer ' + this.token
-      }
+      },
+      withCredentials: true
     }).then(response => response.data);
   }
-
-
+  */
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { UsersService } from 'src/app/services/users/users.service';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-login',
@@ -11,33 +12,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  public loginForm: FormGroup;
-  public submitted = false;
-  public fieldTextType: boolean;
+  loginForm: FormGroup;
+  submitted = false;
+  fieldTextType: boolean;
+  loading = false;
+  returnUrl: string;
+  error = '';
 
   constructor(
     private _location: Location,
     private formBuilder: FormBuilder,
-    private userService: UsersService,
-    private router: Router,
-    private cookieService: CookieService
-  ) { }
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+    }
+  }
 
-  private cookie;
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      userName: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
   }
 
   backClicked() {
     this._location.back();
   }
 
-  /*
-  // convenience getter for easy access to form fields*/
   get form() {
     return this.loginForm.controls;
   }
@@ -49,30 +55,35 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
-    this.checkLoginData();
+
+    let userData = {
+      username: this.loginForm.value.username,
+      password: this.loginForm.value.password
+    };
+
+    this.loading = true;
+    this.authService.login(this.form.username.value, this.form.password.value)
+    .pipe(first())
+    .subscribe({
+        next: () => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error: error => {
+          this.error = error;
+          this.loading = false;
+        }
+    });
   }
 
   async checkLoginData() {
-    let userData = {
-      username: this.loginForm.value.userName,
-      password: this.loginForm.value.password
-    };
-    let data = await this.userService.postToken(userData);
-    this.cookieService.get('refresh_token');
-    this.router.navigateByUrl(`${userData.username}`);
+    
   }
 
   onReset() {
     this.submitted = false;
     this.loginForm.reset();
   }
-
-  ngOnDestroy() {
-    this.userService.setUserProfile(this.loginForm.value.userName);
-  }
-
 }

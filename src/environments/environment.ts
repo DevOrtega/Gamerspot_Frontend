@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: "http://localhost:3000",
+  corsProxy: "https://cors-anywhere.herokuapp.com",
+  trackerggApiUrl: "https://public-api.tracker.gg/v2",
+  lolApiUrl: ""
 };
 
 /*
