@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProfileDataComponent implements OnInit {
   @Input() userProfile;
+  activeButton: string = 'btn1';
 
   constructor() {
   }
@@ -14,4 +15,11 @@ export class ProfileDataComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setActive(buttonName: string): void {
+    this.activeButton = buttonName;
+  }
+
+  isActive(buttonName: string): boolean {
+    return this.activeButton === buttonName;
+  }
 }
