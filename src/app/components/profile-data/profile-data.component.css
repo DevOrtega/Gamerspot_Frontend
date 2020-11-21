@@ -1,1 +1,11 @@
+.nav-pills > a {
+    box-shadow: none !important;
+}
 
+.nav-pills > a.icon {
+    padding-bottom: 0;
+}
+
+.nav-pills > a > i {
+    font-size: 30px;
+}

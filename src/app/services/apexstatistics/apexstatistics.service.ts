@@ -11,18 +11,18 @@ export class ApexstatisticsService {
 
   constructor() {}
 
-  async getPlayerStatistics(gameuser: String) {
+  async getApexStatistics(gameuser: String) {
     const platforms: string[] = ['origin', 'psn', 'xbl'];
 
     for (let platform of platforms) {
-      await this.checkPlatform(gameuser, platform);
+      await this.checkApexPlatform(gameuser, platform);
       if (this.statistics && !this.statistics.errors) break;
     }
 
     return this.statistics;
   }
 
-  async checkPlatform(gameuser: String, platform: String) {
+  async checkApexPlatform(gameuser: String, platform: String) {
     return axios.get(`${this.apexurl}/${platform}/${gameuser}`, {
       headers: {
         "TRN-Api-Key": "cfe19ea4-d2a6-4667-b9bd-da5f473c6baf"
