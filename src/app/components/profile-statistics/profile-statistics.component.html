@@ -1,0 +1,12 @@
+<nav class="nav nav-tabs nav-fill">
+    <a
+        *ngFor="let game of games; let idx = index"
+        class="nav-link btn btn-outline-secondary"
+        [class.active]="isActive('btn' + (idx+1))"
+        (click)="setActive('btn' + (idx+1))"
+        [routerLink]="game.gameRoute"
+        skipLocationChange
+    >{{game.gameName}}</a>
+</nav>
+
+<router-outlet></router-outlet>
