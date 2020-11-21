@@ -12,13 +12,6 @@
       <h5>Born date:</h5>
       <span>{{userProfile.bornDate}}</span>
     </div>
-    <div class="card user-gameList">
-      <h5>Games list</h5>
-      <div *ngFor="let game of userProfile.gameList">
-        <span>{{game.gameName}} | {{game.gameUser}}</span>
-        <app-playerstatistics [gameData]="game"></app-playerstatistics>
-      </div>
-    </div>
     <div class="card user-linkList">
       <h5>Social links</h5>
       <span *ngFor="let link of userProfile.linkList">{{link.link}}</span>
@@ -29,3 +22,13 @@
     </div>
   </div>
 </div>
+<h5>Games List</h5>
+<!--<app-profile-statistics [games]="userProfile.gameList"></app-profile-statistics>-->
+<nav class="nav nav-pills nav-fill">
+  <a class="nav-link btn btn-outline-dark" [class.active]="isActive('btn1')" (click)="setActive('btn1')" [routerLink]="'./posts'" skipLocationChange>Posts</a>
+  <a class="nav-link btn btn-outline-dark" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" skipLocationChange>Stats</a>
+  <a class="nav-link btn btn-outline-dark" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./ranking'" skipLocationChange>Ranking</a>
+  <a class="btn btn-dark ml-auto icon"><i class="material-icons">settings</i></a>
+</nav>
+
+<router-outlet></router-outlet>
