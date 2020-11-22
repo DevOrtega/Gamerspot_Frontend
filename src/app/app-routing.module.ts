@@ -5,6 +5,7 @@ import { ProfileStatisticsApexComponent } from './components/profile-statistics-
 import { ProfileRankingComponent } from './components/profile-ranking/profile-ranking.component';
 import { AuthGuard } from './guards/authguard/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
+import { LolStatisticsComponent } from './components/lol-statistics/lol-statistics.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path:'', component: LoginComponent },
   { path:'register', component: RegisterComponent },
   { path:'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path:'lol', component: LolStatisticsComponent},
   { path:':username',
     component: ProfileComponent,
     children: [
