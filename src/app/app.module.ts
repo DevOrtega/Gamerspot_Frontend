@@ -26,6 +26,7 @@ import { ProfileRankingComponent } from './components/profile-ranking/profile-ra
 import { ProfileStatisticsNodataComponent } from './components/profile-statistics-nodata/profile-statistics-nodata/profile-statistics-nodata.component';
 import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main/profile-statistics-main.component';
 import { ProfilePostsComponent } from './components/profile-posts/profile-posts/profile-posts.component';
+import { LolStatisticsComponent } from './components/lol-statistics/lol-statistics.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ProfilePostsComponent } from './components/profile-posts/profile-posts/
     ProfileRankingComponent,
     ProfileStatisticsNodataComponent,
     ProfileStatisticsMainComponent,
-    ProfilePostsComponent
+    ProfilePostsComponent,
+    LolStatisticsComponent
   ],
   imports: [
     BrowserModule,
