@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApexstatisticsService } from 'src/app/services/apexstatistics/apexstatistics.service';
 import { UsersService } from 'src/app/services/users/users.service';
 
