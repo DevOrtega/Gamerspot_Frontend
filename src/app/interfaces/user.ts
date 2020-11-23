@@ -1,10 +1,16 @@
 export interface User {
   username: string,
   password?: string,
-  role: string,
   email?: string,
-  name: string,
+  role?: String,
+  gamer?: string,
+  team?: string,
+  sponsor?: string,
   country: string,
+  photoUrl?: string,
+  gameList?: string,
+  linkList?: string,
+  biography?: string,
+  name: string,
   bornDate?: string,
-  token?: string
 }

@@ -9,9 +9,10 @@ import { LolStatisticsComponent } from './components/lol-statistics/lol-statisti
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { ProfileStatisticsNodataComponent } from './components/profile-statistics-nodata/profile-statistics-nodata/profile-statistics-nodata.component';
-import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main/profile-statistics-main.component';
-import { ProfilePostsComponent } from './components/profile-posts/profile-posts/profile-posts.component';
+import { ProfileStatisticsNodataComponent } from './components/profile-statistics-nodata/profile-statistics-nodata.component';
+import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main.component';
+import { ProfilePostsComponent } from './components/profile-posts/profile-posts.component';
+import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 
 const routes: Routes = [
   { path:'', component: LoginComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
           { path: 'nodata', component: ProfileStatisticsNodataComponent }
         ]
       },
-      { path: 'ranking', component: ProfileRankingComponent }
+      { path: 'ranking', component: ProfileRankingComponent },
+      { path: 'configuration', component: ProfileEditorComponent }
     ],
     canActivate: [AuthGuard]
   }

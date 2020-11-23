@@ -1,20 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a *ngIf="user" class="navbar-brand" href="/home" [routerLink]="'/home'">P4T4P</a>
-    <a *ngIf="!user" class="navbar-brand">P4T4P</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <form class="form-inline my-2 my-lg-0 mr-auto">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+    <a *ngIf="user" class="navbar-brand title" href="/home" [routerLink]="'/home'">P4T4P</a>
+    <a *ngIf="!user" class="navbar-brand title">P4T4P</a>
+    <form class="form-inline ml-3 mr-auto">
+      <div class="input-group">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-prepend">
+          <button class="btn btn-primary search-button input-group-append">
+            <i class="material-icons">search</i>
+          </button>
+        </div>
+      </div>
     </form>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
+    <div *ngIf="user" class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav m-auto">
         <li class="nav-item active">
-          <a *ngIf="user" class="nav-link" href="/home" [routerLink]="'/home'">Home</a>
+          <a class="nav-link" href="/home" [routerLink]="'/home'">Home</a>
         </li>
-        <li *ngIf="user" class="nav-item dropdown">
+    </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menu
           </a>
@@ -26,4 +30,7 @@
         </li>
       </ul>
     </div>
+    <button *ngIf="user" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </nav>
