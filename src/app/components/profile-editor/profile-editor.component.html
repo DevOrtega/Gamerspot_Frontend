@@ -4,7 +4,7 @@
             <div class="col">
                 <h6>Name</h6>
             </div>
-            <div *ngIf="isGamer()" class="col">
+            <div class="col">
                 <h6>Password</h6>
             </div>
         </div>
@@ -62,8 +62,8 @@
                 <h6>Contact Links</h6>
             </div>
         </div>
-        <div *ngIf="isGamer()" class="form-row">
-            <div class="form-group col">
+        <div class="form-row">
+            <div *ngIf="isGamer()" class="form-group col">
                 <div formArrayName="games">
                     <input
                         class="btn btn-success resize"

@@ -193,7 +193,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
     let user: any = {
       name: this.newProfile['controls'].name.value,
-      password: this.newProfile['controls'].name.value,
+      password: this.newProfile['controls'].password.value,
       role: role,
       country: this.newProfile['controls'].country.value,
       bornDate: newBornDate,
@@ -201,6 +201,8 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       links: this.newProfile['controls'].links.value,
       biography: this.newProfile['controls'].biography.value
     }
+
+    console.log(user.password);
 
     if (!user.password) {
       delete user.password;
