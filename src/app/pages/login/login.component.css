@@ -1,5 +1,23 @@
-.login-card {
+.login-body {
   margin-top: 8%;
-  margin-bottom: 8%;
-  width: 45%;
+  width: 340px;
+  margin-bottom: 1%;
+}
+
+input.form-control {
+  width: 350px;
+  height: 50px;
+}
+
+input.form-control.is-invalid  {
+  width: 350px;
+}
+
+div.alternative {
+  margin-top: 1%;
+}
+
+button.big-button {
+  width: 350px;
+  height: 50px;
 }
