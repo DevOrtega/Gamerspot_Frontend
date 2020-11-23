@@ -17,7 +17,6 @@ const routes: Routes = [
   { path:'', component: LoginComponent },
   { path:'register', component: RegisterComponent },
   { path:'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path:'lol', component: LolStatisticsComponent},
   { path:':username',
     component: ProfileComponent,
     children: [
@@ -28,6 +27,7 @@ const routes: Routes = [
         children: [
           { path: '', component: ProfileStatisticsMainComponent },
           { path: 'apex', component: ProfileStatisticsApexComponent },
+          { path:'lol', component: LolStatisticsComponent},
           { path: 'nodata', component: ProfileStatisticsNodataComponent }
         ]
       },

@@ -11,13 +11,12 @@ export class LolStatisticsComponent implements OnInit {
   gameData: { gameName: string, gameUser: string }[];
   statistics: any;
 
-  constructor(/*private userService:UsersService,*/private lolstats: LolStatisticsService) {
-    /*this.userService.profile.subscribe(x => this.gameData = x.gameList);*/
+  constructor(private userService:UsersService,private lolstats: LolStatisticsService) {
+    this.userService.profile.subscribe(x => this.gameData = x.gameList);
   }
 
   async ngOnInit(): Promise<void>  {
-   /* let gameUser = this.gameData.filter(game => game.gameName.toLocaleLowerCase() === 'apex')[0].gameUser;*/
-   let gameUser= "thesilverman21";
+    let gameUser = this.gameData.filter(game => game.gameName.toLocaleLowerCase() === 'lol')[0].gameUser;
    this.statistics = await this.lolstats.getLolProfile(gameUser);
   }
 
