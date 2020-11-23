@@ -1,11 +1,16 @@
 export interface Userprofiledata {
   username: string,
-  role: string,
   email?: string,
+  gamer?: any,
+  team?: any,
+  sponsor?: any,
   name: string,
+  photoUrl?: string,
   country: string,
   bornDate?: string,
-  linkList: {link:string}[],
-  gameList: {gameName:string, gameUser:string}[],
   biography: string
+  links: { link: string }[],
+  games: { gameName: string, gameUser: string }[],
+  posts?: { text: string }[],
+  createdAt?: string
 }

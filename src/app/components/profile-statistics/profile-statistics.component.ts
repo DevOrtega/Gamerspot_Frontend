@@ -21,7 +21,7 @@ export class ProfileStatisticsComponent implements OnInit {
   }
   
   constructor(private router: Router, private userService: UsersService) {
-    this.userService.profile.subscribe(x => this.originalGames = x.gameList);
+    this.userService.profile.subscribe(x => this.originalGames = x.games);
   }
 
   ngOnInit(): void {
@@ -44,6 +44,11 @@ export class ProfileStatisticsComponent implements OnInit {
     })
   }
 
+  existGames(): boolean {
+    if (this.games && this.games.length > 0) return true;
+   
+    return false;
+  }
 
   setActive(buttonName: string): void {
     this.activeButton = buttonName;

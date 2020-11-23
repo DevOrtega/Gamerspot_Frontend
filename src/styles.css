@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css"
+@import "~bootstrap/dist/css/bootstrap.css";
+
+body {
+    background-color: #ECECEC;
+}
+  
+div.page-inner-container {
+    width: 65%;
+    margin: auto;
+    background-color: white;
+}

@@ -7,7 +7,8 @@ export const environment = {
   apiUrl: "http://localhost:3000",
   corsProxy: "https://cors-anywhere.herokuapp.com",
   trackerggApiUrl: "https://public-api.tracker.gg/v2",
-  lolApiUrl: ""
+  lolApiUrl: "",
+  restCountriesUrl: "https://restcountries.eu/rest/v2"
 };
 
 /*

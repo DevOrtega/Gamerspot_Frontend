@@ -12,7 +12,7 @@ export class ProfileStatisticsApexComponent implements OnInit {
   statistics: any;
 
   constructor(private userService: UsersService, private apexstatistics: ApexstatisticsService) {
-    this.userService.profile.subscribe(x => this.gameData = x.gameList);
+    this.userService.profile.subscribe(x => this.gameData = x.games);
   }
 
   async ngOnInit(): Promise<void> {
