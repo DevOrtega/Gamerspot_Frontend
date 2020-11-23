@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Userprofiledata } from 'src/app/interfaces/userprofiledata';
 import { environment } from 'src/environments/environment';
+import axios from 'axios';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,10 @@ export class UsersService {
   private profileSubject: BehaviorSubject<Userprofiledata>;
   public profile: Observable<Userprofiledata>;
 
-  constructor(private router: Router, private http: HttpClient) {
+  private error:string = '';
+  private loading:boolean = false;
+
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {
     this.profileSubject = new BehaviorSubject<Userprofiledata>(null);
     this.profile = this.profileSubject.asObservable();
   }
@@ -26,10 +31,32 @@ export class UsersService {
     return this.http.get<any>(`${environment.apiUrl}/users/${username}`, { withCredentials: true })
     .pipe(map(user => {
       this.profileSubject.next(user);
-
       return user;
     })
     )
+  }
+
+  registerUser(user) {
+    return this.http.post<any>(`${environment.apiUrl}/users/register`, user)
+    .subscribe({
+      next: () => {
+        this.loginUser(user.username, user.password);
+      }
+    });
+  }
+
+  loginUser(username, password) {
+    this.authService.login(username, password)
+    .pipe(first())
+    .subscribe({
+        next: () => {
+          this.router.navigateByUrl('home');
+        },
+        error: error => {
+          this.error = error;
+          this.loading = false;
+        }
+    });
   }
 
 
