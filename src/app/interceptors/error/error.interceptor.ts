@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -18,6 +18,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
       if ([401, 403].includes(err.status) && this.authService.userData) {
         this.authService.logout();
+      }
+
+      if ([500].includes(err.status)) {
+        
       }
 
       const error = (err && err.error && err.error.message) || err.statusText;

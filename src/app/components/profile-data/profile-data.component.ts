@@ -22,4 +22,20 @@ export class ProfileDataComponent implements OnInit {
   isActive(buttonName: string): boolean {
     return this.activeButton === buttonName;
   }
+
+  existGames(): boolean {
+    if (this.userProfile.games && this.userProfile.games.length > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  existLinks(): boolean {
+    if (this.userProfile.links && this.userProfile.links.length > 0) {
+      return true;
+    }
+
+    return false;
+  }
 }

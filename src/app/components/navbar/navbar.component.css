@@ -1,1 +1,29 @@
+.search-button {
+    background-color: blueviolet !important;
+    border-color: blueviolet !important;
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+    box-shadow: none !important;
+    user-select: none !important;
+}
+
+.search-button:active {
+    background-color: rgb(96, 18, 168) !important;
+}
+
+input.form-control {
+    outline: none;
+    border-color: blueviolet !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+}
+
+a.navbar-brand.title {
+    font-size: 30px;
+}
+
+a.nav-link {
+    font-size: 20px;
+}
+
 
