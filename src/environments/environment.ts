@@ -9,7 +9,8 @@ export const environment = {
   trackerggApiUrl: "https://public-api.tracker.gg/v2",
   lolApiUrl: ".api.riotgames.com/lol/",
   summonerUrl:"summoner/v4/summoners/by-name/",
-  lolStatsUrl:"league/v4/entries/by-summoner/"
+  lolStatsUrl:"league/v4/entries/by-summoner/",
+  restCountriesUrl: "https://restcountries.eu/rest/v2"
 };
 
 /*

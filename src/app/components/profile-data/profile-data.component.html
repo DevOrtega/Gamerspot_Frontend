@@ -1,34 +1,31 @@
-<div class="mx-auto">
-  <div class="card-body">
-    <div *ngIf="userProfile.email" class="card user-email">
-      <h5>Email:</h5>
-      <span>{{userProfile.email}}</span>
-    </div>
-    <div class="card user-country">
-      <h5>Country:</h5>
-      <span>{{userProfile.country}}</span>
-    </div>
-    <div class="card user-bornDate">
-      <h5>Born date:</h5>
-      <span>{{userProfile.bornDate}}</span>
-    </div>
-    <div class="card user-linkList">
-      <h5>Social links</h5>
-      <span *ngFor="let link of userProfile.linkList">{{link.link}}</span>
-    </div>
-    <div class="card user-biography">
-      <h5>Biography</h5>
-      <span>{{userProfile.biography}}</span>
-    </div>
-  </div>
+<div *ngIf="userProfile.biography" class="biography">
+  <h5>About Me</h5>
+  <p>{{userProfile.biography}}</p>
 </div>
-<h5>Games List</h5>
-<!--<app-profile-statistics [games]="userProfile.gameList"></app-profile-statistics>-->
-<nav class="nav nav-pills nav-fill">
-  <a class="nav-link btn btn-outline-dark" [class.active]="isActive('btn1')" (click)="setActive('btn1')" [routerLink]="'./posts'" skipLocationChange>Posts</a>
-  <a class="nav-link btn btn-outline-dark" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" skipLocationChange>Stats</a>
-  <a class="nav-link btn btn-outline-dark" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./ranking'" skipLocationChange>Ranking</a>
-  <a class="btn btn-dark ml-auto icon"><i class="material-icons">settings</i></a>
-</nav>
-
-<router-outlet></router-outlet>
+<hr class="solid">
+<div class="grid-container">
+    <div *ngIf="existGames()">
+      <h5>Games</h5>
+      <p *ngFor="let game of userProfile.games; let idx = index">
+        {{game.gameName}}
+      </p>
+    </div>
+    <div *ngIf="existLinks()">
+      <h5>Contact links</h5>
+      <p *ngFor="let link of userProfile.links; let idx = index">
+        {{link.link}}
+      </p>
+    </div>
+    <div>
+      <h5>Country</h5>
+      <p>{{userProfile.country}}</p>
+    </div>
+    <div *ngIf="userProfile.bornDate">
+      <h5>Born date</h5>
+      <p>{{userProfile.bornDate}}</p>
+    </div>
+    <div>
+      <h5>Joined at</h5>
+      <p>{{userProfile.createdAt}}</p>
+    </div>
+</div>

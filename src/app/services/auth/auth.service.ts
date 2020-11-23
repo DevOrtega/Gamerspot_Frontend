@@ -5,7 +5,6 @@ import { User } from 'src/app/interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
 import jwtDecode from 'jwt-decode';
 
 
@@ -45,11 +44,9 @@ export class AuthService {
   isLoggedIn(): boolean {
     const token = localStorage.getItem('token');
 
-    if (this.userData && token) {
-      return true
-    } else {
-      return false;
-    }
+    if (this.userData && token) return true;
+    
+    return false;
   }
 
   logout() {

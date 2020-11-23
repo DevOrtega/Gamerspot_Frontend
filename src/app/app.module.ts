@@ -23,10 +23,11 @@ import { appInitializer } from './initializers/app.initializer';
 import { AuthService } from './services/auth/auth.service';
 import { ProfileStatisticsComponent } from './components/profile-statistics/profile-statistics.component';
 import { ProfileRankingComponent } from './components/profile-ranking/profile-ranking.component';
-import { ProfileStatisticsNodataComponent } from './components/profile-statistics-nodata/profile-statistics-nodata/profile-statistics-nodata.component';
-import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main/profile-statistics-main.component';
-import { ProfilePostsComponent } from './components/profile-posts/profile-posts/profile-posts.component';
 import { LolStatisticsComponent } from './components/lol-statistics/lol-statistics.component';
+import { ProfileStatisticsNodataComponent } from './components/profile-statistics-nodata/profile-statistics-nodata.component';
+import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main.component';
+import { ProfilePostsComponent } from './components/profile-posts/profile-posts.component';
+import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { FeedsPostComponent } from './components/feed-post/feed-post.component';
 import { FeedsGetComponent } from './components/feed-get/feed-get.component';
 
@@ -49,6 +50,7 @@ import { FeedsGetComponent } from './components/feed-get/feed-get.component';
     ProfileStatisticsMainComponent,
     ProfilePostsComponent,
     LolStatisticsComponent,
+    ProfileEditorComponent,
     FeedsPostComponent,
     FeedsGetComponent
   ],

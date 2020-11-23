@@ -1,13 +1,4 @@
-.form {
-  margin-top: 20px;
-}
-
 select {
-  width: 200px;
-}
-
-.date {
-  margin: 0 auto;
   width: 200px;
 }
 
@@ -15,4 +6,13 @@ textarea {
   resize: none;
   width: 500px;
   height: 150px;
+}
+
+.form {
+  margin-top: 20px;
+}
+
+.date {
+  margin: 0 auto;
+  width: 200px;
 }
