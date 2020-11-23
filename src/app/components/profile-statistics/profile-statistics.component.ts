@@ -13,11 +13,13 @@ export class ProfileStatisticsComponent implements OnInit {
   games: { gameName: string, gameUser: string, gameRoute: string }[];
 
   gamesNames = {
-    'apex': 'Apex'
+    'apex': 'Apex',
+    'lol' : 'LoL'
   };
 
   gamesRoutes = {
-    'apex': './apex'
+    'apex': './apex',
+    'lol' : './lol'
   }
   
   constructor(private router: Router, private userService: UsersService) {
