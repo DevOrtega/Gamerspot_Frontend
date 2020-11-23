@@ -1,4 +1,4 @@
-<div class="page-inner-container">
+<div class="page-inner-container text-center">
     <div *ngIf="statistics">
         <p>Platform: {{statistics.data.platformInfo.platformSlug}}</p>
         <!-- <p>Matches played: {{statistics.data.segments[0].stats.matchesPlayed.displayValue}}</p> -->
@@ -11,6 +11,7 @@
         <!-- <p>Kills Per Match: {{statistics.data.segments[0].stats.killsPerMatch.displayValue}}</p> -->
     </div>
     <div *ngIf="!statistics">
-        <p>No data found.</p>
+        <p>Loading...</p>
+        <i class="fas fa-spinner loading"></i>
     </div>
 </div>

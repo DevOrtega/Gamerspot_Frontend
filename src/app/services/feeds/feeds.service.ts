@@ -18,6 +18,6 @@ export class FeedsService {
 
   postFeed(feed) {
 
-    return this.http.post<any>(`${environment.apiUrl}/posts`, {'text':feed}, { withCredentials: true });
+    return this.http.post<any>(`${environment.apiUrl}/posts`, {'text': feed}, { withCredentials: true });
   }
 }

@@ -1,3 +1,16 @@
+.logo {
+    width: 45px;
+    height: 45px;
+}
+
+.home-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+
 .search-button {
     background-color: blueviolet !important;
     border-color: blueviolet !important;

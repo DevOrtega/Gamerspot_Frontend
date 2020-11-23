@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/interfaces/user';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { FeedsService } from 'src/app/services/feeds/feeds.service';
 
 @Component({
@@ -9,20 +7,13 @@ import { FeedsService } from 'src/app/services/feeds/feeds.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  public user: User;
   public feeds: any;
 
-  constructor(private authenticationService: AuthService, private feedService:FeedsService) {
-    this.authenticationService.user.subscribe(x => this.user = x);
+  constructor(private feedService:FeedsService) {
   }
 
   ngOnInit() {
     this.showFeeds();
-  }
-
-  logout() {
-    this.authenticationService.logout();
   }
 
   saveFeed(event) {

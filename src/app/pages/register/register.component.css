@@ -48,6 +48,7 @@ div.alternative {
 }
 
 button.big-button {
+  background-color: blueviolet;
   width: 350px;
   height: 50px;
 }

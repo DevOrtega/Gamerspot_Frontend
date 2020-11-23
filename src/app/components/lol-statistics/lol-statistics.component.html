@@ -1,13 +1,15 @@
-<div *ngIf="statistics">
-  <p>Summoner Name: {{statistics[0].summonerName + ' ' + statistics[0].server + '# Level: ' + statistics[0].summonerLevel}}</p>
-  <img width="100" height="100" src="{{'./assets/lol/Emblem_'+statistics[0].tier + '.png'}}">
-  <p>Rank: {{statistics[0].tier + ' ' + statistics[0].rank}}</p>
-  <p>League Points: {{statistics[0].leaguePoints}}</p>
-  <p>Rankeds played: {{statistics[0].wins +statistics[0].losses}}</p>
-  <p>Wins: {{statistics[0].wins}}</p>
-  <p>Losses: {{statistics[0].losses}}</p>
-</div>
-<div *ngIf="!statistics">
-  <p>No data found.</p>
-  <i class="fas fa-spinner loading"></i>
+<div class="page-inner-container text-center">
+  <div *ngIf="statistics">
+    <p>Summoner Name: {{statistics[0].summonerName + ' ' + statistics[0].server + '# Level: ' + statistics[0].summonerLevel}}</p>
+    <img width="100" height="100" src="{{'./assets/lol/Emblem_'+statistics[0].tier + '.png'}}">
+    <p>Rank: {{statistics[0].tier + ' ' + statistics[0].rank}}</p>
+    <p>League Points: {{statistics[0].leaguePoints}}</p>
+    <p>Rankeds played: {{statistics[0].wins +statistics[0].losses}}</p>
+    <p>Wins: {{statistics[0].wins}}</p>
+    <p>Losses: {{statistics[0].losses}}</p>
+  </div>
+  <div *ngIf="!statistics">
+    <p>Loading...</p>
+    <i class="fas fa-spinner loading"></i>
+  </div>
 </div>

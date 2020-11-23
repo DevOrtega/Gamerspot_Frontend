@@ -3,18 +3,10 @@
   color: rgba(255, 255, 255, 1);
 }
 
-.home-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-}
-
 .home-main {
   z-index: 0;
   position: absolute;
-  top: 55px;
+  top: 75px;
   left: 0;
   right: 0;
   display: grid;

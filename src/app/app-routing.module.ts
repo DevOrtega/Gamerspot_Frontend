@@ -28,7 +28,7 @@ const routes: Routes = [
         children: [
           { path: '', component: ProfileStatisticsMainComponent },
           { path: 'apex', component: ProfileStatisticsApexComponent },
-          { path:'lol', component: LolStatisticsComponent},
+          { path:'lol', component: LolStatisticsComponent },
           { path: 'nodata', component: ProfileStatisticsNodataComponent }
         ]
       },
