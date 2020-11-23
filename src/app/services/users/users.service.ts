@@ -46,8 +46,6 @@ export class UsersService {
   }
 
   public editUser(username: string, user_data: Userprofiledata) {
-    console.log(username);
-    console.log(user_data);
     return this.http.patch(`${environment.apiUrl}/users/${username}`, user_data, {withCredentials: true})
     .pipe(map((user: Userprofiledata) => {
       this.profileSubject.next(user);

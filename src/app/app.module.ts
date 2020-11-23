@@ -27,6 +27,8 @@ import { ProfileStatisticsNodataComponent } from './components/profile-statistic
 import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main.component';
 import { ProfilePostsComponent } from './components/profile-posts/profile-posts.component';
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
+import { FeedsPostComponent } from './components/feed-post/feed-post.component';
+import { FeedsGetComponent } from './components/feed-get/feed-get.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ProfileEditorComponent } from './components/profile-editor/profile-edit
     ProfileStatisticsNodataComponent,
     ProfileStatisticsMainComponent,
     ProfilePostsComponent,
-    ProfileEditorComponent
+    ProfileEditorComponent,
+    FeedsPostComponent,
+    FeedsGetComponent
   ],
   imports: [
     BrowserModule,
