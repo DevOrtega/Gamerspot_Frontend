@@ -1,9 +1,55 @@
-.register-card{
-  margin-top:10% ;
-  margin-bottom: 10%;
-  width: 45%;
+.register-body {
+  width: 340px;
+  margin-top: 8%;
+  margin-bottom: 1%;
 }
 
 select {
   font-size: 15px;
 }
+
+input.form-control {
+  width: 350px;
+  height: 50px;
+}
+
+input.form-control.is-invalid  {
+  width: 350px;
+}
+
+select {
+  width: 159px;
+  height: 50px;
+  cursor: pointer;
+}
+
+option {
+  cursor: pointer;
+}
+
+.select-selected {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+.select-options {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+div.alternative {
+  margin-top: 5%;
+}
+
+button.big-button {
+  width: 350px;
+  height: 50px;
+}
+
+

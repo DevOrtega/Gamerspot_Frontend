@@ -1,27 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
-
-// import custom validator to validate that password and confirm password fields match
 import { PasswordMatch } from '../../validators/password.validator';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/interfaces/user';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { first, concatMap } from 'rxjs/operators';
+import { CountriesService } from 'src/app/services/countries/countries.service';
+import { Observable, Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+  registerForm: FormGroup;
+  submitted = false;
+  fieldTextType: boolean;
+  repeatFieldTextType: boolean;
+  roles: string[]  = ['Gamer', 'Team', 'Sponsor'];
+  countries: string[];
 
-  public registerForm: FormGroup;
-  public submitted = false;
-  public fieldTextType: boolean;
-  public repeatFieldTextType: boolean;
-  public roles: string[]  = ['User', 'Team', 'Sponsor'];
-  public countries: string[] = ['Spain', 'EEUU'];
+  loading = false;
+  error = '';
 
-  constructor(private formBuilder: FormBuilder, private _location: Location, private userService: UsersService, private router: Router) { }
+  private getCountriesSubscription: Subscription;
+  private registerUserSubscription: Subscription;
+
+  constructor(
+    private formBuilder: FormBuilder, 
+    private router: Router,
+    private authService: AuthService,
+    private userService: UsersService,
+    private countryService: CountriesService
+  ) { }
 
   onChangeRole(data) {
     this.registerForm['controls'].role.setValue(data);
@@ -32,6 +45,19 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
+    this.getCountriesSubscription = this.countryService.getCountries()
+    .subscribe({
+      next: countries => {
+        const countriesObj : any = Object.values({ ...countries });
+        this.countries = countriesObj.map((country: { name: any; }) => country.name);
+      },
+      error: error => {
+        this.error = error;
+        this.loading = false;
+      }
+    })
+
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       name: ['', Validators.required],
@@ -45,13 +71,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
   get form() {
     return this.registerForm.controls;
-  }
-
-  backClicked() {
-    this._location.back();
   }
 
   toggleFieldTextType() {
@@ -70,17 +91,32 @@ export class RegisterComponent implements OnInit {
     this.saveUser();
   }
 
-  async saveUser() {
-    let newUser : User = {
-      username: this.registerForm.value.username,
-      name: this.registerForm.value.name,
-      email: this.registerForm.value.email,
-      password: this.registerForm.value.password,
-      role: this.registerForm.value.role,
-      country: this.registerForm.value.country
-    }
-    //await this.userService.registerUser(newUser);
-    this.router.navigateByUrl('home');
+  public saveUser(): void {
+    let newUser = {...this.registerForm.value};
+    
+    delete newUser.confirmPassword;
+
+    this.loading = true;
+    this.registerUserSubscription = this.registerUser(newUser).pipe(
+      concatMap(() => this.loginUser(newUser.username, newUser.password))
+      ).subscribe(() => {
+        this.router.navigate(['/home'])
+      },
+      err => {
+        this.error = err;
+        this.loading = false;
+      });
+  }
+
+  registerUser(user: User): Observable<User> {
+    return this.userService.registerUser(user);
+  }
+
+  loginUser(username: string, password: string): Observable<User> {
+    this.loading = true;
+
+    return this.authService.login(username, password)
+    .pipe(first());
   }
 
   onReset() {
@@ -88,4 +124,13 @@ export class RegisterComponent implements OnInit {
     this.registerForm.reset();
   }
 
+  ngOnDestroy() {
+    if (this.getCountriesSubscription) {
+      this.getCountriesSubscription.unsubscribe();
+    }
+
+    if (this.registerUserSubscription){
+      this.registerUserSubscription.unsubscribe();
+    }
+  }
 }

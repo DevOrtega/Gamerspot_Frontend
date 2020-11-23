@@ -1,6 +1,60 @@
-.profile {
-  margin: 20px auto;
-  width: 60vw;
-  display: grid;
-  grid-template-columns: 40% 60%;
+.profile-main {
+  min-height: 480px;
+}
+
+img.profile-photo {
+  width: 250px;
+  height: 250px;
+}
+
+div.container {
+  min-height: 480px;
+  padding: 25px 25px;
+}
+
+div.fixed-col {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 300px;
+}
+
+div.fixed-col.left {
+  text-align: center;
+}
+
+.nav-tabs > a {
+  box-shadow: none !important;
+  font-size: 2vh;
+}
+
+.nav-tabs > a.btn {
+  height: 60px;
+  padding-top: 17px;
+  font-size: 18px;
+  border: none;
+  border-radius: 0;
+}
+
+.nav-tabs > a.btn.btn-conf:hover {
+  background-color: blueviolet;
+}
+
+.nav-tabs > a.btn.btn-conf.active {
+  background-color: blueviolet;
+}
+
+.nav-tabs > a > i {
+  font-size: 30px;
+}
+
+.gamer {
+  
+}
+
+.team {
+  
+}
+
+.sponsor {
+
 }

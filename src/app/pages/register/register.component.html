@@ -1,44 +1,28 @@
 <!-- main app container -->
-<div class="card mx-auto text-center register-card">
-  <h5 class="card-header">
-    <button class="btn btn-info mr-2 float-left" (click)="backClicked()">
-      <i class="fas fa-chevron-circle-left"></i></button
-    >Register
-  </h5>
-  <div class="card-body">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="form-row">
-        <div class="form-group col">
-          <label>Username</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fas fa-user"></i>
-              </span>
-            </div>
-            <input
-              type="text"
-              formControlName="userName"
-              class="form-control"
-              placeholder="Username"
-              [ngClass]="{ 'is-invalid': submitted && form.userName.errors }"
-            />
-            <div
-              *ngIf="submitted && form.userName.errors"
-              class="invalid-feedback"
-            >
-              <div *ngIf="form.userName.errors.required">Username is required</div>
-            </div>
+<div class="mx-auto text-center register-body">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-row justify-content-center">
+      <div class="form-group">
+        <div class="input-group">
+          <input
+            type="text"
+            formControlName="username"
+            class="form-control"
+            placeholder="Username"
+            [ngClass]="{ 'is-invalid': submitted && form.username.errors }"
+          />
+          <div
+            *ngIf="submitted && form.username.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="form.username.errors.required">Username is required</div>
           </div>
         </div>
-        <div class="form-group col">
-          <label>Name</label>
+      </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group">
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fas fa-user"></i>
-              </span>
-            </div>
             <input
               type="text"
               formControlName="name"
@@ -50,18 +34,14 @@
               *ngIf="submitted && form.name.errors"
               class="invalid-feedback"
             >
-              <div *ngIf="form.name.errors.required">name is required</div>
+              <div *ngIf="form.name.errors.required">Name is required</div>
             </div>
           </div>
         </div>
-        <div class="form-group col">
-          <label>Email</label>
+      </div>
+      <div class="form-row justify-content-center">
+        <div class="form-group">
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fas fa-envelope"></i>
-              </span>
-            </div>
             <input
               type="text"
               formControlName="email"
@@ -78,114 +58,87 @@
           </div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col">
-          <label>Role</label>
-          <select
-            class="custom-select custom-select-lg mb-3"
-            [ngClass]="{ 'is-invalid': submitted && form.role.errors }"
-            (change)="onChangeRole($event.target.value)"
+    <div class="form-row justify-content-center">
+      <div class="form-group mr-3">
+        <select
+          class="custom-select custom-select-lg"
+          [ngClass]="{ 'is-invalid': submitted && form.role.errors }"
+          (change)="onChangeRole($event.target.value)"
+        >
+          <option class="select-selected" selected disabled>Profession</option>
+          <option class="select-options" *ngFor="let rol of roles">{{ rol }}</option>
+        </select>
+        <div *ngIf="submitted && form.role.errors" class="invalid-feedback">
+          <div *ngIf="form.role.errors.required">Profession is required</div>
+        </div>
+      </div>
+      <div class="form-group ml-3">
+        <select
+          class="inline custom-select custom-select-lg"
+          [ngClass]="{ 'is-invalid': submitted && form.country.errors }"
+          (change)="onChangeCountry($event.target.value)"
+        >
+          <option selected disabled>Country</option>
+          <option class="select-options" *ngFor="let country of countries">{{ country }}</option>
+        </select>
+        <div *ngIf="submitted && form.country.errors" class="invalid-feedback">
+          <div *ngIf="form.country.errors.required">Country is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row justify-content-center">
+      <div class="form-group">
+        <div class="input-group">
+          <input
+            [type]="fieldTextType ? 'text' : 'password'"
+            formControlName="password"
+            class="form-control"
+            placeholder="Password"
+            [ngClass]="{ 'is-invalid': submitted && form.password.errors }"
+          />
+          <div
+            *ngIf="submitted && form.password.errors"
+            class="invalid-feedback"
           >
-            <option selected disabled>Your job?</option>
-            <option *ngFor="let rol of roles">{{ rol }}</option>
-          </select>
-          <div *ngIf="submitted && form.role.errors" class="invalid-feedback">
-            <div *ngIf="form.role.errors.required">Debes elegir uno</div>
+            <div *ngIf="form.password.errors.required">Password is required</div>
+            <div *ngIf="form.password.errors.minlength">
+              Password must be at least 6 characters
+            </div>
           </div>
         </div>
-        <div class="form-group col">
-          <label>Country</label>
-          <select
-            class="custom-select custom-select-lg mb-3"
-            [ngClass]="{ 'is-invalid': submitted && form.country.errors }"
-            (change)="onChangeCountry($event.target.value)"
+      </div>
+    </div>
+    <div class="form-row justify-content-center">
+      <div class="form-group">
+        <div class="input-group">
+          <input
+            [type]="fieldTextType ? 'text' : 'password'"
+            formControlName="confirmPassword"
+            class="form-control"
+            placeholder="Confirm Password"
+            [ngClass]="{
+              'is-invalid': submitted && form.confirmPassword.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && form.confirmPassword.errors"
+            class="invalid-feedback"
           >
-            <option selected disabled>Country</option>
-            <option *ngFor="let countri of countries">{{ countri }}</option>
-          </select>
-          <div *ngIf="submitted && form.country.errors" class="invalid-feedback">
-            <div *ngIf="form.country.errors.required">Debes elegir uno</div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col">
-          <label>Password</label>
-          <div class="input-group">
-            <input
-              [type]="fieldTextType ? 'text' : 'password'"
-              formControlName="password"
-              class="form-control"
-              placeholder="Password"
-              [ngClass]="{ 'is-invalid': submitted && form.password.errors }"
-            />
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i
-                  class="fa"
-                  [ngClass]="{
-                    'fa-eye-slash': !fieldTextType,
-                    'fa-eye': fieldTextType
-                  }"
-                  (click)="toggleFieldTextType()"
-                ></i>
-              </span>
+            <div *ngIf="form.confirmPassword.errors.required">
+              Password Confirmation is required
             </div>
-            <div
-              *ngIf="submitted && form.password.errors"
-              class="invalid-feedback"
-            >
-              <div *ngIf="form.password.errors.required">Password is required</div>
-              <div *ngIf="form.password.errors.minlength">
-                Password must be at least 6 characters
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group col">
-          <label>Confirm Password</label>
-          <div class="input-group">
-            <input
-              [type]="fieldTextType ? 'text' : 'password'"
-              formControlName="confirmPassword"
-              class="form-control"
-              placeholder="Confirm Password"
-              [ngClass]="{
-                'is-invalid': submitted && form.confirmPassword.errors
-              }"
-            />
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i
-                  class="fa"
-                  [ngClass]="{
-                    'fa-eye-slash': !fieldTextType,
-                    'fa-eye': fieldTextType
-                  }"
-                  (click)="toggleFieldTextType()"
-                ></i>
-              </span>
-            </div>
-            <div
-              *ngIf="submitted && form.confirmPassword.errors"
-              class="invalid-feedback"
-            >
-              <div *ngIf="form.confirmPassword.errors.required">
-                Confirm Password is required
-              </div>
-              <div *ngIf="form.confirmPassword.errors.passwordMatch">
-                Passwords must match
-              </div>
+            <div *ngIf="form.confirmPassword.errors.passwordMatch">
+              Passwords must match
             </div>
           </div>
         </div>
       </div>
-      <div class="text-center">
-        <button class="btn btn-primary mr-1">Register</button>
-        <button class="btn btn-secondary" type="reset" (click)="onReset()">
-          Cancel
-        </button>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="form-row justify-content-center">
+      <button class="btn btn-dark big-button">Register</button>
+    </div>
+  </form>
+</div>
+<div class="text-center">
+  <p>Do you already have an account? <strong><a [routerLink]="''">Sign in</a></strong></p>
 </div>
