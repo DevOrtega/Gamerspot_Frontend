@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getProfileData(user: Userprofiledata) {
     let dateFormated:string;
-    
+
     if (user.bornDate != undefined) {
       const dateWithoutZ = user.bornDate.toString().substring(0, user.bornDate.toString().length - 1);
       dateFormated = this.datePipe.transform(dateWithoutZ,"dd/MM/yyyy");

@@ -18,16 +18,16 @@
             </div>
             <input
               type="text"
-              formControlName="userName"
+              formControlName="username"
               class="form-control"
-              placeholder="Username"
-              [ngClass]="{ 'is-invalid': submitted && form.userName.errors }"
+              placeholder="username"
+              [ngClass]="{ 'is-invalid': submitted && form.username.errors }"
             />
             <div
-              *ngIf="submitted && form.userName.errors"
+              *ngIf="submitted && form.username.errors"
               class="invalid-feedback"
             >
-              <div *ngIf="form.userName.errors.required">Username is required</div>
+              <div *ngIf="form.username.errors.required">Username is required</div>
             </div>
           </div>
         </div>
