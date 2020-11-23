@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: "http://localhost:3000",
+  //apiUrl: "http://ec2-15-237-13-78.eu-west-3.compute.amazonaws.com:3000",
   corsProxy: "https://cors-anywhere.herokuapp.com",
   trackerggApiUrl: "https://public-api.tracker.gg/v2",
   lolApiUrl: ".api.riotgames.com/lol/",
