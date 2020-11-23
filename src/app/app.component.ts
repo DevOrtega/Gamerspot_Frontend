@@ -9,13 +9,6 @@ import { AuthService } from './services/auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  user: User;
 
-  constructor(private authenticationService: AuthService) {
-    this.authenticationService.user.subscribe(x => this.user = x);
-  }
-
-  logout() {
-    this.authenticationService.logout();
-  }
+  constructor() {}
 }
