@@ -6,7 +6,6 @@ import { Location } from '@angular/common';
 import { PasswordMatch } from '../../validators/password.validator';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from 'src/app/interfaces/user';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,10 +17,14 @@ export class RegisterComponent implements OnInit {
   public submitted = false;
   public fieldTextType: boolean;
   public repeatFieldTextType: boolean;
-  public roles: string[]  = ['User', 'Team', 'Sponsor'];
+  public roles: string[]  = ['Gamer', 'Team', 'Sponsor'];
   public countries: string[] = ['Spain', 'EEUU'];
 
-  constructor(private formBuilder: FormBuilder, private _location: Location, private userService: UsersService, private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private _location: Location,
+    private userService: UsersService
+  ) { }
 
   onChangeRole(data) {
     this.registerForm['controls'].role.setValue(data);
@@ -70,7 +73,7 @@ export class RegisterComponent implements OnInit {
     this.saveUser();
   }
 
-  async saveUser() {
+  saveUser() {
     let newUser : User = {
       username: this.registerForm.value.username,
       name: this.registerForm.value.name,
@@ -79,13 +82,11 @@ export class RegisterComponent implements OnInit {
       role: this.registerForm.value.role,
       country: this.registerForm.value.country
     }
-    //await this.userService.registerUser(newUser);
-    this.router.navigateByUrl('home');
+    this.userService.registerUser(newUser);
   }
 
   onReset() {
     this.submitted = false;
     this.registerForm.reset();
   }
-
 }

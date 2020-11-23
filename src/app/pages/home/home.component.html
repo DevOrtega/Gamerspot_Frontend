@@ -1,9 +1,19 @@
-<div class="jumbotron home">
-  <h1>The APP</h1>
- <!-- <button class="btn btn-info" [routerLink]="'/home/' + username">>My profile</button>
-  <button class="btn btn-primary" routerLink="/login" >Login</button>
-  <button class="btn btn-primary" routerLink="/register" >Register</button>-->
-
-
-  <!--<h4>Aqui van los feeds</h4>-->
+<div class="home">
+  <div class="home-nav">
+    <div class="home-nav__comp">
+      <app-navbar (logoutEvent)="logout()" [user]="user"></app-navbar>
+    </div>
+  </div>
+  <div class="home-main">
+    <div class="home-main__feed-post">
+      <div class="feed-post__comp">
+        <app-feed-post (feedEmitter)="saveFeed($event)"></app-feed-post>
+      </div>
+    </div>
+    <div class="home-main__feed-get">
+      <div class="feed-get__comp" *ngFor="let feed of feeds">
+        <app-feed-get [feed]="feed"></app-feed-get>
+      </div>
+    </div>
+  </div>
 </div>

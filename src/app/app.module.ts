@@ -27,6 +27,8 @@ import { ProfileStatisticsNodataComponent } from './components/profile-statistic
 import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main/profile-statistics-main.component';
 import { ProfilePostsComponent } from './components/profile-posts/profile-posts/profile-posts.component';
 import { LolStatisticsComponent } from './components/lol-statistics/lol-statistics.component';
+import { FeedsPostComponent } from './components/feed-post/feed-post.component';
+import { FeedsGetComponent } from './components/feed-get/feed-get.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { LolStatisticsComponent } from './components/lol-statistics/lol-statisti
     ProfileStatisticsNodataComponent,
     ProfileStatisticsMainComponent,
     ProfilePostsComponent,
-    LolStatisticsComponent
+    LolStatisticsComponent,
+    FeedsPostComponent,
+    FeedsGetComponent
   ],
   imports: [
     BrowserModule,
