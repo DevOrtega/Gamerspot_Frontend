@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-3 fixed-col left">
-        <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfile.photoUrl">
+        <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfileData.photoUrl">
         <img *ngIf="!existPhoto()" class="profile-photo" src="../../../../assets/profile/image-profile.png">
         <div *ngIf="isGamer()">
           <h2>{{userProfileData.gamer.name}}</h2>
@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-    
+
   <!--<div class="card mx-auto text-center login-card">
     <div class="card-body profile">
       <div class="row">

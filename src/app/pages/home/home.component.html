@@ -6,8 +6,32 @@
       </div>
     </div>
     <div class="home-main__feed-get">
+      <div class="home-main__feed-get__filter">
+        <span>
+          <select
+            class="inline custom-select custom-select-xs countries"
+            (change)="onChangeCountry($event.target.value)"
+          >
+            <option selected disabled>Country</option>
+            <option>All</option>
+            <option class="select-options" *ngFor="let country of countries">{{ country }}</option>
+          </select>
+        </span>
+        <span>
+          <select
+            class="inline custom-select custom-select-xs countries"
+            (change)="onChangeRole($event.target.value)"
+          >
+            <option selected disabled>Role</option>
+            <option>All</option>
+            <option class="select-options" *ngFor="let role of roles">{{ role }}</option>
+          </select>
+        </span>
+      </div>
+
+
       <div class="feed-get__comp" *ngFor="let feed of feeds">
-        <app-feed-get [feed]="feed"></app-feed-get>
+        <app-feed-get [feed]="feed" *ngIf="feed.owner !== undefined || feed.owner !== null" ></app-feed-get>
       </div>
     </div>
   </div>
