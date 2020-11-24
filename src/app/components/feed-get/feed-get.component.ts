@@ -20,15 +20,15 @@ export class FeedsGetComponent implements OnInit {
   }
 
   makeFeed() {
-      const dateWithoutZ = this.feed.createdAt.toString().substring(0, this.feed.createdAt.toString().length - 1);
-      this.dateFormated = this.datePipe.transform(dateWithoutZ,"MMMM dd, yyyy - H:mm:ss");
-    
-      this.feedMaked = {
-        username: this.feed.owner.username,
-        name: this.feed.owner.name,
-        text: this.feed.text,
-        photo: this.feed.owner.photoUrl,
-        created: this.dateFormated
-      }
+    const dateWithoutZ = this.feed.createdAt.toString().substring(0, this.feed.createdAt.toString().length - 1);
+    this.dateFormated = this.datePipe.transform(dateWithoutZ,"MMMM dd, yyyy - H:mm:ss");
+
+    this.feedMaked = {
+      username: this.feed.owner.username,
+      name: this.feed.owner.name,
+      text: this.feed.text,
+      photo: this.feed.owner.photoUrl,
+      created: this.dateFormated
+    }
   }
 }
