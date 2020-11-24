@@ -9,12 +9,11 @@ export class FeedsService {
 
   constructor(private http: HttpClient) { }
 
-  getFeeds() {
+  public getPosts() {
     return this.http.get<any>(`${environment.apiUrl}/posts`, { withCredentials: true });
   }
 
-  postFeed(feed) {
-
+  public createPost(feed) {
     return this.http.post<any>(`${environment.apiUrl}/posts`, {'text': feed}, { withCredentials: true });
   }
 }
