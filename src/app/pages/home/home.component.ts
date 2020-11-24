@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
 
   //feed-post
   saveFeed(event) {
-    this.feedService.postFeed(event).subscribe();
+    this.feedService.createPost(event).subscribe();
     setTimeout(() => {
       this.showFeeds();
     }, 500);
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
 
   //feed-get
   showFeeds() {
-   this.feedService.getFeeds().subscribe(
+   this.feedService.getPosts().subscribe(
      response => {
       this.feedsToFilter = response;
       this.feeds = response;
@@ -90,6 +90,7 @@ export class HomeComponent implements OnInit {
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;
       });
+      console.log(this.feeds);
       return this.feeds;
     });
   }
