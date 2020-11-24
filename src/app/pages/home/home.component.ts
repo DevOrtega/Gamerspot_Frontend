@@ -17,14 +17,14 @@ export class HomeComponent implements OnInit {
   }
 
   saveFeed(event) {
-    this.feedService.postFeed(event).subscribe();
+    this.feedService.createPost(event).subscribe();
     setTimeout(() => {
       this.showFeeds();
     }, 500);
   }
 
   showFeeds() {
-   this.feedService.getFeeds().subscribe(
+   this.feedService.getPosts().subscribe(
      response => {
       this.feeds = response;
       this.feeds.sort( (a,b) => {
@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;
       });
+      console.log(this.feeds);
       return this.feeds;
      }
    )

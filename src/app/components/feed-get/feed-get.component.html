@@ -4,14 +4,14 @@
         <span> <img class="photoprofile" src='../../../assets/profile/image-profile.png'/> </span>
       </div>
       <div class="feed-header__p">
-        <p class="name"><strong>{{feedMaked.name}}</strong></p>
-        <p><small>{{feedMaked.username}}</small></p>
+        <p class="name"><strong>{{feedMade.name}}</strong><i class="role">{{getRole()}}</i></p>
+        <p class="username">{{feedMade.username}}</p>
       </div>
       <div class="feed-header__created">
-        <span><small>{{feedMaked.created}}</small></span>
+        <span><small>{{feedMade.created}}</small></span>
       </div>
   </div>
   <div class="feed-content">
-    <p class="card-text feed-content__p">{{feedMaked.text}}</p>
+    <p class="card-text feed-content__p">{{feedMade.text}}</p>
   </div>
 </div>
