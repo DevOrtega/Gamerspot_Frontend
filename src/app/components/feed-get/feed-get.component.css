@@ -15,6 +15,15 @@ p {
   font-size: 17px;
 }
 
+.role {
+  padding-left: 7px;
+  font-size: 13px;
+}
+
+.username {
+  font-size: 12px;
+}
+
 .feed-header__photo, .feed-header__p, .feed-header__created {
   margin-top: 5px;
 }
@@ -24,7 +33,7 @@ p {
 }
 
 .feed-content__p {
-  font-size: 17px;
+  font-size: 16px;
   background-color: rgba(44, 47, 51, 1);
   color: rgba(255, 255, 255, 1);
   padding: 10px 5px 20px 72px;
