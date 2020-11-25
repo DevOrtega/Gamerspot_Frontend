@@ -34,8 +34,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
     
   ngOnInit(): void {
-    console.log(this.authService.userData);
-
     this.getParamsSubscriptor = this.route.params.subscribe(params => {
       this.usernameParam = params['username'];
     })

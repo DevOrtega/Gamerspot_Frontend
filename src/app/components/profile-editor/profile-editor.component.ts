@@ -63,7 +63,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.userProfileData.gamer.bornDate) {
+    if (this.userProfileData.gamer && this.userProfileData.gamer.bornDate) {
       console.log(this.userProfileData.gamer.bornDate)
       console.log(this.userProfileData)
       this.formattedDate = this.userService.formatDateToYYYYMMDD(this.userProfileData.gamer.bornDate);
