@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { Post } from 'src/app/interfaces/post';
-import { User } from 'src/app/interfaces/user';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { FeedsService } from 'src/app/services/feeds/feeds.service';
 import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
@@ -12,14 +13,29 @@ import { UsersService } from 'src/app/services/users/users.service';
 })
 export class ProfilePostsComponent implements OnInit, OnDestroy {
   public posts: Post[];
+  private usernameParam: string;
 
+  private getParamsSubscriptor: Subscription;
   private getPostsSubscriptor: Subscription;
 
-  constructor(private authService: AuthService, private userService: UsersService) {
-    this.posts = this.authService.userData.posts;
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private postService: FeedsService
+  ) {}
 
   ngOnInit(): void {
+    this.getParamsSubscriptor = this.route.params.subscribe(params => {
+      this.usernameParam = params['username'];
+    })
+
+    this.getPostsSubscriptor = this.postService.getPosts(this.usernameParam)
+    .pipe(first())
+    .subscribe({
+      next: posts => {
+        this.posts = posts;
+        console.log(posts);
+      }
+    })
   }
 
   public exist(): boolean {
@@ -37,7 +53,11 @@ export class ProfilePostsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.getPostsSubscriptor) {
+    if (this.getParamsSubscriptor) {
+      this.getParamsSubscriptor.unsubscribe();
+    }
+
+    if (this.getPostsSubscriptor) {
       this.getPostsSubscriptor.unsubscribe();
     }
   }

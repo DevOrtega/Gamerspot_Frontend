@@ -18,7 +18,7 @@ export class ProfileDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.userProfileData.gamer.bornDate) {
+    if (this.userProfileData.gamer && this.userProfileData.gamer.bornDate) {
       this.bornDateFormatted = this.userService.formatDateToDDMMYYYY(this.userProfileData.gamer.bornDate)
     }
   }

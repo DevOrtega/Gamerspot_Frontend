@@ -116,4 +116,8 @@ export class UsersService {
   public formatDateToYYYYMMDD(date: string) {
     return this.datePipe.transform(date, "yyyy/MM/dd");
   }
+
+  public formatDateToMMMMDDYYYY(date: string) {
+    return this.datePipe.transform(date, "MMMM dd, yyyy - H:mm:ss");
+  }
 }
