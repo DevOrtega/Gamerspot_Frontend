@@ -26,6 +26,7 @@
   width: 600px;
   margin: 30px auto;
 }
+
 .feed-get__comp, .feed-get__comp * {
   display: block;
   height: auto;
