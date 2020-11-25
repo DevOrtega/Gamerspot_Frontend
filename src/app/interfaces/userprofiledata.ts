@@ -1,3 +1,5 @@
+import { Post } from './post';
+
 export interface Userprofiledata {
   username: string,
   email?: string,
@@ -11,6 +13,6 @@ export interface Userprofiledata {
   biography: string
   links: { link: string }[],
   games: { gameName: string, gameUser: string }[],
-  posts?: { text: string }[],
+  posts?: Post[],
   createdAt?: string
 }

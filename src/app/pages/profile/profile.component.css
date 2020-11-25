@@ -1,6 +1,5 @@
 .profile-main {
   min-height: 480px;
-  margin-top: 4%;
 }
 
 img.profile-photo {
@@ -46,6 +45,10 @@ div.fixed-col.left {
 
 .nav-tabs > a > i {
   font-size: 30px;
+}
+
+.loader {
+  height: 586px;
 }
 
 .gamer {

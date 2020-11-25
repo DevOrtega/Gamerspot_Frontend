@@ -10,7 +10,7 @@
         </div>
         <div class="form-row">
             <div class="form-group col-auto">
-                <input type="text" class="form-control resize" placeholder="Enter your new name" [ngModel]="currentName" (ngModelChange)="setCurrentName($event)" formControlName="name" />
+                <input type="text" class="form-control resize" placeholder="Enter your new name" formControlName="name" />
             </div>
             <div class="form-group col-auto">
                 <input type="password" class="form-control resize" placeholder="You can change your password here" formControlName="password" />
@@ -20,7 +20,7 @@
             <div class="col">
                 <h6>Country</h6>
             </div>
-            <div *ngIf="isGamer()" class="col">
+            <div *ngIf="isGamer" class="col">
                 <h6>Born Date</h6>
             </div>
         </div>
@@ -35,15 +35,16 @@
                     <option *ngFor="let country of countries">{{ country }}</option>
                 </select>
                 <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
-                    <div *ngIf="f.country.errors.required">Debes elegir uno</div>
+                    <div *ngIf="f.country.errors.required">User Country is required</div>
                 </div>
             </div>
-            <div *ngIf="isGamer()" class="form-group col-auto">
+            <div *ngIf="isGamer" class="form-group col-auto">
+                <input type="text" value="{{formattedDate}}"/>
                 <input
                 type="date"
                 formControlName="bornDate"
                 class="form-control resize"
-                value="'{userProfileData.bornDate}'"
+                value="'{formattedDate}'"
                 [ngClass]="{ 'is-invalid': submitted && f.bornDate.errors }"
                 />
                 <div *ngIf="submitted && f.bornDate.errors" class="invalid-feedback">
@@ -55,7 +56,7 @@
             </div>
         </div>
         <div class="row">
-            <div *ngIf="isGamer()" class="col">
+            <div *ngIf="isGamer" class="col">
                 <h6>Games</h6>
             </div>
             <div class="col">
@@ -63,7 +64,7 @@
             </div>
         </div>
         <div class="form-row">
-            <div *ngIf="isGamer()" class="form-group col">
+            <div *ngIf="isGamer" class="form-group col">
                 <div formArrayName="games">
                     <input
                         class="btn btn-success resize"
@@ -81,9 +82,8 @@
                         <div [formGroupName]="i" class="games">
                             <input type="text" class="form-control resize" placeholder="Enter the game name" formControlName="gameName" />
                             <input type="text" class="form-control resize" placeholder="Enter your game username" formControlName="gameUser" />
-                            <span *ngIf="newProfile['controls'].games['controls'].length > 1">
+                            <span *ngIf="newProfile['controls'].games['controls'].length > 0">
                                 <input
-                                *ngIf="i !== 0"
                                 class="btn btn-danger btn-sm my-2"
                                 type="button"
                                 (click)="removeGame(i)"
@@ -110,11 +110,10 @@
                     class="resize link-padding"
                     >
                         <div [formGroupName]="i" class="links">
-                            <input type="text" class="form-control resize" placeholder="Enter your contact link" formControlName="link" [value]="userProfileData.links" />
-                            <span *ngIf="newProfile['controls'].links['controls'].length > 1">
+                            <input type="text" class="form-control resize" placeholder="Enter your contact link" formControlName="link"/>
+                            <span *ngIf="newProfile['controls'].links['controls'].length > 0">
                                 <input
                                 name="link"
-                                *ngIf="i !== 0"
                                 class="btn btn-danger btn-sm my-2"
                                 type="button"
                                 (click)="removeLink(i)"

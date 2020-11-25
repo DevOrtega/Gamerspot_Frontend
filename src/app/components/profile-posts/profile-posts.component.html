@@ -1,3 +1,14 @@
-<div class="page-inner-container posts-main">
-    <h4 *ngIf="!existPosts()">No posts published yet</h4>
+<div class="page-inner-container">
+    <div *ngIf="!exist()">
+        <p>Loading...</p>
+        <i class="fas fa-spinner loading"></i>
+    </div>
+    <div *ngIf="exist()" class="posts-container">
+        <div class="post" *ngFor="let post of posts">
+            <app-feed-get [feed]="post"></app-feed-get>
+        </div>
+    </div>
+    <div *ngIf="exist() && isEmpty()" class="posts-main">
+        <h4>No posts published yet</h4>
+    </div>
 </div>
