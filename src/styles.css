@@ -6,9 +6,14 @@ body {
 }
   
 div.page-inner-container {
-    width: 65%;
-    margin: auto;
-    background-color: white;
+  min-width: 350px;
+  width: 65%;
+  margin: auto;
+  background-color: white;
+}
+
+div.page-margin-top {
+  margin-top: 75px;
 }
 
 /* Spinner load */

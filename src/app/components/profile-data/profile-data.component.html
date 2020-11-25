@@ -1,31 +1,31 @@
-<div *ngIf="userProfile.biography" class="biography">
+<div *ngIf="userProfileData.biography" class="biography">
   <h5>About Me</h5>
-  <p>{{userProfile.biography}}</p>
+  <p>{{userProfileData.biography}}</p>
+  <hr class="solid">
 </div>
-<hr class="solid">
 <div class="grid-container">
     <div *ngIf="existGames()">
       <h5>Games</h5>
-      <p *ngFor="let game of userProfile.games; let idx = index">
+      <p *ngFor="let game of userProfileData.games">
         {{game.gameName}}
       </p>
     </div>
     <div *ngIf="existLinks()">
       <h5>Contact links</h5>
-      <p *ngFor="let link of userProfile.links; let idx = index">
+      <p *ngFor="let link of userProfileData.links">
         {{link.link}}
       </p>
     </div>
     <div>
       <h5>Country</h5>
-      <p>{{userProfile.country}}</p>
+      <p>{{userProfileData.country}}</p>
     </div>
-    <div *ngIf="userProfile.bornDate">
+    <div *ngIf="bornDateFormatted">
       <h5>Born date</h5>
-      <p>{{userProfile.bornDate}}</p>
+      <p>{{bornDateFormatted}}</p>
     </div>
     <div>
       <h5>Joined at</h5>
-      <p>{{userProfile.createdAt}}</p>
+      <p>{{userProfileData.createdAt}}</p>
     </div>
 </div>

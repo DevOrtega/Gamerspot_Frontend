@@ -14,6 +14,7 @@ import jwtDecode from 'jwt-decode';
 export class AuthService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
+  private _refreshTokenTimeout;
 
   constructor(private router: Router, private http: HttpClient) {
     this.userSubject = new BehaviorSubject<User>(null);
@@ -24,7 +25,7 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  login(username: string, password: string) {
+  public login(username: string, password: string) {
     return this.http.post<any>(`${environment.apiUrl}/users/login`, { username, password }, { withCredentials: true })
     .pipe(map(user => {
       const tokenData : any = jwtDecode(user.token);
@@ -34,6 +35,8 @@ export class AuthService {
 
       this.userSubject.next(userData);
 
+      console.log(userData);
+
       this.startRefreshTokenTimer(tokenData.exp);
       localStorage.setItem('token', JSON.stringify(user.token));
       
@@ -41,7 +44,7 @@ export class AuthService {
     }))
   }
 
-  isLoggedIn(): boolean {
+  public isLoggedIn(): boolean {
     const token = localStorage.getItem('token');
 
     if (this.userData && token) return true;
@@ -49,7 +52,11 @@ export class AuthService {
     return false;
   }
 
-  logout() {
+  public itsMe(username: string): boolean {
+    return this.userData.username === username;
+  }
+
+  public logout() {
     this.http.post<any>(`${environment.apiUrl}/users/revoke-token`, {}, { withCredentials: true }).subscribe();
     this.stopRefreshTokenTimer();
     this.userSubject.next(null);
@@ -57,7 +64,7 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  refreshToken() {
+  public refreshToken() {
     return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {}, { withCredentials: true })
     .pipe(map((user) => {
       const tokenData : any = jwtDecode(user.token);
@@ -73,15 +80,13 @@ export class AuthService {
     }))
   }
 
-  private refreshTokenTimeout;
-
   private startRefreshTokenTimer(exp: number) {
     const expires = new Date(exp * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);
-    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+    this._refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
   }
 
   private stopRefreshTokenTimer() {
-    clearTimeout(this.refreshTokenTimeout);
+    clearTimeout(this._refreshTokenTimeout);
   }
 }
