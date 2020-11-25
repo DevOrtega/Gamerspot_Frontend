@@ -1,17 +1,19 @@
-<div class="card feed">
-  <div class="feed-header">
-      <div class="feed-header__photo">
-        <span> <img class="photoprofile" src='../../../assets/profile/image-profile.png'/> </span>
+  <div class="container">
+    <div class="card feed">
+      <div class="feed-header">
+          <div class="feed-header__photo">
+            <span> <img class="photoprofile" src='../../../assets/profile/image-profile.png'/> </span>
+          </div>
+          <div class="feed-header__p">
+            <p class="name"><strong>{{feedMaked.name}}</strong></p>
+            <p><small>{{feedMaked.username}}</small></p>
+          </div>
+          <div class="feed-header__created">
+            <span><small>{{feedMaked.created}}</small></span>
+          </div>
       </div>
-      <div class="feed-header__p">
-        <p class="name"><strong>{{feedMaked.name}}</strong></p>
-        <p><small>{{feedMaked.username}}</small></p>
+      <div class="feed-content">
+        <p class="card-text feed-content__p">{{feedMaked.text}}</p>
       </div>
-      <div class="feed-header__created">
-        <span><small>{{feedMaked.created}}</small></span>
-      </div>
+    </div>
   </div>
-  <div class="feed-content">
-    <p class="card-text feed-content__p">{{feedMaked.text}}</p>
-  </div>
-</div>

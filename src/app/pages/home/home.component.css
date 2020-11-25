@@ -1,30 +1,31 @@
 * {
-  background-color: rgba(0, 0, 0, 1);
-  color: rgba(255, 255, 255, 1);
+  background-color: #23272A;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .home-main {
-  z-index: 0;
+  z-index: -1;
   position: absolute;
-  top: 75px;
-  left: 0;
-  right: 0;
-  display: grid;
-  grid-template-columns: 50% 50%;
+  top: 20%;
+  left: 5%;
+  right: 5%;
+}
+
+.home-main__feed-get {
+  margin-top: 70px;
+  margin-left: 20px;
 }
 
 .feed-post__comp {
-  position: fixed;
-  margin-top: 30px;
-  margin-left: 100px;
-  width: 550px;
-  height: 150px;
+  margin-right: 10%;
+  width: 90%;
+  height: 100px;
 }
 
 .feed-get__comp {
   overflow-y: scroll;
-  width: 600px;
-  margin: 30px auto;
+  width: 100%;
+  margin-top: 30px;
 }
 .feed-get__comp, .feed-get__comp * {
   display: block;
