@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Post } from 'src/app/interfaces/post';
+import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
@@ -6,19 +10,35 @@ import { UsersService } from 'src/app/services/users/users.service';
   templateUrl: './profile-posts.component.html',
   styleUrls: ['./profile-posts.component.css']
 })
-export class ProfilePostsComponent implements OnInit {
-  public posts: { text: string }[];
+export class ProfilePostsComponent implements OnInit, OnDestroy {
+  public posts: Post[];
 
-  constructor(private userService: UsersService) {
-    this.userService.profile.subscribe(x => this.posts = x.posts);
+  private getPostsSubscriptor: Subscription;
+
+  constructor(private authService: AuthService, private userService: UsersService) {
+    this.posts = this.authService.userData.posts;
   }
 
   ngOnInit(): void {
   }
 
-  existPosts(): boolean {
-    if (this.posts && this.posts.length > 0) return true;
-   
+  public exist(): boolean {
+    if (this.posts) {
+      return true;
+    }
+
     return false;
+  }
+
+  isEmpty(): boolean {
+    if (this.exist() && this.posts.length === 0) return true;
+
+    return false;
+  }
+
+  ngOnDestroy(): void {
+    if(this.getPostsSubscriptor) {
+      this.getPostsSubscriptor.unsubscribe();
+    }
   }
 }

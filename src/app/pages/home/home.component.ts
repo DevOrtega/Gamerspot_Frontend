@@ -9,7 +9,7 @@ import { FeedsService } from 'src/app/services/feeds/feeds.service';
 export class HomeComponent implements OnInit {
   public feeds: any;
 
-  constructor(private feedService:FeedsService) {
+  constructor(private feedService: FeedsService) {
   }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;
       });
-      console.log(this.feeds);
+
       return this.feeds;
      }
    )
