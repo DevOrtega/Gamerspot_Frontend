@@ -23,7 +23,7 @@ export class LolStatisticsService {
   async checkLolServer(gameuser: String, server: String) {
     return axios.get(`${environment.corsProxy}/https://${server}${environment.lolApiUrl}${environment.summonerUrl}${gameuser}`, {
       headers: {
-        "X-Riot-Token": "RGAPI-ddae7766-f557-4cd1-8429-844b5f33ea35"
+        "X-Riot-Token": "RGAPI-cc8935db-4fd9-4a43-b751-976bb901fb05"
       },
       withCredentials: false
     })
@@ -36,7 +36,7 @@ export class LolStatisticsService {
   async getLolStats(profile_response, server) {
     return axios.get(`${environment.corsProxy}/https://${server}${environment.lolApiUrl}${environment.lolStatsUrl}${profile_response.id}`, {
       headers: {
-        "X-Riot-Token": "RGAPI-ddae7766-f557-4cd1-8429-844b5f33ea35"
+        "X-Riot-Token": "RGAPI-cc8935db-4fd9-4a43-b751-976bb901fb05"
       },
       withCredentials: false
     })
