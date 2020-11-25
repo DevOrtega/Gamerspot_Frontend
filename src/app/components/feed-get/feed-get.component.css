@@ -12,13 +12,24 @@
 .feed-header{
   display: grid;
   grid-template-columns: 12% 48% 30%;
+  color: rgba(255, 255, 255, 1);
 }
 
 p {
   margin: 0;
 }
+
 .name {
   font-size: 17px;
+}
+
+.role {
+  padding-left: 7px;
+  font-size: 13px;
+}
+
+.username {
+  font-size: 12px;
 }
 
 .feed-header__photo, .feed-header__p, .feed-header__created {

@@ -1,16 +1,18 @@
+import { Post } from './post';
+
 export interface User {
   username: string,
-  password?: string,
   email?: string,
-  role?: String,
-  gamer?: string,
-  team?: string,
-  sponsor?: string,
-  country: string,
-  photoUrl?: string,
-  gameList?: string,
-  linkList?: string,
-  biography?: string,
+  gamer?: any,
+  team?: any,
+  sponsor?: any,
   name: string,
+  photoUrl?: string,
+  country: string,
   bornDate?: string,
+  biography: string
+  links: { link: string }[],
+  games: { gameName: string, gameUser: string }[],
+  posts?: Post[],
+  createdAt?: string  
 }
