@@ -5,6 +5,8 @@
 img.profile-photo {
   width: 250px;
   height: 250px;
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border-radius: 50%;
 }
 
 div.container {
@@ -51,14 +53,3 @@ div.fixed-col.left {
   height: 586px;
 }
 
-.gamer {
-  
-}
-
-.team {
-  
-}
-
-.sponsor {
-
-}
