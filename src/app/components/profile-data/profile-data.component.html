@@ -1,18 +1,18 @@
-<div *ngIf="userProfile.biography" class="biography">
+<div *ngIf="userProfileData.biography" class="biography">
   <h5>About Me</h5>
-  <p>{{ userProfile.biography }}</p>
+  <p>{{ userProfileData.biography }}</p>
 </div>
 <hr class="solid" />
 <div class="grid-container">
   <div *ngIf="existGames()">
     <h5>Games</h5>
-    <p *ngFor="let game of userProfile.games; let idx = index">
+    <p *ngFor="let game of userProfileData.games; let idx = index">
       {{ game.gameName }}
     </p>
   </div>
   <div *ngIf="existLinks()">
     <h5>Contact links</h5>
-    <div *ngFor="let link of userProfile.links; let idx = index">
+    <div *ngFor="let link of userProfileData.links; let idx = index">
       <button
         *ngIf="link.link.includes('twitch')"
         type="button"
@@ -66,14 +66,14 @@
   </div>
   <div>
     <h5>Country</h5>
-    <p>{{ userProfile.country }}</p>
+    <p>{{ userProfileData.country }}</p>
   </div>
-  <div *ngIf="userProfile.bornDate">
+  <div *ngIf="userProfileData.bornDate">
     <h5>Born date</h5>
-    <p>{{ userProfile.bornDate }}</p>
+    <p>{{ userProfileData.bornDate }}</p>
   </div>
   <div>
     <h5>Joined at</h5>
-    <p>{{ userProfile.createdAt }}</p>
+    <p>{{ userProfileData.createdAt }}</p>
   </div>
 </div>

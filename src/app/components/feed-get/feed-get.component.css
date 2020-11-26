@@ -7,12 +7,24 @@
 .feed-header{
   display: grid;
   grid-template-columns: 12% 48% 30%;
+  color: rgba(255, 255, 255, 1);
 }
+
 p {
   margin: 0;
 }
+
 .name {
   font-size: 17px;
+}
+
+.role {
+  padding-left: 7px;
+  font-size: 13px;
+}
+
+.username {
+  font-size: 12px;
 }
 
 .feed-header__photo, .feed-header__p, .feed-header__created {
@@ -24,12 +36,12 @@ p {
 }
 
 .feed-content__p {
-  font-size: 17px;
-  background-color: rgba(44, 47, 51, 1);
-  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
   padding: 10px 5px 20px 72px;
   width: 550px;
   border-radius: 10px;
+  background-color: rgba(44, 47, 51, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 .photoprofile {

@@ -31,3 +31,7 @@ button.btn.save {
     background-color: blueviolet;
     border: none;
 }
+
+a, a:hover, a:visited {
+  color: inherit;
+}
