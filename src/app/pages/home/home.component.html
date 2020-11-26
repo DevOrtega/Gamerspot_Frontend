@@ -1,6 +1,6 @@
 <div class="home">
   <div class="home-main">
-    <div class="home-main__feed-post">
+    <div *ngIf="isLoggedIn()" class="home-main__feed-post">
       <div class="feed-post__comp">
         <app-feed-post (feedEmitter)="saveFeed($event)"></app-feed-post>
       </div>
