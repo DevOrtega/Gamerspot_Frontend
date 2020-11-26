@@ -11,7 +11,7 @@ export class ProfileDataComponent implements OnInit {
   @Input() userProfileData: User;
   public bornDateFormatted: string;
   public activeButton: string;
-  
+
 
   constructor(private userService: UsersService) {
     this.activeButton = 'btn1';
