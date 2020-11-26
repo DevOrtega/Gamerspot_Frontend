@@ -11,7 +11,9 @@ export const environment = {
   lolApiUrl: ".api.riotgames.com/lol/",
   summonerUrl:"summoner/v4/summoners/by-name/",
   lolStatsUrl:"league/v4/entries/by-summoner/",
-  restCountriesUrl: "https://restcountries.eu/rest/v2"
+  restCountriesUrl: "https://restcountries.eu/rest/v2",
+  lolAPIKey: "RGAPI-aa82f0a3-9507-49de-97ae-11396a16cc0d",
+  trackerAPIKey: "cfe19ea4-d2a6-4667-b9bd-da5f473c6baf"
 };
 
 /*
