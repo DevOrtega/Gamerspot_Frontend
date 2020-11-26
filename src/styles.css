@@ -1,23 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
-body {
-    background-color: black;
-}
-  
-div.page-inner-container {
-  min-width: 350px;
-  width: 65%;
-  margin: auto;
-  background-color: white;
+:root {
+  --blue: #007bff;
+  --black: #23272A;
+  --grey:  #2C2F33;
+  --gamer: #851DE0;
+  --sponsor: #DE38C8;
+  --team: #FFD300;
+
 }
 
-div.page-margin-top {
-  margin-top: 75px;
+body {
+    background: var(--black);
 }
+
+div.page-inner-container {
+    width: 65%;
+    margin: auto;
+    color: white;
+    background-color: var(--black);
+    min-width: 350px;
+}
+
 
 /* Spinner load */
-
 
 @-webkit-keyframes rotating /* Safari and Chrome */ {
     from {
