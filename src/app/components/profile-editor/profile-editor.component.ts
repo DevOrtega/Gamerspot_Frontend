@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { combineAll } from 'rxjs/operators';
 import { Userprofiledata } from 'src/app/interfaces/userprofiledata';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CountriesService } from 'src/app/services/countries/countries.service';
@@ -26,8 +27,8 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   private linkGroups = [];
 
   public games: string[] = [
-    "Apex",
-    "League Of Legends"
+    "apex",
+    "lol"
   ]
 
   public currentName: string;
@@ -48,15 +49,26 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private userService: UsersService,
     private countryService: CountriesService
-  ) {}
+  ) { }
 
   setCurrentName(data: string) {
     this.currentName = data;
   }
 
   onChangeCountry(data: string) {
-    console.log(data);
     this.newProfile['controls'].country.setValue(data);
+  }
+
+  onClickSocial(social, index) {
+    this.link = social.toString().replace('fab ', '');
+    this.link = this.link.toString().replace('fa-','');
+    this.link = this.link.toString().replace(' fa-2x','');
+    let linkValue = (<HTMLInputElement>document.querySelector("#link-" + index));
+    if (this.link == 'twitch') {
+      linkValue.value = "https://www." + this.link + ".tv/";
+    } else {
+      linkValue.value = "https://www." + this.link + ".com/";
+    }
   }
 
   ngOnInit(): void {
@@ -68,16 +80,16 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
     this.loading = true;
     this.getCountriesSubscription = this.countryService.getCountries()
-    .subscribe({
-      next: countries => {
-        const countriesObj : any = Object.values({ ...countries });
-        this.countries = countriesObj.map((country: { name: any; }) => country.name);
-      },
-      error: error => {
-        this.error = error;
-        this.loading = false;
-      }
-    })
+      .subscribe({
+        next: countries => {
+          const countriesObj: any = Object.values({ ...countries });
+          this.countries = countriesObj.map((country: { name: any; }) => country.name);
+        },
+        error: error => {
+          this.error = error;
+          this.loading = false;
+        }
+      })
     this.getUserSubscription = this.userService.profile.subscribe(user => {
       this.userProfileData = user;
       this.getCurrentName();
@@ -89,7 +101,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       this.gameGroups.push(this.initGame());
     });
 
-    this.userProfileData.links.forEach(link =>{
+    this.userProfileData.links.forEach(link => {
       this.link = link.link;
       this.linkGroups.push(this.initLink());
     });
@@ -98,7 +110,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
     if (this.userProfileData.bornDate) {
       let dateWithoutZ = this.userProfileData.bornDate.toString().substring(0, this.userProfileData.bornDate.toString().length - 1);
-      this.dateFormated = this.datePipe.transform(dateWithoutZ,"yyyy-MM-dd");
+      this.dateFormated = this.datePipe.transform(dateWithoutZ, "yyyy-MM-dd");
     }
 
     this.newProfile = this.formBuilder.group({
@@ -157,13 +169,13 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   initGame() {
     return this.formBuilder.group({
-        'gameName': [this.gameName], 'gameUser': [this.gameUser]
+      'gameName': [this.gameName], 'gameUser': [this.gameUser]
     })
   }
 
   newGame() {
     return this.formBuilder.group({
-        'gameName': [''], 'gameUser': ['']
+      'gameName': [''], 'gameUser': ['']
     })
   }
 
@@ -202,22 +214,19 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       biography: this.newProfile['controls'].biography.value
     }
 
-    console.log(user.password);
-
     if (!user.password) {
       delete user.password;
-      console.log(user);
     }
 
     this.loading = true;
     this.editUserSubscription = this.userService.editUser(this.userProfileData.username, user)
-    .subscribe(() => {
-      window.location.reload();
-    },
-    err => {
-      this.error = err;
-      this.loading = false;
-    });
+      .subscribe(() => {
+        window.location.reload();
+      },
+        err => {
+          this.error = err;
+          this.loading = false;
+        });
   }
 
   get f() {
@@ -248,7 +257,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  public getCurrentName(): void{
+  public getCurrentName(): void {
     if (this.isGamer()) {
       this.currentName = this.userProfileData.gamer.name;
     }
