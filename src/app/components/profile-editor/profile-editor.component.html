@@ -91,8 +91,7 @@
             class="py-3 resize"
           >
             <div [formGroupName]="i" class="games">
-              <div class="row">
-                <div class="col" *ngFor="let game of games">
+                <div class="btn-group" role="group" *ngFor="let game of games">
                   <label
                     *ngIf="userProfileData.games[i] != undefined"
                     [class.focus]="
@@ -101,7 +100,8 @@
                     [class.active]="
                       (userProfileData.games[i].gameName | prettyJson) == game
                     "
-                    class="btn btn-secondary mr-2"
+                    class="btn
+                    bt-sm btn-secondary mr-2"
                   >
                     <input
                       type="radio"
@@ -112,7 +112,7 @@
                   </label>
                   <label
                     *ngIf="userProfileData.games[i] == undefined"
-                    class="btn btn-secondary mr-2"
+                    class="btn btn-sm btn-secondary mr-2"
                   >
                     <input
                       type="radio"
@@ -122,7 +122,6 @@
                     {{ game }}
                   </label>
                 </div>
-              </div>
               <input
                 type="text"
                 class="form-control resize"
