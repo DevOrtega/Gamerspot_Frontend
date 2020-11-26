@@ -7,18 +7,22 @@
   z-index: -1;
   position: absolute;
   top: 20%;
-  left: 5%;
-  right: 5%;
+  left: 10%;
+  right: 10%;
 }
 
 .home-main__feed-get {
-  margin-top: 70px;
+  margin: 70px 20px 70px 20px;
+}
+
+.home-main__feed-post {
+  margin-top: 30px;
   margin-left: 20px;
 }
 
 .feed-post__comp {
   margin-right: 10%;
-  width: 90%;
+  width: 100%;
   height: 100px;
 }
 

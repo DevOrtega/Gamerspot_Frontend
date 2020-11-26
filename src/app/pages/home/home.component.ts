@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { FeedsService } from 'src/app/services/feeds/feeds.service';
 
 @Component({
@@ -9,7 +10,10 @@ import { FeedsService } from 'src/app/services/feeds/feeds.service';
 export class HomeComponent implements OnInit {
   public feeds: any;
 
-  constructor(private feedService: FeedsService) {
+  constructor(
+    private authService: AuthService,
+    private feedService: FeedsService
+    ) {
   }
 
   ngOnInit() {
@@ -38,4 +42,7 @@ export class HomeComponent implements OnInit {
    )
   }
 
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
 }

@@ -10,7 +10,7 @@
   position: fixed;
   display: grid;
   grid-template-columns: auto;
-  margin-top: 28%;
+  margin-top: 32%;
   margin-left: 1%;
   margin-right: 95%;
   margin-bottom: 2%;
@@ -66,4 +66,3 @@ a:hover{
   background-color: #23272A;
   text-align: center;
 }
-

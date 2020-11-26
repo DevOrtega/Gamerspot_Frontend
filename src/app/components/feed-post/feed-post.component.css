@@ -13,7 +13,7 @@
 .form__textarea, textarea {
   background-color: #23272A;
   position: absolute;
-  width: 100%;
+  width: 95%;
   border-radius: 10px;
   resize: none;
   top: 5px;
@@ -37,5 +37,5 @@ textarea, textarea:focus, textarea:active {
 .btn {
   font-weight: 600;
   color: #851DE0;
-  background-color: transparent;
+  border: 1px solid #851DE0;
 }
