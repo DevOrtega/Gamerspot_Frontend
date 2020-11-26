@@ -1,34 +1,31 @@
-import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Feed } from 'src/app/interfaces/feed';
+import { PostView } from 'src/app/interfaces/post-view';
+import { UsersService } from 'src/app/services/users/users.service';
 @Component({
   selector: 'app-feed-get',
   templateUrl: './feed-get.component.html',
   styleUrls: ['./feed-get.component.css']
 })
 export class FeedsGetComponent implements OnInit {
-
   @Input() feed;
+  public post: PostView;
 
-  public feedMaked:Feed;
-  private dateFormated:string;
-
-  constructor(private datePipe: DatePipe) { }
+  constructor(
+    private userService: UsersService)
+  { }
 
   ngOnInit(): void {
     this.makeFeed();
   }
 
-  makeFeed() {
-      const dateWithoutZ = this.feed.createdAt.toString().substring(0, this.feed.createdAt.toString().length - 1);
-      this.dateFormated = this.datePipe.transform(dateWithoutZ,"MMMM dd, yyyy - H:mm:ss");
-    
-      this.feedMaked = {
-        username: this.feed.owner.username,
-        name: this.feed.owner.name,
-        text: this.feed.text,
-        photo: this.feed.owner.photoUrl,
-        created: this.dateFormated
-      }
+  private makeFeed() {
+    this.post = {
+      username: this.feed.owner.username,
+      name: this.userService.getName(this.feed.owner),
+      role: this.userService.getRole(this.feed.owner),
+      text: this.feed.text,
+      photoUrl: this.feed.owner.photoUrl,
+      createdAt: this.userService.formatDateToMMMMDDYYYY(this.feed.createdAt)
+    }
   }
 }

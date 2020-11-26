@@ -4,3 +4,11 @@
     text-align: center;
     color: rgb(145, 145, 145);
 }
+
+.posts-container {
+    display: grid;
+    justify-content: center;
+    row-gap: 30px;
+    padding: 30px;
+}
+

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { User } from 'src/app/interfaces/user';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-profile-data',
@@ -6,13 +8,19 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./profile-data.component.css']
 })
 export class ProfileDataComponent implements OnInit {
-  @Input() userProfile;
-  activeButton: string = 'btn1';
+  @Input() userProfileData: User;
+  public bornDateFormatted: string;
+  public activeButton: string;
+  
 
-  constructor() {
+  constructor(private userService: UsersService) {
+    this.activeButton = 'btn1';
   }
 
   ngOnInit(): void {
+    if (this.userProfileData.gamer && this.userProfileData.gamer.bornDate) {
+      this.bornDateFormatted = this.userService.formatDateToDDMMYYYY(this.userProfileData.gamer.bornDate)
+    }
   }
 
   setActive(buttonName: string): void {
@@ -24,7 +32,7 @@ export class ProfileDataComponent implements OnInit {
   }
 
   existGames(): boolean {
-    if (this.userProfile.games && this.userProfile.games.length > 0) {
+    if (this.userProfileData.games && this.userProfileData.games.length > 0) {
       return true;
     }
 
@@ -32,7 +40,7 @@ export class ProfileDataComponent implements OnInit {
   }
 
   existLinks(): boolean {
-    if (this.userProfile.links && this.userProfile.links.length > 0) {
+    if (this.userProfileData.links && this.userProfileData.links.length > 0) {
       return true;
     }
 
