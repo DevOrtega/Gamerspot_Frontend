@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Pipe } from '@angular/core';
 import { User } from './interfaces/user';
 import { AuthService } from './services/auth/auth.service';
 

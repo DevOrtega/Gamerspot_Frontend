@@ -4,12 +4,17 @@
 body {
     background-color: black;
 }
-  
+
 div.page-inner-container {
     width: 65%;
     margin: auto;
     background-color: white;
 }
+
+a, a:hover, a:visited {
+  color: inherit;
+}
+
 
 /* Spinner load */
 
