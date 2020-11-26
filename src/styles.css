@@ -16,6 +16,11 @@ div.page-margin-top {
   margin-top: 75px;
 }
 
+a, a:hover, a:visited {
+  color: inherit;
+}
+
+
 /* Spinner load */
 
 

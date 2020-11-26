@@ -12,7 +12,7 @@
   </div>
   <div *ngIf="existLinks()">
     <h5>Contact links</h5>
-    <div *ngFor="let link of userProfileData.links; let idx = index">
+    <div class="links" *ngFor="let link of userProfileData.links; let idx = index">
       <button
         *ngIf="link.link.includes('twitch')"
         type="button"
