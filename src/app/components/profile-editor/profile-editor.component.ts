@@ -213,7 +213,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
     this.editUserSubscription = this.userService.editUser(this.userProfileData.username, user)
     .subscribe(() => {
-      //window.location.reload();
+      window.location.reload();
     })
   }
 

@@ -23,8 +23,8 @@ textarea {
 }
 
 .link-padding {
-    padding-top: 16px;
-    padding-bottom: 54px;
+  padding-top: 22px;
+  padding-bottom: 17px;
 }
 
 button.btn.save {
@@ -32,6 +32,3 @@ button.btn.save {
     border: none;
 }
 
-a, a:hover, a:visited {
-  color: inherit;
-}

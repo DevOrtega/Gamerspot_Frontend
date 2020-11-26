@@ -49,7 +49,6 @@
         </div>
       </div>
       <div *ngIf="isGamer" class="form-group col-auto">
-        <input type="text" value="{{formattedDate}}"/>
         <input
           type="date"
           formControlName="bornDate"
@@ -145,7 +144,7 @@
               let link of newProfile['controls'].links['controls'];
               let i = index
             "
-            class="resize link-padding"
+            class="link-padding"
           >
             <div [formGroupName]="i" class="links">
               <div class="row mb-2">
