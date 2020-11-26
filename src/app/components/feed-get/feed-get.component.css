@@ -1,12 +1,15 @@
 .feed {
-  border-radius: 10px;
-  width: 600px;
-  background-color: rgba(44, 47, 51, 1);
+  display: grid;
+  padding-top: 2px;
+  background-color:  #23272A;
+  border-left: none;
+  border-right: none;
+  border-radius: 0%;
 }
 
 .feed-header{
   display: grid;
-  grid-template-columns: 12% 48% 30%;
+  grid-template-columns: 7% 58% 30%;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -31,22 +34,48 @@ p {
   margin-top: 5px;
 }
 
-.feed-header__created span{
+.feed-header__created span {
   float: right;
 }
 
 .feed-content__p {
-  font-size: 16px;
-  padding: 10px 5px 20px 72px;
-  width: 550px;
-  border-radius: 10px;
-  background-color: rgba(44, 47, 51, 1);
+  font-size: 17px;
+  background-color: #23272A;
   color: rgba(255, 255, 255, 1);
+  padding: 15px 2px 20px 72px;
+  width: 95%;
 }
 
 .photoprofile {
-  margin-left: 5px;
-  background-color: rgba(255, 255, 255, 1) !important;
+  margin-left: 10px;
+  background-color: rgba(255, 255, 255, 0.6) !important;
   width: 50px;
   border-radius: 50%;
+}
+
+.color-gamer {
+  color: #851DE0;
+}
+
+.color-border-gamer {
+  border-top-color: #851DE0;
+  border-bottom-color: #851DE0;
+}
+
+.color-team {
+  color: #FFD300;
+}
+
+.color-border-team {
+  border-top-color: #FFD300;
+  border-bottom-color: #FFD300;
+}
+
+.color-sponsor {
+  color: #DE38C8
+}
+
+.color-border-sponsor {
+  border-top-color: #DE38C8;
+  border-bottom-color: #DE38C8;
 }

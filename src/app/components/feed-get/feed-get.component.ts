@@ -27,5 +27,7 @@ export class FeedsGetComponent implements OnInit {
       photoUrl: this.feed.owner.photoUrl,
       createdAt: this.userService.formatDateToMMMMDDYYYY(this.feed.createdAt)
     }
+
+    console.log(this.post)
   }
 }

@@ -17,7 +17,7 @@ import { ProfileEditorComponent } from './components/profile-editor/profile-edit
 const routes: Routes = [
   { path:'', component: LoginComponent },
   { path:'register', component: RegisterComponent },
-  { path:'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path:'home', component: HomeComponent },
   { path:':username',
     component: ProfileComponent,
     children: [
