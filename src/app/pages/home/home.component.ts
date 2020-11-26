@@ -17,12 +17,16 @@ export class HomeComponent implements OnInit {
   public loading: boolean;
   public submitted:boolean = false;
   public roles:string[] = ['Gamer', 'Team', 'Sponsor'];
+  public searched:string = '';
+  public countrySelected:string = 'All countries';
+  public roleSelected:string = 'All roles';
+  public errorSearch:boolean = false;
 
   constructor(private feedService:FeedsService, private countriesService:CountriesService) {}
 
   ngOnInit() {
     this.showFeeds();
-
+    this.feedService.refresh();
     this.getCountriesSubscription = this.countriesService.getCountries()
     .subscribe({
       next: countries => {
@@ -34,7 +38,6 @@ export class HomeComponent implements OnInit {
         this.loading = false;
       }
     })
-    console.log(this.feeds)
   }
 
   //home
@@ -43,31 +46,47 @@ export class HomeComponent implements OnInit {
     return this.countries;
   }
 
-  onChangeCountry(data) {
-
-    if (data != 'All') this.feeds = this.feedsToFilter.filter(feed => feed.owner.country == data);
+  filterFeeds () {
+    this.errorSearch = false;
+    if (this.countrySelected != 'All countries') {
+      this.feeds = this.feedsToFilter.filter(feed => feed.owner.country == this.countrySelected);
+    }
     else this.feeds = this.feedsToFilter;
-    return this.feeds;
+
+    if (this.feeds.length === 0) this.errorSearch = true;
+
+    this.nextFilter(this.feeds);
   }
 
-  onChangeRole(data) {
-    console.log(data);
-    if (data === 'Gamer') {
-      console.log(this.feeds);
-      this.feeds = this.feedsToFilter.filter(feed => feed.owner.gamer != undefined);
+  nextFilter(arr:any) {
+    console.log(arr);
+    if (this.roleSelected != 'All roles') {
+      if (this.roleSelected === 'Gamer') this.feeds = arr.filter(feed => feed.owner.gamer);
+      else if (this.roleSelected === 'Team') this.feeds = arr.filter(feed => feed.owner.team);
+      else if (this.roleSelected === 'Sponsor') this.feeds = arr.filter(feed => feed.owner.sponsor);
+    }
+    else this.feeds = arr;
 
-    }
-    if (data === 'Team') {
-      this.feeds = this.feedsToFilter.filter(feed => feed.owner.team);
-      console.log(this.feeds.owner.team);
-    }
-    if (data === 'Sponsor') {
-      this.feeds = this.feedsToFilter.filter(feed => feed.owner.sponsor);
-      console.log(this.feeds.owner.sponsor);
-    }
-    else {
+    if (this.feeds.length === 0) this.errorSearch = true;
+  }
+
+  search() {
+    this.errorSearch = false;
+    if (this.searched === '') {
       this.feeds = this.feedsToFilter;
     }
+    else {
+      this.feeds = this.feedsToFilter.filter(feed => feed.owner.username === this.searched);
+      if (this.feeds.length == 0) {
+        this.feeds = this.feedsToFilter.filter( feed =>
+          feed.owner.gamer && feed.owner.gamer.name === this.searched
+          || feed.owner.team && feed.owner.team.name === this.searched
+          || feed.owner.sponsor && feed.owner.sponsor.name === this.searched
+        );
+        if (this.feeds.length == 0) this.errorSearch = true;
+      }
+    }
+    return this.feeds;
   }
 
 
@@ -90,8 +109,18 @@ export class HomeComponent implements OnInit {
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;
       });
-      console.log(this.feeds);
+      console.log(this.feeds)
       return this.feeds;
     });
+  }
+
+  removePost(feed) {
+    this.feedService.removePost(feed)
+    .subscribe(response => {
+      this.feedsToFilter = response;
+      this.feeds = this.feedsToFilter.filter(f => f.id != feed.id);
+
+      return this.feeds;
+    })
   }
 }
