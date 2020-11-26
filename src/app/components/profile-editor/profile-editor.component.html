@@ -91,28 +91,38 @@
             class="py-3 resize"
           >
             <div [formGroupName]="i" class="games">
-              <div *ngFor="let game of games" class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                <label [class.focus]="(userProfileData.games[i].gameName | prettyJson) == game" [class.active]="(userProfileData.games[i].gameName | prettyJson) == game" class="btn btn-secondary mr-2">
-                  <input
-                    type="radio"
-                    formControlName="gameName"
-                    value="{{ game }}"
-                  />
-                  {{ game }}
-                </label>
-              </div>
-
-              <!-- <div class="row">
+              <div class="row">
                 <div class="col" *ngFor="let game of games">
-                  <input
-                    type="radio"
-                    formControlName="gameName"
-                    value="{{ game }}"
-                  />
-                  {{ game }}
+                  <label
+                    *ngIf="userProfileData.games[i] != undefined"
+                    [class.focus]="
+                      (userProfileData.games[i].gameName | prettyJson) == game
+                    "
+                    [class.active]="
+                      (userProfileData.games[i].gameName | prettyJson) == game
+                    "
+                    class="btn btn-secondary mr-2"
+                  >
+                    <input
+                      type="radio"
+                      formControlName="gameName"
+                      value="{{ game }}"
+                    />
+                    {{ game }}
+                  </label>
+                  <label
+                    *ngIf="userProfileData.games[i] == undefined"
+                    class="btn btn-secondary mr-2"
+                  >
+                    <input
+                      type="radio"
+                      formControlName="gameName"
+                      value="{{ game }}"
+                    />
+                    {{ game }}
+                  </label>
                 </div>
-              </div> -->
-              <!-- <input type="text" class="form-control resize" placeholder="Enter the game name" formControlName="gameName" /> -->
+              </div>
               <input
                 type="text"
                 class="form-control resize"
@@ -148,19 +158,48 @@
           >
             <div [formGroupName]="i" class="links">
               <div class="row mb-2">
-                <button type="button" (click)="onClickSocial($event.srcElement.className, i)" class="btn btn-sm col ml-1"><i alt="twitch" class="fab fa-twitch fa-2x"></i></button>
-                <button type="button" (click)="onClickSocial($event.srcElement.className, i)" class="btn btn-sm col"><i alt="youtube" class="fab fa-youtube fa-2x"></i></button>
-                <button type="button" (click)="onClickSocial($event.srcElement.className, i)" class="btn btn-sm col"><i alt="twitter" class="fab fa-twitter fa-2x"></i></button>
-                <button type="button" (click)="onClickSocial($event.srcElement.className, i)" class="btn btn-sm col"><i alt="facebook" class="fab fa-facebook fa-2x"></i></button>
-                <button type="button" (click)="onClickSocial($event.srcElement.className, i)" class="btn btn-sm col mr-1"><i alt="instagram" class="fab fa-instagram fa-2x"></i></button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col ml-1"
+                >
+                  <i alt="twitch" class="fab fa-twitch fa-2x"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col"
+                >
+                  <i alt="youtube" class="fab fa-youtube fa-2x"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col"
+                >
+                  <i alt="twitter" class="fab fa-twitter fa-2x"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col"
+                >
+                  <i alt="facebook" class="fab fa-facebook fa-2x"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col mr-1"
+                >
+                  <i alt="instagram" class="fab fa-instagram fa-2x"></i>
+                </button>
               </div>
               <input
                 type="text"
-                id="{{'link-' + i}}"
+                id="{{ 'link-' + i }}"
                 class="form-control resize"
                 placeholder="Enter your contact link"
                 formControlName="link"
-
                 [value]="userProfileData.links"
               />
               <span *ngIf="newProfile['controls'].links['controls'].length > 0">

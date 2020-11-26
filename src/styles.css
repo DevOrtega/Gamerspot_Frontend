@@ -28,6 +28,10 @@ a, a:hover, a:visited {
   color: inherit;
 }
 
+/* Font awesome  icons socials */
+.fab {
+  color:white
+}
 
 /* Spinner load */
 
