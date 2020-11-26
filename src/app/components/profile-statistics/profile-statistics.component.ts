@@ -18,12 +18,14 @@ export class ProfileStatisticsComponent implements OnInit {
 
   gamesNames = {
     'apex': 'Apex',
-    'lol' : 'LoL'
+    'lol' : 'LoL',
+    'tft' : 'TFT',
   };
 
   gamesRoutes = {
     'apex': './apex',
-    'lol' : './lol'
+    'lol' : './lol',
+    'tft' : './tft'
   }
 
   constructor(

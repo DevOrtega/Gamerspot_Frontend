@@ -31,6 +31,7 @@ import { ProfileEditorComponent } from './components/profile-editor/profile-edit
 import { FeedsPostComponent } from './components/feed-post/feed-post.component';
 import { FeedsGetComponent } from './components/feed-get/feed-get.component';
 import { PrettyJsonPipe } from './pretty-json.pipe';
+import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { PrettyJsonPipe } from './pretty-json.pipe';
     ProfileEditorComponent,
     FeedsPostComponent,
     FeedsGetComponent,
-    PrettyJsonPipe
+    PrettyJsonPipe,
+    TftStatisticsComponent
   ],
   imports: [
     BrowserModule,
