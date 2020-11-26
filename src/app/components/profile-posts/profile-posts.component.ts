@@ -24,7 +24,7 @@ export class ProfilePostsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getParamsSubscriptor = this.route.params.subscribe(params => {
+    this.getParamsSubscriptor = this.route.parent.params.subscribe(params => {
       this.usernameParam = params['username'];
     })
 
