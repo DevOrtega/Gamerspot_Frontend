@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LolStatisticsService {
   public statistics: any;
-
+  private key= environment.lolAPIKey;
   constructor() { }
 
   async getLolProfile(gameuser: String) {
@@ -23,7 +23,7 @@ export class LolStatisticsService {
   async checkLolServer(gameuser: String, server: String) {
     return axios.get(`${environment.corsProxy}/https://${server}${environment.lolApiUrl}${environment.summonerUrl}${gameuser}`, {
       headers: {
-        "X-Riot-Token": "RGAPI-cc8935db-4fd9-4a43-b751-976bb901fb05"
+        "X-Riot-Token": this.key
       },
       withCredentials: false
     })
@@ -36,7 +36,7 @@ export class LolStatisticsService {
   async getLolStats(profile_response, server) {
     return axios.get(`${environment.corsProxy}/https://${server}${environment.lolApiUrl}${environment.lolStatsUrl}${profile_response.id}`, {
       headers: {
-        "X-Riot-Token": "RGAPI-cc8935db-4fd9-4a43-b751-976bb901fb05"
+        "X-Riot-Token": this.key
       },
       withCredentials: false
     })

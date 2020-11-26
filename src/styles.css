@@ -24,6 +24,11 @@ div.page-inner-container {
 }
 
 
+a, a:hover, a:visited {
+  color: inherit;
+}
+
+
 /* Spinner load */
 
 @-webkit-keyframes rotating /* Safari and Chrome */ {

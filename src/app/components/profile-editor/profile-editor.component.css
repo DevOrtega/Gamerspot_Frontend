@@ -23,11 +23,12 @@ textarea {
 }
 
 .link-padding {
-    padding-top: 16px;
-    padding-bottom: 54px;
+  padding-top: 22px;
+  padding-bottom: 17px;
 }
 
 button.btn.save {
     background-color: blueviolet;
     border: none;
 }
+
