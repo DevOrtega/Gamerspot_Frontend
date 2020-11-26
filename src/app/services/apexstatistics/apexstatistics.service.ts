@@ -23,9 +23,10 @@ export class ApexstatisticsService {
   }
 
   async checkApexPlatform(gameuser: String, platform: String) {
+    const key = environment.trackerAPIKey;
     return axios.get(`${this.apexurl}/${platform}/${gameuser}`, {
       headers: {
-        "TRN-Api-Key": "cfe19ea4-d2a6-4667-b9bd-da5f473c6baf"
+        "TRN-Api-Key": key
       },
       withCredentials: false
     })

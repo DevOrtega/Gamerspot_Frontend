@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
@@ -12,6 +14,8 @@ export class ProfileStatisticsComponent implements OnInit {
   activeButton: string;
   games: { gameName: string, gameUser: string, gameRoute: string }[];
 
+  private getUsersSubscriptor: Subscription;
+
   gamesNames = {
     'apex': 'Apex',
     'lol' : 'LoL'
@@ -21,12 +25,30 @@ export class ProfileStatisticsComponent implements OnInit {
     'apex': './apex',
     'lol' : './lol'
   }
-  
-  constructor(private router: Router, private userService: UsersService) {
-    this.userService.profile.subscribe(x => this.originalGames = x.games);
+
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private userService: UsersService
+    ) {
+
   }
 
   ngOnInit(): void {
+
+    this.originalGames = this.authService.userData.games;
+
+    /*this.userService.profile.subscribe(x => this.originalGames = x.games);
+
+    this.getUsersSubscriptor = this.userService.getUsers()
+    .pipe(first())
+    .subscribe({
+      next: posts => {
+        this.posts = posts;
+        console.log(posts);
+      }
+    })*/
+
     this.games = this.originalGames.map(game => {
       let gameName: any, gameRoute: any;
 
@@ -48,7 +70,7 @@ export class ProfileStatisticsComponent implements OnInit {
 
   existGames(): boolean {
     if (this.games && this.games.length > 0) return true;
-   
+
     return false;
   }
 

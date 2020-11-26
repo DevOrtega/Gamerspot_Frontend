@@ -32,8 +32,8 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   private linkGroups = [];
 
   public games: string[] = [
-    "Apex",
-    "League Of Legends"
+    "apex",
+    "lol"
   ]
 
   private getParamsSubscription: Subscription;
@@ -62,10 +62,20 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     this.newProfile['controls'].country.setValue(data);
   }
 
+  onClickSocial(social, index) {
+    this.link = social.toString().replace('fab ', '');
+    this.link = this.link.toString().replace('fa-','');
+    this.link = this.link.toString().replace(' fa-2x','');
+    let linkValue = (<HTMLInputElement>document.querySelector("#link-" + index));
+    if (this.link == 'twitch') {
+      linkValue.value = "https://www." + this.link + ".tv/";
+    } else {
+      linkValue.value = "https://www." + this.link + ".com/";
+    }
+  }
+
   ngOnInit(): void {
     if (this.userProfileData.gamer && this.userProfileData.gamer.bornDate) {
-      console.log(this.userProfileData.gamer.bornDate)
-      console.log(this.userProfileData)
       this.formattedDate = this.userService.formatDateToYYYYMMDD(this.userProfileData.gamer.bornDate);
     }
 
@@ -89,7 +99,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       this.gameGroups.push(this.initGame());
     });
 
-    this.userProfileData.links.forEach(link =>{
+    this.userProfileData.links.forEach(link => {
       this.link = link.link;
       this.linkGroups.push(this.initLink());
     });
@@ -115,7 +125,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     this.saveUser();
   }
 
-  // LINK 
+  // LINK
   addLink() {
     const control = <FormArray>this.newProfile.controls['links'];
     control.push(this.newLink());
@@ -150,13 +160,13 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   initGame() {
     return this.formBuilder.group({
-        'gameName': [this.gameName], 'gameUser': [this.gameUser]
+      'gameName': [this.gameName], 'gameUser': [this.gameUser]
     })
   }
 
   newGame() {
     return this.formBuilder.group({
-        'gameName': [''], 'gameUser': ['']
+      'gameName': [''], 'gameUser': ['']
     })
   }
 
@@ -201,7 +211,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
     this.editUserSubscription = this.userService.editUser(this.userProfileData.username, user)
     .subscribe(() => {
-      //window.location.reload();
+      window.location.reload();
     })
   }
 

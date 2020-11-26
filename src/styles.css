@@ -24,6 +24,15 @@ div.page-inner-container {
 }
 
 
+a, a:hover, a:visited {
+  color: inherit;
+}
+
+/* Font awesome  icons socials */
+.fab {
+  color:white
+}
+
 /* Spinner load */
 
 @-webkit-keyframes rotating /* Safari and Chrome */ {
