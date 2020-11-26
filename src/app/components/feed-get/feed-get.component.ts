@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Feed } from 'src/app/interfaces/feed';
 @Component({
   selector: 'app-feed-get',
@@ -8,6 +8,7 @@ import { Feed } from 'src/app/interfaces/feed';
 })
 export class FeedsGetComponent implements OnInit {
   @Input() feed;
+  @Output() feedToDelete = new EventEmitter();
 
   public feedMade:Feed;
   private dateFormated:string;
@@ -34,12 +35,17 @@ export class FeedsGetComponent implements OnInit {
       }
 
       this.feedMade = {
+        id: this.feed._id,
         username: this.feed.owner.username,
         name: roleUser,
         text: this.feed.text,
         photo: this.feed.owner.photoUrl,
         created: this.dateFormated
       }
+  }
+
+  emitToDelete() {
+    this.feedToDelete.emit(this.feedMade);
   }
 
   public isGamer(): boolean {

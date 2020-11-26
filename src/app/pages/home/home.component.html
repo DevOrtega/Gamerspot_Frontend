@@ -10,28 +10,45 @@
         <span>
           <select
             class="inline custom-select custom-select-xs countries"
-            (change)="onChangeCountry($event.target.value)"
+            [(ngModel)]="countrySelected"
+            (change)="filterFeeds()"
           >
-            <option selected disabled>Country</option>
-            <option>All</option>
+            <option selected>{{countrySelected}}</option>
             <option class="select-options" *ngFor="let country of countries">{{ country }}</option>
           </select>
         </span>
         <span>
           <select
             class="inline custom-select custom-select-xs countries"
-            (change)="onChangeRole($event.target.value)"
+            [(ngModel)]="roleSelected"
+            (change)="filterFeeds()"
           >
-            <option selected disabled>Role</option>
-            <option>All</option>
+            <option selected>{{roleSelected}}</option>
             <option class="select-options" *ngFor="let role of roles">{{ role }}</option>
           </select>
         </span>
+        <span>
+          <div class="input-group">
+            <input class="form-control" type="search" (keyup)="search()" [(ngModel)]="searched" placeholder="Search someone" aria-label="Search">
+            <div class="input-group-prepend">
+              <button class="btn btn-primary search-button input-group-append" (click)="search()">
+                <i class="material-icons">search</i>
+              </button>
+            </div>
+          </div>
+        </span>
+      </div>
+
+      <div class="search-error" *ngIf="errorSearch">
+        <span>Sorry, we can't find who are you looking for</span>
       </div>
 
 
       <div class="feed-get__comp" *ngFor="let feed of feeds">
-        <app-feed-get [feed]="feed" *ngIf="feed.owner !== undefined || feed.owner !== null" ></app-feed-get>
+        <app-feed-get
+          [feed]="feed"
+          *ngIf="feed.owner !== undefined || feed.owner !== null"
+          (feedToDelete)="removePost($event)"></app-feed-get>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@
 
 .feed-header{
   display: grid;
-  grid-template-columns: 12% 48% 30%;
+  grid-template-columns: 12% 40% 30% 18%;
 }
 p {
   margin: 0;
@@ -28,7 +28,7 @@ p {
   margin-top: 5px;
 }
 
-.feed-header__created span{
+.feed-header__created span, .feed-header__button button{
   float: right;
 }
 

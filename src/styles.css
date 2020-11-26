@@ -3,8 +3,9 @@
 
 body {
     background-color: black;
+    overflow-y: scroll;
 }
-  
+
 div.page-inner-container {
     width: 65%;
     margin: auto;
