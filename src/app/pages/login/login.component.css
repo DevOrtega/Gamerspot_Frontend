@@ -1,5 +1,18 @@
+.login-page {
+  margin-top: 200px;
+}
+
+.login-title {
+  width: 9%;
+  margin-bottom: 40px;
+}
+
+.login-message {
+  width: 14%;
+  margin-bottom: 40px;
+}
+
 .login-body {
-  margin-top: 8%;
   width: 340px;
   margin-bottom: 8%;
 }
