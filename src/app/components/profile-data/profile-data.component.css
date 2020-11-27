@@ -1,6 +1,6 @@
 .overall-grid {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 250px auto 175px;
   padding-left: 20px;
 }
 
@@ -12,6 +12,7 @@
     border: 3px solid  #851DE0;
     border-radius: 10px;
     width: 450px;
+    padding-bottom: 10px;
  }
 
  h5 {
@@ -38,7 +39,8 @@
  }
 
  .contact-links {
-   margin-left: 65%;
+   width: 150px;
+   margin-left: 20%;
    text-align: center;
    justify-content: center;
    border: 3px solid  #851DE0;

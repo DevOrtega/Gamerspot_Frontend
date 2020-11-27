@@ -64,6 +64,8 @@ a:hover{
 .navbar-logo {
   color: white;
   justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 .navbar-brand {
@@ -74,4 +76,8 @@ a:hover{
 .a-vertical {
   background-color: #23272A;
   text-align: center;
+}
+
+.fas.fa-sign-out-alt {
+  cursor: pointer;
 }
