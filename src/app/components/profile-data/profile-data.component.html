@@ -1,8 +1,8 @@
 <div *ngIf="userProfileData.biography" class="biography">
   <h5>About Me</h5>
   <p>{{ userProfileData.biography }}</p>
+  <hr class="solid"/>
 </div>
-<hr class="solid" />
 <div class="grid-container">
   <div *ngIf="existGames()">
     <h5>Games</h5>
@@ -75,7 +75,8 @@
     <p>{{ userProfileData.bornDate }}</p>
   </div>
   <div>
-    <h5>Joined at</h5>
+    <h5 *ngIf="!isTeam()">Joined at</h5>
+    <h5 *ngIf="isTeam()">Created at</h5>
     <p>{{ userProfileData.createdAt }}</p>
   </div>
 </div>

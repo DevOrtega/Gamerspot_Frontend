@@ -34,7 +34,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UsersService,
     private countryService: CountriesService
-  ) { }
+  ) {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/']);
+    }
+  }
 
   onChangeRole(data) {
     this.registerForm['controls'].role.setValue(data);

@@ -1,22 +1,26 @@
 <div class="grid-container">
-  <div class="grid-item">
-    <a class="text-white" *ngIf="user" [routerLink]="['/', user.username]">PROFILE</a>
-    <a class="text-white" *ngIf="!user" [routerLink]="['/']">LOGIN</a>
+  <div *ngIf="user" class="grid-item" [routerLink]="['/', user.username]">
+    <a class="text-white">PROFILE</a>
+  </div>
+  <div *ngIf="!user" class="grid-item" [routerLink]="['/login']">
+    <a class="text-white">LOGIN</a>
   </div>
   <div class="grid-item-center">
     <div class=logo>
-      <a class="navbar-logo" [routerLink]="'/home'"><img class="logo" src="./assets/logo/LOGO.png"/></a>
+      <a class="navbar-logo" [routerLink]="['/']"><img class="logo" src="./assets/logo/LOGO.png"/></a>
     </div>
   </div>
-  <div class="grid-item">
-    <a class="text-white" *ngIf="user" [routerLink]="['/', user.username]">CHAT</a>
-    <a class="text-white" *ngIf="!user" [routerLink]="['/register']">REGISTER</a>
+  <div *ngIf="user" class="grid-item">
+    <a class="text-white">CHAT</a>
+  </div>
+  <div *ngIf="!user" class="grid-item" [routerLink]="['/register']">
+    <a class="text-white">REGISTER</a>
   </div>
 </div>
 
 <div class="text-white" *ngIf="user" class="grid-vertical">
   <div>
-    <a (click)="logout()" class="a-vertical" [routerLink]="['/', user.username]">
+    <a (click)="logout()" class="a-vertical">
       <img class="icon" src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgaWQ9IlNvbGlkIj48cGF0aCBkPSJtNDgwLjk3MSAyMzkuMDI5LTkwLjUxLTkwLjUwOWEyNCAyNCAwIDAgMCAtMzMuOTQyIDAgMjQgMjQgMCAwIDAgMCAzMy45NDFsNDkuNTQgNDkuNTM5aC0yNjIuMDU5YTI0IDI0IDAgMCAwIC0yNCAyNCAyNCAyNCAwIDAgMCAyNCAyNGgyNjIuMDU5bC00OS41NCA0OS41MzlhMjQgMjQgMCAwIDAgMzMuOTQyIDMzLjk0MWw5MC41MS05MC41MWEyNCAyNCAwIDAgMCAwLTMzLjk0MXoiLz48cGF0aCBkPSJtMzA0IDM5MmEyNCAyNCAwIDAgMCAtMjQgMjR2MjRoLTIwOHYtMzY4aDIwOHYyNGEyNCAyNCAwIDAgMCA0OCAwdi0zMmE0MCA0MCAwIDAgMCAtNDAtNDBoLTIyNGE0MCA0MCAwIDAgMCAtNDAgNDB2Mzg0YTQwIDQwIDAgMCAwIDQwIDQwaDIyNGE0MCA0MCAwIDAgMCA0MC00MHYtMzJhMjQgMjQgMCAwIDAgLTI0LTI0eiIvPjwvZz48L3N2Zz4=" />
     </a>
   </div>
