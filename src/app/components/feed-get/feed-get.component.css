@@ -8,7 +8,7 @@
 
 .feed-header{
   display: grid;
-  grid-template-columns: 80px 4fr 4fr;
+  grid-template-columns: 90px 4fr 4fr;
   color: rgba(255, 255, 255, 1);
   margin-top: 2px;
 }
@@ -52,14 +52,14 @@ p {
 
 .feed-content {
   display: grid;
-  grid-template-columns: 10fr 1fr;
+  grid-template-columns: 15px 5fr 1fr;
 }
 
 .feed-content__p {
   font-size: 17px;
   background-color: #23272A;
   color: rgba(255, 255, 255, 1);
-  padding: 5px 2px 20px 76px;
+  padding: 15px 2px 20px 76px;
   width: 95%;
 }
 
