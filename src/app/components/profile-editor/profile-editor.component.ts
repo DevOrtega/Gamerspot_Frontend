@@ -33,7 +33,8 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   public games: string[] = [
     "apex",
-    "lol"
+    "lol",
+    "tft"
   ]
 
   private getParamsSubscription: Subscription;
