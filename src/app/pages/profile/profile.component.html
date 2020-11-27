@@ -11,12 +11,12 @@
               <p>{{userProfileData.username}}</p>
               <h5 class="gamer">Gamer</h5>
             </div>
-            <div *ngIf="isTeam">
+            <div *ngIf="isTeam" class="mt-4">
               <h2>{{userProfileData.team.name}}</h2>
               <p>{{userProfileData.username}}</p>
               <h5 class="team">Team</h5>
             </div>
-            <div *ngIf="isSponsor">
+            <div *ngIf="isSponsor" class="mt-4">
               <h2>{{userProfileData.sponsor.name}}</h2>
               <p>{{userProfileData.username}}</p>
               <h5 class="sponsor">Sponsor</h5>
