@@ -1,16 +1,22 @@
 .feed {
-  border-radius: 10px;
-  width: 600px;
-  background-color: rgba(44, 47, 51, 1);
+  display: grid;
+  padding-top: 2px;
+  background-color:  #23272A;
+  border-left: none;
+  border-right: none;
+  border-radius: 0%;
 }
 
 .feed-header{
   display: grid;
-  grid-template-columns: 12% 40% 30% 18%;
+  grid-template-columns: 80px 4fr 4fr;
+  color: rgba(255, 255, 255, 1);
 }
+
 p {
   margin: 0;
 }
+
 .name {
   font-size: 17px;
 }
@@ -25,10 +31,14 @@ p {
 }
 
 .feed-header__photo, .feed-header__p, .feed-header__created {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
-.feed-header__created span, .feed-header__button button{
+.feed-header__photo {
+  padding: 0 10px;
+}
+
+.feed-header__created span {
   float: right;
 }
 
@@ -37,17 +47,16 @@ p {
 }
 
 .feed-content__p {
-  font-size: 16px;
-  background-color: rgba(44, 47, 51, 1);
+  font-size: 17px;
+  background-color: #23272A;
   color: rgba(255, 255, 255, 1);
-  padding: 10px 5px 20px 72px;
-  width: 550px;
-  border-radius: 10px;
+  padding: 15px 2px 20px 72px;
+  width: 95%;
 }
 
 .photoprofile {
-  margin-left: 5px;
-  background-color: rgba(255, 255, 255, 1) !important;
+  margin-left: 10px;
+  background-color: rgba(255, 255, 255, 0.6) !important;
   width: 50px;
   border-radius: 50%;
 }

@@ -1,64 +1,40 @@
-<div class="page-inner-container profile-main">
-  <div class="container">
-    <div class="row">
-      <div class="col-3 fixed-col left">
-        <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfileData.photoUrl">
-        <img *ngIf="!existPhoto()" class="profile-photo" src="../../../../assets/profile/image-profile.png">
-        <div *ngIf="isGamer()">
-          <h2>{{userProfileData.gamer.name}}</h2>
-          <p>{{userProfileData.username}}</p>
-          <h5 class="gamer">Gamer</h5>
-        </div>
-        <div *ngIf="isTeam()">
-          <h2>{{userProfileData.team.name}}</h2>
-          <p>{{userProfileData.username}}</p>
-          <h5 class="team">Team</h5>
-        </div>
-        <div *ngIf="isSponsor()">
-          <h2>{{userProfileData.sponsor.name}}</h2>
-          <p>{{userProfileData.username}}</p>
-          <h5 class="sponsor">Sponsor</h5>
-        </div>
-      </div>
-      <div class="col fixed-col p-5">
-        <app-profile-data [userProfile]="userProfileData" *ngIf="!editing"></app-profile-data>
-      </div>
-    </div>
-  </div>
-
-  <!--<div class="card mx-auto text-center login-card">
-    <div class="card-body profile">
-      <div class="row">
-        <div class="col">
-          <div class="card" style="width: 20rem;">
-            <img src="../../../../assets/profile/image-profile.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{userProfileData.name}}</h5>
-              <p class="card-text">{{userProfileData.username}}</p>
-              <p class="card-text">{{userProfileData.role}}</p>
+<div class="page-inner-container nav-separator">
+  <div *ngIf="existProfile()">
+    <div class="profile-main">
+      <div class="container">
+        <div class="row">
+          <div class="col-3 fixed-col left">
+            <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfileData.photoUrl">
+            <img *ngIf="!existPhoto()" class="profile-photo" src="../../../../assets/profile/image-profile.png">
+            <div *ngIf="isGamer" class="mt-4">
+              <h2>{{userProfileData.gamer.name}}</h2>
+              <p>{{userProfileData.username}}</p>
+              <h5 class="gamer">Gamer</h5>
+            </div>
+            <div *ngIf="isTeam">
+              <h2>{{userProfileData.team.name}}</h2>
+              <p>{{userProfileData.username}}</p>
+              <h5 class="team">Team</h5>
+            </div>
+            <div *ngIf="isSponsor">
+              <h2>{{userProfileData.sponsor.name}}</h2>
+              <p>{{userProfileData.username}}</p>
+              <h5 class="sponsor">Sponsor</h5>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="data">
-            <button type="button" class="btn btn-warning" *ngIf="!editing" (click)="showEditForm()">Edit</button>
-            <app-profile-data [userProfile]="userProfileData" *ngIf="!editing"></app-profile-data>
-            <app-profile-form [userProfile]="userProfileForm" (saveEmitter)="editProfile($event)" *ngIf="editing"></app-profile-form>
+          <div class="col fixed-col p-5">
+            <app-profile-data [userProfileData]="userProfileData"></app-profile-data>
           </div>
         </div>
       </div>
     </div>
-  </div> -->
-</div>
-<div class="page-inner-container">
-  <nav class="nav nav-tabs nav-fill">
-    <a class="nav-link btn btn-outline-dark" [class.active]="isActive('btn1')" (click)="setActive('btn1')" [routerLink]="'./posts'" skipLocationChange>Posts</a>
-    <a *ngIf="isGamer()" class="nav-link btn btn-outline-dark" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" skipLocationChange>Stats</a>
-    <a *ngIf="isGamer()" class="nav-link btn btn-outline-dark" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./ranking'" skipLocationChange>Ranking</a>
-    <a *ngIf="itsMe()" class="nav-link btn btn-outline-dark btn-conf" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./configuration'" skipLocationChange>Configuration</a>
-  </nav>
+    <nav class="nav nav-tabs nav-fill">
+      <a class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn1')" (click)="setActive('btn1')" [routerLink]="'./posts'" skipLocationChange>Posts</a>
+      <a *ngIf="isGamer" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" [state]="userPostsData" skipLocationChange>Stats</a>
+      <!-- <a *ngIf="isGamer" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./ranking'" skipLocationChange>Ranking</a> -->
+      <a *ngIf="itsMe" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./configuration'" skipLocationChange>Configuration</a>
+    </nav>
+  </div>
 </div>
 
 <router-outlet></router-outlet>

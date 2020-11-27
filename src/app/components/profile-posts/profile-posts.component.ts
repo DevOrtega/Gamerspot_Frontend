@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/services/users/users.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Post } from 'src/app/interfaces/post';
+import { FeedsService } from 'src/app/services/feeds/feeds.service';
 
 @Component({
   selector: 'app-profile-posts',
@@ -7,18 +8,35 @@ import { UsersService } from 'src/app/services/users/users.service';
   styleUrls: ['./profile-posts.component.css']
 })
 export class ProfilePostsComponent implements OnInit {
-  public posts: { text: string }[];
+  public posts: Post[];
 
-  constructor(private userService: UsersService) {
-    this.userService.profile.subscribe(x => this.posts = x.posts);
-  }
+  constructor(
+    private postService: FeedsService
+  ) {}
 
   ngOnInit(): void {
+      setTimeout(() => {
+        this.posts = this.postService.postsData as Post[];
+        
+        this.posts.sort((a,b) => {
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          return dateB - dateA;
+        });
+      }, 300);
   }
 
-  existPosts(): boolean {
-    if (this.posts && this.posts.length > 0) return true;
-   
+  public exist(): boolean {
+    if (this.posts) {
+      return true;
+    }
+
+    return false;
+  }
+
+  isEmpty(): boolean {
+    if (this.exist() && this.posts.length === 0) return true;
+
     return false;
   }
 }

@@ -1,58 +1,67 @@
 <!-- main app container -->
-<div class="mx-auto text-center login-body">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-row justify-content-center">
-      <div class="form-group">
-        <div class="input-group">
-          <input
-            type="text"
-            formControlName="username"
-            class="form-control"
-            placeholder="Username or Email"
-            [ngClass]="{ 'is-invalid': submitted && form.username.errors }"
-          />
-          <div
-            *ngIf="submitted && form.username.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="form.username.errors.required">
-              Username is required
+<div class="login-page">
+<div class="mx-auto login-title">
+  <h4 class="color-gamer">G for Gamers</h4>
+  <h4 class="color-sponsor">S for Sponsors</h4>
+  <h4 class="color-team">T for Teams</h4>
+</div>
+  <div class="mx-auto login-message">
+    <h4 class="text-white">Welcome to GameSpoT.</h4>
+    <h4 class="text-white">Find, connect, stand out</h4>
+    <h4 class="text-white">in the eSports world.</h4>
+  </div>
+  <div class="mx-auto login-body">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-row justify-content-center">
+        <div class="form-group">
+          <div class="input-group">
+            <input
+              type="text"
+              formControlName="username"
+              class="form-control"
+              placeholder="Username or Email"
+              [ngClass]="{ 'is-invalid': submitted && form.username.errors }"
+            />
+            <div
+              *ngIf="submitted && form.username.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="form.username.errors.required">
+                Username is required
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="form-row justify-content-center">
-      <div class="form-group">
-        <div class="input-group">
-          <input
-            [type]="fieldTextType ? 'text' : 'password'"
-            formControlName="password"
-            class="form-control"
-            placeholder="Password"
-            [ngClass]="{ 'is-invalid': submitted && form.password.errors }"
-          />
-          <div
-            *ngIf="submitted && form.password.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="form.password.errors.required">Password is required</div>
+      <div class="form-row justify-content-center">
+        <div class="form-group">
+          <div class="input-group">
+            <input
+              [type]="fieldTextType ? 'text' : 'password'"
+              formControlName="password"
+              class="form-control"
+              placeholder="Password"
+              [ngClass]="{ 'is-invalid': submitted && form.password.errors }"
+            />
+            <div
+              *ngIf="submitted && form.password.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="form.password.errors.required">Password is required</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="form-row justify-content-center">
-      <button class="btn btn-dark big-button">Login</button>
-    </div>
-  <!-- <div class="text-center mt-4">
-      <p>
-        If you forget your password click the button below
-      </p>
-      <button type="button" class="btn btn-warning" [routerLink]="'/reset'">
-        Reset Password</button>
-    </div>-->
-  </form>
-</div>
-<div class="text-center text-white">
-  <p>You don't have an account? <strong><a [routerLink]="'/register'">Sign up</a></strong></p>
+      <div class="form-row justify-content-center">
+        <button class="btn btn-dark big-button">Login</button>
+      </div>
+    <!-- <div class="text-center mt-4">
+        <p>
+          If you forget your password click the button below
+        </p>
+        <button type="button" class="btn btn-warning" [routerLink]="'/reset'">
+          Reset Password</button>
+      </div>-->
+    </form>
+  </div>
 </div>
