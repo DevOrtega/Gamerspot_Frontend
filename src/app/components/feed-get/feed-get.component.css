@@ -42,6 +42,10 @@ p {
   float: right;
 }
 
+.feed-header__button button {
+  background-color: rgba(255, 0, 0, 1);
+}
+
 .feed-content__p {
   font-size: 17px;
   background-color: #23272A;

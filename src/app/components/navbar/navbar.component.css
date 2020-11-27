@@ -6,8 +6,8 @@
   grid-template-columns: auto auto auto;
   grid-column-gap: 5px;
   align-items: center;
-  padding-top: 20px;
   background-color: #23272A;
+  padding-top: 150px;
 }
 
 .grid-vertical {

@@ -1,12 +1,53 @@
-
 <div *ngIf="isLoggedIn()" class="home-main__feed-post">
   <div class="feed-post__comp">
     <app-feed-post (feedEmitter)="saveFeed($event)"></app-feed-post>
   </div>
 </div>
 <div class="home-main__feed-get">
+  <!--Filtros-->
+  <div class="home-main__feed-get__filter">
+    <span>
+      <select
+        class="inline custom-select custom-select-xs countries"
+        [(ngModel)]="countrySelected"
+        (change)="filterFeeds()"
+      >
+        <option selected>All countries</option>
+        <option class="select-options" *ngFor="let country of countries">{{ country }}</option>
+      </select>
+    </span>
+    <span>
+      <select
+        class="inline custom-select custom-select-xs countries"
+        [(ngModel)]="roleSelected"
+        (change)="filterFeeds()"
+      >
+        <option selected>All roles</option>
+        <option class="select-options" *ngFor="let role of roles">{{ role }}</option>
+      </select>
+    </span>
+    <span>
+      <div class="input-group">
+        <input class="form-control" type="search" (keyup)="search()" [(ngModel)]="searched" placeholder="Search someone" aria-label="Search">
+        <div class="input-group-prepend">
+          <button class="btn btn-primary search-button input-group-append" (click)="search()">
+            <i class="material-icons">search</i>
+          </button>
+        </div>
+      </div>
+    </span>
+  </div>
+  <!--No se encuentra-->
+  <div class="search-error" *ngIf="errorSearch">
+    <span>Sorry, we can't find who are you looking for</span>
+  </div>
+  <!--Los posts-->
   <div class="feed-get__comp" *ngFor="let feed of feeds">
-    <app-feed-get [feed]="feed"></app-feed-get>
+    <app-feed-get
+      [feed]="feed"
+      *ngIf="feed.owner !== undefined || feed.owner !== null"
+      (feedToDelete)="removePost($event)">
+    </app-feed-get>
   </div>
 </div>
 
