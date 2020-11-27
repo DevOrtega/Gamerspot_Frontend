@@ -1,8 +1,9 @@
 .profile-main {
-  min-height: 480px;
+  min-height: 380px;
 }
 
 img.profile-photo {
+  margin: 20px;
   width: 250px;
   height: 250px;
   background-color: rgba(255, 255, 255, 0.6) !important;
@@ -10,14 +11,16 @@ img.profile-photo {
 }
 
 div.container {
-  min-height: 480px;
-  padding: 25px 25px;
+  min-height: 380px;
+  padding: 10px 10px;
+  border: 3px solid #851DE0;
+  border-radius: 30px;
 }
 
 div.fixed-col {
   margin-left: auto;
   margin-right: auto;
-  min-width: 300px;
+  min-width: 200px;
 }
 
 div.fixed-col.left {
@@ -25,6 +28,7 @@ div.fixed-col.left {
 }
 
 .nav-tabs > a {
+  margin-top: 30px;
   box-shadow: none !important;
   font-size: 2vh;
 }
@@ -38,11 +42,11 @@ div.fixed-col.left {
 }
 
 .nav-tabs > a.btn.btn-conf:hover {
-  background-color: blueviolet;
+  background-color: #851DE0;
 }
 
 .nav-tabs > a.btn.btn-conf.active {
-  background-color: blueviolet;
+  background-color:#851DE0;
 }
 
 .nav-tabs > a > i {
@@ -53,3 +57,10 @@ div.fixed-col.left {
   height: 586px;
 }
 
+h5 {
+  color: #851DE0;
+}
+
+.dark-mode {
+  background-color: aliceblue;
+}
