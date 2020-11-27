@@ -104,7 +104,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registerUserSubscription = this.registerUser(newUser).pipe(
       concatMap(() => this.loginUser(newUser.username, newUser.password))
       ).subscribe(() => {
-        this.router.navigate(['/home'])
+        this.router.navigate(['/'])
       },
       err => {
         this.error = err;
