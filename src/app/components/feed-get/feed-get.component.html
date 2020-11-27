@@ -31,5 +31,9 @@
       <div class="feed-content">
         <p class="card-text feed-content__p text-break">{{post.text}}</p>
       </div>
-    </div>
+      <div class="feed-header__button" *ngIf="isLoggedIn() && itsMe()">
+        <button type="button" class="btn btn-danger" (click)="emitToDelete()">
+          <i class="far fa-trash-alt"></i>
+        </button>
+      </div>
   </div>

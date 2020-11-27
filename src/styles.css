@@ -12,6 +12,7 @@
 
 body {
     background: var(--black);
+    overflow-y: scroll;
 }
 
 div.page-inner-container {

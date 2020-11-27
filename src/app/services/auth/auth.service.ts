@@ -14,7 +14,7 @@ import jwtDecode from 'jwt-decode';
 export class AuthService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
-  
+
   private _refreshTokenTimeout;
 
   constructor(private router: Router, private http: HttpClient) {
@@ -38,7 +38,7 @@ export class AuthService {
 
       this.startRefreshTokenTimer(tokenData.exp);
       localStorage.setItem('token', JSON.stringify(user.token));
-      
+
       return user;
     }))
   }
@@ -47,7 +47,7 @@ export class AuthService {
     const token = localStorage.getItem('token');
 
     if (this.userData && token) return true;
-    
+
     return false;
   }
 
@@ -57,13 +57,13 @@ export class AuthService {
 
   public logout() {
     this.http.post<any>(`${environment.apiUrl}/users/revoke-token`, {}, { withCredentials: true }).subscribe();
-    
+
     this.stopRefreshTokenTimer();
-    
+
     this.userSubject.next(null);
-    
+
     localStorage.removeItem('token');
-    
+
     this.router.navigate(['/login']);
   }
 

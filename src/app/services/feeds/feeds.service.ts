@@ -21,12 +21,17 @@ export class FeedsService {
     return this.postSubject.value;
   }
 
+  public refresh() {
+    setInterval(()=>{
+      this.getPosts();
+    }, 60000);
+  }
+
   public getPosts(username?) {
     if (username) {
       return this.http.get<any>(`${environment.apiUrl}/posts?username=${username}`, { withCredentials: true })
       .pipe(map(posts => {
         this.postSubject.next(posts);
-
         return posts;
       }));
     }
@@ -34,12 +39,16 @@ export class FeedsService {
     return this.http.get<any>(`${environment.apiUrl}/posts`, { withCredentials: true })
     .pipe(map(posts => {
       this.postSubject.next(posts);
-
       return posts;
     }));
   }
 
+
   public createPost(feed) {
     return this.http.post<any>(`${environment.apiUrl}/posts`, {'text': feed}, { withCredentials: true });
+  }
+
+  public removePost(feed) {
+    return this.http.delete<any>(`${environment.apiUrl}/posts/${feed._id}`, feed);
   }
 }
