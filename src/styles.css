@@ -8,7 +8,6 @@
   --gamer: #851DE0;
   --sponsor: #DE38C8;
   --team: #FFD300;
-
 }
 
 body {
@@ -23,9 +22,46 @@ div.page-inner-container {
     min-width: 350px;
 }
 
+div.default-text {
+  min-height: 648px;
+  padding: 144px 0;
+  text-align: center;
+  color: rgb(145, 145, 145);
+}
+
+div.nav-separator {
+  margin-top: 170px;
+}
 
 a, a:hover, a:visited {
   color: inherit;
+}
+
+.color-gamer {
+  color: #851DE0;
+}
+
+.color-border-gamer {
+  border-top-color: #851DE0;
+  border-bottom-color: #851DE0;
+}
+
+.color-team {
+  color: #FFD300;
+}
+
+.color-border-team {
+  border-top-color: #FFD300;
+  border-bottom-color: #FFD300;
+}
+
+.color-sponsor {
+  color: #DE38C8
+}
+
+.color-border-sponsor {
+  border-top-color: #DE38C8;
+  border-bottom-color: #DE38C8;
 }
 
 /* Font awesome  icons socials */

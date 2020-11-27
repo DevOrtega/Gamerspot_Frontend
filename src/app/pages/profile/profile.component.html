@@ -1,4 +1,4 @@
-<div class="page-inner-container page-margin-top">
+<div class="page-inner-container nav-separator">
   <div *ngIf="existProfile()">
     <div class="profile-main">
       <div class="container">
@@ -6,7 +6,7 @@
           <div class="col-3 fixed-col left">
             <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfileData.photoUrl">
             <img *ngIf="!existPhoto()" class="profile-photo" src="../../../../assets/profile/image-profile.png">
-            <div *ngIf="isGamer">
+            <div *ngIf="isGamer" class="mt-4">
               <h2>{{userProfileData.gamer.name}}</h2>
               <p>{{userProfileData.username}}</p>
               <h5 class="gamer">Gamer</h5>
@@ -30,7 +30,7 @@
     </div>
     <nav class="nav nav-tabs nav-fill">
       <a class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn1')" (click)="setActive('btn1')" [routerLink]="'./posts'" skipLocationChange>Posts</a>
-      <a *ngIf="isGamer" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" skipLocationChange>Stats</a>
+      <a *ngIf="isGamer" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" [state]="userPostsData" skipLocationChange>Stats</a>
       <!-- <a *ngIf="isGamer" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./ranking'" skipLocationChange>Ranking</a> -->
       <a *ngIf="itsMe" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./configuration'" skipLocationChange>Configuration</a>
     </nav>

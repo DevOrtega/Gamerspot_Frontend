@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/services/users/users.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-profile-ranking',
@@ -9,12 +9,11 @@ import { UsersService } from 'src/app/services/users/users.service';
 export class ProfileRankingComponent implements OnInit {
   games: { gameName: string, gameUser: string }[];
 
-  constructor(private userService: UsersService) {
-    this.userService.profile.subscribe(x => this.games = x.games);
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit(): void {
-
+    this.games = this.authService.userData.games;
   }
 
   existGames(): boolean {

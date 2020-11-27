@@ -3,21 +3,12 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-.home-main {
-  z-index: -1;
-  position: absolute;
-  top: 20%;
-  left: 10%;
-  right: 10%;
-}
-
 .home-main__feed-get {
-  margin: 70px 20px 70px 20px;
+  margin: 145px 20px 70px 20px;
 }
 
 .home-main__feed-post {
-  margin-top: 30px;
-  margin-left: 20px;
+  margin: 200px 20px 0 20px;
 }
 
 .feed-post__comp {
