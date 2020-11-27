@@ -1,5 +1,5 @@
 export interface Feed {
-  id?: string,
+  _id?: string,
   username:string,
   name:string,
   text:string,

@@ -25,6 +25,6 @@ export class FeedsService {
   }
 
   public removePost(feed) {
-    return this.http.delete<any>(`${environment.apiUrl}/posts/${feed.id}`, feed);
+    return this.http.delete<any>(`${environment.apiUrl}/posts/${feed._id}`, feed);
   }
 }

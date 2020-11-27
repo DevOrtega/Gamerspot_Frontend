@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Feed } from 'src/app/interfaces/feed';
+import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-feed-get',
   templateUrl: './feed-get.component.html',
@@ -13,7 +14,7 @@ export class FeedsGetComponent implements OnInit {
   public feedMade:Feed;
   private dateFormated:string;
 
-  constructor(private datePipe: DatePipe) { }
+  constructor(private datePipe: DatePipe, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.makeFeed();
@@ -35,7 +36,7 @@ export class FeedsGetComponent implements OnInit {
       }
 
       this.feedMade = {
-        id: this.feed._id,
+        _id: this.feed._id,
         username: this.feed.owner.username,
         name: roleUser,
         text: this.feed.text,
@@ -46,6 +47,11 @@ export class FeedsGetComponent implements OnInit {
 
   emitToDelete() {
     this.feedToDelete.emit(this.feedMade);
+  }
+
+  itsMe() {
+    if (this.feed.owner.username === this.authService.userData.username) return true;
+    else return false;
   }
 
   public isGamer(): boolean {

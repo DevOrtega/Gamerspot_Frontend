@@ -10,8 +10,10 @@
       <div class="feed-header__created">
         <span><small>{{feedMade.created}}</small></span>
       </div>
-      <div class="feed-header__button">
-        <button type="button" class="btn btn-danger" (click)="emitToDelete()">D</button>
+      <div class="feed-header__button" *ngIf="itsMe()">
+        <button type="button" class="btn btn-danger" (click)="emitToDelete()">
+          <i class="far fa-trash-alt"></i>
+        </button>
       </div>
   </div>
   <div class="feed-content">
