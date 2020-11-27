@@ -46,4 +46,8 @@ export class ProfileDataComponent implements OnInit {
 
     return false;
   }
+
+  isTeam(): boolean {
+    return this.userService.isTeam(this.userProfileData);
+  }
 }

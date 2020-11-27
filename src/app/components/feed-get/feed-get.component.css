@@ -9,7 +9,7 @@
 
 .feed-header{
   display: grid;
-  grid-template-columns: 7% 58% 30%;
+  grid-template-columns: 80px 4fr 4fr;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -31,7 +31,11 @@ p {
 }
 
 .feed-header__photo, .feed-header__p, .feed-header__created {
-  margin-top: 5px;
+  margin-top: 10px;
+}
+
+.feed-header__photo {
+  padding: 0 10px;
 }
 
 .feed-header__created span {
@@ -51,31 +55,4 @@ p {
   background-color: rgba(255, 255, 255, 0.6) !important;
   width: 50px;
   border-radius: 50%;
-}
-
-.color-gamer {
-  color: #851DE0;
-}
-
-.color-border-gamer {
-  border-top-color: #851DE0;
-  border-bottom-color: #851DE0;
-}
-
-.color-team {
-  color: #FFD300;
-}
-
-.color-border-team {
-  border-top-color: #FFD300;
-  border-bottom-color: #FFD300;
-}
-
-.color-sponsor {
-  color: #DE38C8
-}
-
-.color-border-sponsor {
-  border-top-color: #DE38C8;
-  border-bottom-color: #DE38C8;
 }
