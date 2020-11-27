@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User } from '../../interfaces/user'
+import { FeedsService } from 'src/app/services/feeds/feeds.service';
+import { Post } from 'src/app/interfaces/post';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ import { User } from '../../interfaces/user'
 export class ProfileComponent implements OnInit, OnDestroy {
   private usernameParam: string;
   public userProfileData: User;
+  public userPostsData: Post[];
   public isGamer: boolean;
   public isTeam: boolean;
   public isSponsor: boolean;
@@ -22,6 +24,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private getParamsSubscriptor: Subscription;
   private getUserSubscriptor: Subscription;
+  private getPostsSubscriptor: Subscription;
 
   activeButton: string;
 
@@ -29,6 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private authService: AuthService,
     private userService: UsersService,
+    private postService: FeedsService
   ) {
     this.activeButton = 'btn1';
   }
@@ -71,6 +75,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
       })
     }
+
+    this.getPostsSubscriptor = this.postService.getPosts(this.usernameParam)
+    .pipe(first())
+    .subscribe((posts: Post[]) => this.userPostsData = posts)
   }
 
   public existPhoto(): boolean {
@@ -104,6 +112,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     if (this.getUserSubscriptor) {
       this.getUserSubscriptor.unsubscribe();
+    }
+
+    if (this.getPostsSubscriptor) {
+      this.getPostsSubscriptor.unsubscribe();
     }
   }
 }

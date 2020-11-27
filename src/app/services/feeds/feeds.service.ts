@@ -17,7 +17,7 @@ export class FeedsService {
     this.post = this.postSubject.asObservable();
   }
 
-  public get postsData(): Post {
+  public get postsData(): Post | Post[] {
     return this.postSubject.value;
   }
 

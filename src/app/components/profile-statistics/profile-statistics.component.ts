@@ -14,8 +14,6 @@ export class ProfileStatisticsComponent implements OnInit {
   activeButton: string;
   games: { gameName: string, gameUser: string, gameRoute: string }[];
 
-  private getUsersSubscriptor: Subscription;
-
   gamesNames = {
     'apex': 'Apex',
     'lol' : 'LoL'
@@ -27,27 +25,13 @@ export class ProfileStatisticsComponent implements OnInit {
   }
 
   constructor(
-    private router: Router,
     private authService: AuthService,
-    private userService: UsersService
     ) {
 
   }
 
   ngOnInit(): void {
-
     this.originalGames = this.authService.userData.games;
-
-    /*this.userService.profile.subscribe(x => this.originalGames = x.games);
-
-    this.getUsersSubscriptor = this.userService.getUsers()
-    .pipe(first())
-    .subscribe({
-      next: posts => {
-        this.posts = posts;
-        console.log(posts);
-      }
-    })*/
 
     this.games = this.originalGames.map(game => {
       let gameName: any, gameRoute: any;

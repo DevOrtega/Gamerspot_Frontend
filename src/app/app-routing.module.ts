@@ -15,9 +15,9 @@ import { ProfilePostsComponent } from './components/profile-posts/profile-posts.
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 
 const routes: Routes = [
-  { path:'', component: LoginComponent },
+  { path:'', component: HomeComponent },
+  { path:'login', component: LoginComponent },
   { path:'register', component: RegisterComponent },
-  { path:'home', component: HomeComponent },
   { path:':username',
     component: ProfileComponent,
     children: [
