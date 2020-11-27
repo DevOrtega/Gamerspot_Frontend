@@ -41,8 +41,6 @@ export class LolStatisticsService {
       withCredentials: false
     })
     .then(response => {
-      console.log(response);
-
       this.statistics = response.data;
       // para mostrar el nivel en la vista
       this.statistics[0].summonerLevel=profile_response.summonerLevel;

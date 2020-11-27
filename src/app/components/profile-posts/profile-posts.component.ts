@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 import { Post } from 'src/app/interfaces/post';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { FeedsService } from 'src/app/services/feeds/feeds.service';
-import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-profile-posts',
@@ -15,27 +15,22 @@ export class ProfilePostsComponent implements OnInit, OnDestroy {
   public posts: Post[];
   private usernameParam: string;
 
-  private getParamsSubscriptor: Subscription;
-  private getPostsSubscriptor: Subscription;
+  private getParamsSubscription: Subscription;
+  private removePostSubscription: Subscription;
+
+  
 
   constructor(
-    private route: ActivatedRoute,
-    private postService: FeedsService
+    private postService: FeedsService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getParamsSubscriptor = this.route.parent.params.subscribe(params => {
+    this.getParamsSubscription = this.route.parent.params.subscribe(params => {
       this.usernameParam = params['username'];
     })
 
-    this.getPostsSubscriptor = this.postService.getPosts(this.usernameParam)
-    .pipe(first())
-    .subscribe({
-      next: posts => {
-        this.posts = posts;
-        console.log(posts);
-      }
-    })
+    this.showPosts();
   }
 
   public exist(): boolean {
@@ -52,13 +47,33 @@ export class ProfilePostsComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  private showPosts() {
+    this.postService.getPosts(this.usernameParam).subscribe(posts => {
+      this.posts = posts;
+
+      this.posts.sort( (a,b) => {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return dateB - dateA;
+      });
+
+      return this.posts;
+    });
+  }
+
+  removePost(post) {
+    this.removePostSubscription = this.postService.removePost(post).subscribe(() => {
+      this.showPosts()
+    })
+  }
+
   ngOnDestroy(): void {
-    if (this.getParamsSubscriptor) {
-      this.getParamsSubscriptor.unsubscribe();
+    if (this.getParamsSubscription) {
+      this.getParamsSubscription.unsubscribe();
     }
 
-    if (this.getPostsSubscriptor) {
-      this.getPostsSubscriptor.unsubscribe();
+    if (this.removePostSubscription) {
+      this.removePostSubscription.unsubscribe();
     }
   }
 }

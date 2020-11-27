@@ -1,17 +1,16 @@
 <div class="page-inner-container text-center">
-    <div *ngIf="!statistics">
+    <div *ngIf="!statistics" class="default-text">
         <p>Loading...</p>
         <i class="fas fa-spinner loading"></i>
     </div>
-    <div *ngIf="statistics">
-        <p>Platform: {{statistics.data.platformInfo.platformSlug}}</p>
+    <div class="statistics" *ngIf="statistics">
+        <p><b>Platform:</b> {{statistics.data.platformInfo.platformSlug}}</p>
         <!-- <p>Matches played: {{statistics.data.segments[0].stats.matchesPlayed.displayValue}}</p> -->
-        <p>Rank: {{statistics.data.segments[0].stats.rankScore.metadata.rankName}}</p>
-        <p>Rank Score: {{statistics.data.segments[0].stats.rankScore.displayValue}}</p>
-        <p>Rank Position: #{{statistics.data.segments[0].stats.rankScore.rank}}</p>
-
-        <p>Level: {{statistics.data.segments[0].stats.level.displayValue}}</p>
-        <p>Kills: {{statistics.data.segments[0].stats.kills.displayValue}}</p>
+        <p><b>Rank:</b> {{statistics.data.segments[0].stats.rankScore.metadata.rankName}}</p>
+        <p><b>Rank Score:</b> {{statistics.data.segments[0].stats.rankScore.displayValue}}</p>
+        <p><b>Rank Position:</b> #{{statistics.data.segments[0].stats.rankScore.rank}}</p>
+        <p><b>Level:</b> {{statistics.data.segments[0].stats.level.displayValue}}</p>
+        <p><b>Kills:</b> {{statistics.data.segments[0].stats.kills.displayValue}}</p>
         <!-- <p>Kills Per Match: {{statistics.data.segments[0].stats.killsPerMatch.displayValue}}</p> -->
     </div>
 </div>

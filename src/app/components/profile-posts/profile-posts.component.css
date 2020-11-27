@@ -1,14 +1,3 @@
-.posts-main {
-    min-height: 324px;
-    padding: 144px 0;
-    text-align: center;
-    color: rgb(145, 145, 145);
+.profile-posts__feed-get {
+    margin: 70px 20px 70px 20px;
 }
-
-.posts-container {
-    display: grid;
-    justify-content: center;
-    row-gap: 30px;
-    padding: 30px;
-}
-
