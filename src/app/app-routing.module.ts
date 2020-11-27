@@ -16,9 +16,9 @@ import { ProfileEditorComponent } from './components/profile-editor/profile-edit
 import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
 
 const routes: Routes = [
-  { path:'', component: LoginComponent },
+  { path:'', component: HomeComponent },
+  { path:'login', component: LoginComponent },
   { path:'register', component: RegisterComponent },
-  { path:'home', component: HomeComponent },
   { path:':username',
     component: ProfileComponent,
     children: [

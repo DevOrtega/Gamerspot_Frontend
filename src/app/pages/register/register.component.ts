@@ -34,7 +34,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UsersService,
     private countryService: CountriesService
-  ) { }
+  ) {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/']);
+    }
+  }
 
   onChangeRole(data) {
     this.registerForm['controls'].role.setValue(data);
@@ -100,7 +104,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registerUserSubscription = this.registerUser(newUser).pipe(
       concatMap(() => this.loginUser(newUser.username, newUser.password))
       ).subscribe(() => {
-        this.router.navigate(['/home'])
+        this.router.navigate(['/'])
       },
       err => {
         this.error = err;

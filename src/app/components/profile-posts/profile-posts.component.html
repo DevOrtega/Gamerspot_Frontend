@@ -1,14 +1,18 @@
 <div class="page-inner-container">
-    <div *ngIf="!exist()" class="text-center">
-        <p>Loading...</p>
+    <div *ngIf="!exist()" class="default-text text-center">
+        <h4>Loading...</h4>
         <i class="fas fa-spinner loading"></i>
     </div>
-    <div *ngIf="exist()" class="posts-container">
-        <div class="post" *ngFor="let post of posts">
-            <app-feed-get [feed]="post"></app-feed-get>
+    <div *ngIf="exist()">
+        <div class="profile-posts__feed-get" *ngFor="let post of posts; let idx = index">
+            <app-feed-get
+            [feed]="post"
+            [modalIndex]="idx"
+            (feedToDelete)="removePost($event)">
+            </app-feed-get>
         </div>
     </div>
-    <div *ngIf="exist() && isEmpty()" class="posts-main">
+    <div *ngIf="exist() && isEmpty()" class="default-text">
         <h4>No posts published yet</h4>
     </div>
 </div>
