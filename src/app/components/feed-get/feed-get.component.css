@@ -1,6 +1,5 @@
 .feed {
   display: grid;
-  padding-top: 2px;
   background-color:  #23272A;
   border-left: none;
   border-right: none;
@@ -11,6 +10,7 @@
   display: grid;
   grid-template-columns: 80px 4fr 4fr;
   color: rgba(255, 255, 255, 1);
+  margin-top: 2px;
 }
 
 p {
@@ -18,16 +18,24 @@ p {
 }
 
 .name {
-  font-size: 17px;
+  font-size: 24px;
 }
 
 .role {
   padding-left: 7px;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .username {
-  font-size: 12px;
+  font-size: 17px;
+}
+
+.feed-header__p {
+  margin-top: 2px;
+}
+
+.feed-header__created {
+  margin-top: 7px;
 }
 
 .feed-header__photo, .feed-header__p, .feed-header__created {
@@ -51,7 +59,7 @@ p {
   font-size: 17px;
   background-color: #23272A;
   color: rgba(255, 255, 255, 1);
-  padding: 15px 2px 20px 72px;
+  padding: 5px 2px 20px 76px;
   width: 95%;
 }
 
@@ -65,4 +73,4 @@ p {
 .btn:focus, .btn:active {
   box-shadow: none !important;
   outline: none !important;
-} 
+}
