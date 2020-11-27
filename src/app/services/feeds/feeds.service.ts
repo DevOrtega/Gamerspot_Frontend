@@ -17,7 +17,7 @@ export class FeedsService {
     this.post = this.postSubject.asObservable();
   }
 
-  public get postsData(): Post {
+  public get postsData(): Post | Post[] {
     return this.postSubject.value;
   }
 
@@ -26,7 +26,6 @@ export class FeedsService {
       return this.http.get<any>(`${environment.apiUrl}/posts?username=${username}`, { withCredentials: true })
       .pipe(map(posts => {
         this.postSubject.next(posts);
-
         return posts;
       }));
     }
@@ -34,12 +33,16 @@ export class FeedsService {
     return this.http.get<any>(`${environment.apiUrl}/posts`, { withCredentials: true })
     .pipe(map(posts => {
       this.postSubject.next(posts);
-
       return posts;
     }));
   }
 
+
   public createPost(feed) {
     return this.http.post<any>(`${environment.apiUrl}/posts`, {'text': feed}, { withCredentials: true });
+  }
+
+  public removePost(feed) {
+    return this.http.delete<any>(`${environment.apiUrl}/posts/${feed._id}`, feed);
   }
 }

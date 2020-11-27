@@ -17,9 +17,9 @@ import { TftStatisticsComponent } from './components/tft-statistics/tft-statisti
 import { AddPlayersComponent } from './components/add-players/add-players.component';
 
 const routes: Routes = [
-  { path:'', component: LoginComponent },
+  { path:'', component: HomeComponent },
+  { path:'login', component: LoginComponent },
   { path:'register', component: RegisterComponent },
-  { path:'home', component: HomeComponent },
   { path:':username',
     component: ProfileComponent,
     children: [
