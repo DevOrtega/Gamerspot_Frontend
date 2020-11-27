@@ -4,7 +4,6 @@
   width: 100%;
   display: grid;
   grid-template-columns: auto auto auto;
-  grid-column-gap: 5px;
   align-items: center;
   background-color: #23272A;
   padding-top: 150px;
@@ -14,17 +13,14 @@
   position: fixed;
   display: grid;
   grid-template-columns: auto;
-  margin-top: 32%;
+  bottom: 20px;
+  z-index: 1;
+  left: 20px;
+  /*margin-top: 32%;
   margin-left: 1%;
   margin-right: 95%;
-  margin-bottom: 2%;
+  margin-bottom: 2%;*/
   background-color: #23272A;
-}
-
-.icon {
-  width: 35px;
-  height: 35px;
-  color: white;
 }
 
 a {
@@ -38,7 +34,6 @@ a:hover{
 
 .grid-item {
   background-color: #2C2F33;
-  border-left: 5px solid #23272A;
   font-size: 30px;
   text-align: center;
   padding-top: 4%;
@@ -60,6 +55,10 @@ a:hover{
 
 .grid-item:hover {
   background-color: #23272A;
+}
+
+.navbar {
+  padding-left: 0;
 }
 
 .navbar-logo {
