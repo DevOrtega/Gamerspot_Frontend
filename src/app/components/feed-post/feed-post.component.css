@@ -1,11 +1,11 @@
 .main {
   margin: auto;
   background-color: #23272A;
-  border-radius: 10px;
+  border-radius: 20px;
   border-style: solid;
   border-width: 3px;
-  border-color: blueviolet;
-  height: 225px;
+  border-color: #851DE0;
+  height: 150px;
   padding: 8px 20px;
 }
 
@@ -16,8 +16,8 @@
 }
 
 .form__textarea, textarea {
-  width: 100%;
-  height: 148px;
+  width: 80%;
+  height: 70px;
   background-color: #23272A;
   border-radius: 10px;
   resize: none;
@@ -35,25 +35,25 @@ textarea, textarea:focus, textarea:active {
 
 .btn {
   font-weight: 600;
-  color: blueviolet;
-  border: 1px solid blueviolet;
-  transition: 0.2s all; 
+  color: #851DE0;
+  border: 1px solid #851DE0;
+  transition: 0.2s all;
 }
 
 .btn:hover {
-  background-color: blueviolet;
+  background-color: #851DE0;
   color: white;
 }
 
 .btn:active {
-  transform: scale(0.97); 
+  transform: scale(0.97);
 }
 
 .btn:focus, .btn:active {
-  border-color: blueviolet;
+  border-color: #851DE0;
   box-shadow: none !important;
   outline: none !important;
-} 
+}
 
 ::placeholder {
   color: rgba(255, 255, 255, 0.6);

@@ -9,6 +9,6 @@ export const environment = {
   tftUrl:"tft/summoner/v1/summoners/by-name/",
   tftStatsUrl:"tft/league/v1/entries/by-summoner/",
   restCountriesUrl: "https://restcountries.eu/rest/v2",
-  lolAPIKey: "RGAPI-58da7a60-dc1d-44df-9b05-3b8e48ae58e0",
+  lolAPIKey: "RGAPI-9f746b86-fc42-4e5e-a0e6-efd16240e192",
   trackerAPIKey: "cfe19ea4-d2a6-4667-b9bd-da5f473c6baf"
 };

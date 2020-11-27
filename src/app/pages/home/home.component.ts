@@ -66,6 +66,7 @@ export class HomeComponent implements OnInit {
     let intersect = this.feedsForRole.filter(value => this.feedsForSearch.includes(value))
     this.feeds = this.feedsForCountry.filter(value => intersect.includes(value))
 
+
     if (this.feeds.length === 0) {
       this.errorSearch = true;
     } else {
@@ -93,6 +94,12 @@ export class HomeComponent implements OnInit {
       this.errorSearch = true;
     } else {
       this.errorSearch = false;
+
+      this.feeds.sort( (a,b) => {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return dateB - dateA;
+      });
     }
   }
 
@@ -105,7 +112,7 @@ export class HomeComponent implements OnInit {
     else {
       //this.feeds = this.feedsToFilter.filter(feed => feed.owner.username === this.searched);
       this.feedsForSearch = this.feedsToFilter.filter(feed => {
-        if (feed.owner.gamer) { 
+        if (feed.owner.gamer) {
           return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
           || feed.owner.gamer.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
         }
@@ -130,6 +137,12 @@ export class HomeComponent implements OnInit {
       this.errorSearch = true;
     } else {
       this.errorSearch = false;
+
+      this.feeds.sort( (a,b) => {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return dateB - dateA;
+      });
     }
 
     return this.feeds;

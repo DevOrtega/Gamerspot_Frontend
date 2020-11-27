@@ -90,7 +90,7 @@ button.close, button.close:hover {
 }
 
 /* Font awesome  icons socials */
-.fab {
+.fab, .fas {
   color:white
 }
 
