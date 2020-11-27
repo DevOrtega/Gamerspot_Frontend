@@ -3,12 +3,13 @@
 }
 
 .login-title {
+  margin-top: 175px;
   width: 9%;
   margin-bottom: 40px;
 }
 
 .login-message {
-  width: 14%;
+  width: 29%;
   margin-bottom: 40px;
 }
 
@@ -43,4 +44,16 @@ button.big-button {
   background-color: #851DE0;
   width: 350px;
   height: 50px;
+}
+
+button.big-button:active, button.big-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+}
+
+button.big-button:active {
+  background-color: indigo !important;
 }

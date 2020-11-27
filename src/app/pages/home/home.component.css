@@ -54,7 +54,8 @@ select:focus, select:active {
   border-color: #851DE0 !important;
   border-radius: 0 0.25rem 0.25rem 0 !important;
   box-shadow: none !important;
-  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
 }
 
 i {
