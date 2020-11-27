@@ -21,12 +21,6 @@ export class FeedsService {
     return this.postSubject.value;
   }
 
-  public refresh() {
-    setInterval(()=>{
-      this.getPosts();
-    }, 60000);
-  }
-
   public getPosts(username?) {
     if (username) {
       return this.http.get<any>(`${environment.apiUrl}/posts?username=${username}`, { withCredentials: true })
