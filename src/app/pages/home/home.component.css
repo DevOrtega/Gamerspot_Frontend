@@ -4,7 +4,7 @@
 }
 
 .home-main__feed-get {
-  margin: 145px 20px 70px 20px;
+  margin: 120px 20px 70px 20px;
 }
 
 .home-main__feed-post {
@@ -12,7 +12,7 @@
 }
 
 .home-main__feed-get__filter {
-  margin: 0 auto;
+  margin: 170px auto 20px auto;
   width: 600px;
   display: flex;
   flex-direction: row;
@@ -21,7 +21,14 @@
 
 select {
   width: 150px;
+  border-color: blueviolet;
 }
+
+select:focus, select:active {
+  border-color: blueviolet;
+  box-shadow: none !important;
+  outline: none !important;
+} 
 
 .feed-post__comp {
   margin-right: 10%;

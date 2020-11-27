@@ -42,10 +42,10 @@
     <span>Sorry, we can't find who are you looking for</span>
   </div>
   <!--Los posts-->
-  <div class="feed-get__comp" *ngFor="let feed of feeds">
+  <div class="feed-get__comp" *ngFor="let feed of feeds; let idx = index">
     <app-feed-get
       [feed]="feed"
-      *ngIf="feed.owner !== undefined || feed.owner !== null"
+      [modalIndex]="idx"
       (feedToDelete)="removePost($event)">
     </app-feed-get>
   </div>

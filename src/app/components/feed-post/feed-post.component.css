@@ -5,7 +5,7 @@
   border-style: solid;
   border-width: 3px;
   border-color: blueviolet;
-  height: 210px;
+  height: 225px;
   padding: 8px 20px;
 }
 
@@ -35,9 +35,25 @@ textarea, textarea:focus, textarea:active {
 
 .btn {
   font-weight: 600;
-  color: #851DE0;
-  border: 1px solid #851DE0;
+  color: blueviolet;
+  border: 1px solid blueviolet;
+  transition: 0.2s all; 
 }
+
+.btn:hover {
+  background-color: blueviolet;
+  color: white;
+}
+
+.btn:active {
+  transform: scale(0.97); 
+}
+
+.btn:focus, .btn:active {
+  border-color: blueviolet;
+  box-shadow: none !important;
+  outline: none !important;
+} 
 
 ::placeholder {
   color: rgba(255, 255, 255, 0.6);

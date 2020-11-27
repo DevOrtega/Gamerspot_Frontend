@@ -12,6 +12,9 @@ export class HomeComponent implements OnInit {
 
   public feeds: any;
   private feedsToFilter: any;
+  private feedsForCountry: any;
+  private feedsForRole: any;
+  private feedsForSearch: any
   public countries: any;
   public getCountriesSubscription: any;
   public error: any;
@@ -32,7 +35,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.showFeeds();
-    this.feedService.refresh();
     this.getCountriesSubscription = this.countryService.getCountries()
     .subscribe({
       next: countries => {
@@ -54,75 +56,103 @@ export class HomeComponent implements OnInit {
 
   filterFeeds () {
     this.errorSearch = false;
+
     if (this.countrySelected != 'All countries') {
-      this.feeds = this.feedsToFilter.filter(feed => feed.owner.country == this.countrySelected);
+      this.feedsForCountry = this.feedsToFilter.filter(feed => feed.owner.country === this.countrySelected);
+    } else {
+      this.feedsForCountry = Array.from(this.feedsToFilter);
     }
-    else this.feeds = this.feedsToFilter;
 
-    if (this.feeds.length === 0) this.errorSearch = true;
+    let intersect = this.feedsForRole.filter(value => this.feedsForSearch.includes(value))
+    this.feeds = this.feedsForCountry.filter(value => intersect.includes(value))
 
-    this.nextFilter(this.feeds);
+    if (this.feeds.length === 0) {
+      this.errorSearch = true;
+    } else {
+      this.errorSearch = false;
+    }
+
+    this.nextFilter();
   }
 
-  nextFilter(arr:any) {
-    console.log(arr);
-    if (this.roleSelected != 'All roles') {
-      if (this.roleSelected === 'Gamer') this.feeds = arr.filter(feed => feed.owner.gamer);
-      else if (this.roleSelected === 'Team') this.feeds = arr.filter(feed => feed.owner.team);
-      else if (this.roleSelected === 'Sponsor') this.feeds = arr.filter(feed => feed.owner.sponsor);
+  nextFilter() {
+    if (this.roleSelected === 'Gamer') {
+      this.feedsForRole = this.feedsToFilter.filter(feed => feed.owner.gamer);
+    } else if (this.roleSelected === 'Team') {
+      this.feedsForRole = this.feedsToFilter.filter(feed => feed.owner.team);
+    } else if (this.roleSelected === 'Sponsor') {
+      this.feedsForRole = this.feedsToFilter.filter(feed => feed.owner.sponsor);
+    } else {
+      this.feedsForRole = Array.from(this.feedsToFilter);
     }
-    else this.feeds = arr;
 
-    if (this.feeds.length === 0) this.errorSearch = true;
+    let intersect = this.feedsForCountry.filter(value => this.feedsForSearch.includes(value));
+    this.feeds = this.feedsForRole.filter(value => intersect.includes(value));
+
+    if (this.feeds.length === 0) {
+      this.errorSearch = true;
+    } else {
+      this.errorSearch = false;
+    }
   }
 
   search() {
     this.errorSearch = false;
+
     if (this.searched === '') {
-      this.feeds = this.feedsToFilter;
+      this.feedsForSearch = Array.from(this.feedsToFilter);
     }
     else {
-      this.feeds = this.feedsToFilter.filter(feed => feed.owner.username === this.searched);
-      if (this.feeds.length == 0) {
-        this.feeds = this.feedsToFilter.filter(feed => {
-          if (feed.owner.gamer) { 
-            return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
-            || feed.owner.gamer.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
-          }
+      //this.feeds = this.feedsToFilter.filter(feed => feed.owner.username === this.searched);
+      this.feedsForSearch = this.feedsToFilter.filter(feed => {
+        if (feed.owner.gamer) { 
+          return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+          || feed.owner.gamer.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+        }
 
-          if (feed.owner.team) {
-            return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
-            || feed.owner.team.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
-          }
+        if (feed.owner.team) {
+          return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+          || feed.owner.team.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+        }
 
-          if (feed.owner.sponsor) {
-            return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
-            || feed.owner.sponsor.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
-          }
-        });
-
-        if (this.feeds.length == 0) this.errorSearch = true;
-      }
+        if (feed.owner.sponsor) {
+          return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+          || feed.owner.sponsor.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+        }
+      })
     }
+
+    let intersect = this.feedsForCountry.filter(value => this.feedsForRole.includes(value));
+    this.feeds = this.feedsForSearch.filter(value => intersect.includes(value));
+
+
+    if (this.feeds.length === 0) {
+      this.errorSearch = true;
+    } else {
+      this.errorSearch = false;
+    }
+
     return this.feeds;
   }
 
 
   //feed-post
   saveFeed(event) {
-    this.feedService.createPost(event).subscribe();
-    setTimeout(() => {
+    this.feedService.createPost(event).subscribe(() => {
       this.showFeeds();
-    }, 500);
+    });
   }
 
   //feed-get
   showFeeds() {
    this.feedService.getPosts().subscribe(
      response => {
-      this.feedsToFilter = response;
-      this.feeds = response;
-      console.log(this.feeds);
+      this.feedsToFilter = Array.from(response);
+      this.feeds = Array.from(response);
+      this.feedsForCountry = Array.from(response);
+      this.feedsForRole = Array.from(response);
+      this.feedsForSearch = Array.from(response);
+
       this.feeds.sort( (a,b) => {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
@@ -134,7 +164,6 @@ export class HomeComponent implements OnInit {
   }
 
   removePost(feed) {
-    console.log(feed);
     this.feeds = this.feeds.filter(f => {
       return f._id != feed._id
     });

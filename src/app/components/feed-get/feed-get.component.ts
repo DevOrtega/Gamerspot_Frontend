@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class FeedsGetComponent implements OnInit {
   @Input() feed;
+  @Input() modalIndex;
   @Output() feedToDelete = new EventEmitter();
 
   public post:PostView;
@@ -17,6 +18,7 @@ export class FeedsGetComponent implements OnInit {
   constructor(private userService: UsersService, private authService: AuthService) { }
 
   ngOnInit(): void {
+
     this.makeFeed();
   }
 
@@ -33,7 +35,6 @@ export class FeedsGetComponent implements OnInit {
   }
 
   private makeFeed() {
-    console.log(this.feed);
     this.post = {
       _id: this.feed._id,
       username: this.feed.owner.username,
