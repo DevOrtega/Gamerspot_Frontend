@@ -109,18 +109,18 @@ export class HomeComponent implements OnInit {
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;
       });
-      console.log(this.feeds)
+
       return this.feeds;
     });
   }
 
   removePost(feed) {
+    this.feeds = this.feeds.filter(f => {
+      return f._id != feed._id
+    });
     this.feedService.removePost(feed)
     .subscribe(response => {
-      this.feedsToFilter = response;
-      this.feeds = this.feedsToFilter.filter(f => f.id != feed.id);
-
-      return this.feeds;
+      return response;
     })
   }
 }
