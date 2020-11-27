@@ -38,3 +38,16 @@ textarea, textarea:focus, textarea:active {
   color: #851DE0;
   border: 1px solid #851DE0;
 }
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}

@@ -26,14 +26,14 @@ export class HomeComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private feedService: FeedsService,
-    private countriesService:CountriesService
+    private countryService: CountriesService,
     ) {
   }
 
   ngOnInit() {
     this.showFeeds();
     this.feedService.refresh();
-    this.getCountriesSubscription = this.countriesService.getCountries()
+    this.getCountriesSubscription = this.countryService.getCountries()
     .subscribe({
       next: countries => {
         const countriesObj : any = Object.values({ ...countries });
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 
   //home
   async getCountries() {
-    this.countries = await this.countriesService.getCountries();
+    this.countries = await this.countryService.getCountries();
     return this.countries;
   }
 
@@ -84,11 +84,23 @@ export class HomeComponent implements OnInit {
     else {
       this.feeds = this.feedsToFilter.filter(feed => feed.owner.username === this.searched);
       if (this.feeds.length == 0) {
-        this.feeds = this.feedsToFilter.filter( feed =>
-          feed.owner.gamer && feed.owner.gamer.name === this.searched
-          || feed.owner.team && feed.owner.team.name === this.searched
-          || feed.owner.sponsor && feed.owner.sponsor.name === this.searched
-        );
+        this.feeds = this.feedsToFilter.filter(feed => {
+          if (feed.owner.gamer) { 
+            return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+            || feed.owner.gamer.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+          }
+
+          if (feed.owner.team) {
+            return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+            || feed.owner.team.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+          }
+
+          if (feed.owner.sponsor) {
+            return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+            || feed.owner.sponsor.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+          }
+        });
+
         if (this.feeds.length == 0) this.errorSearch = true;
       }
     }
