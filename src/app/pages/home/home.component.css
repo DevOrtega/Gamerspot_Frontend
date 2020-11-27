@@ -11,6 +11,17 @@
   margin: 200px 20px 0 20px;
 }
 
+.home-main__feed-get__filter {
+  margin: 0 auto;
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+select {
+  width: 150px;
+}
+
 .feed-post__comp {
   margin-right: 10%;
   width: 100%;
@@ -27,4 +38,34 @@
   display: block;
   height: auto;
   overflow: hidden;
+}
+
+.search-button {
+  background-color: blueviolet !important;
+  border-color: blueviolet !important;
+  border-radius: 0 0.25rem 0.25rem 0 !important;
+  box-shadow: none !important;
+  user-select: none !important;
+}
+i {
+  background-color: blueviolet !important;
+}
+.search-error {
+  margin: 40px auto;
+  width: 550px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.search-button:active {
+  background-color: rgb(96, 18, 168) !important;
+}
+
+input.form-control {
+  outline: none;
+  border-color: blueviolet !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
 }
