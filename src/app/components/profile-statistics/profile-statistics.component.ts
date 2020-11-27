@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
@@ -14,19 +16,25 @@ export class ProfileStatisticsComponent implements OnInit {
 
   gamesNames = {
     'apex': 'Apex',
-    'lol' : 'LoL'
+    'lol' : 'LoL',
+    'tft' : 'TFT',
   };
 
   gamesRoutes = {
     'apex': './apex',
-    'lol' : './lol'
+    'lol' : './lol',
+    'tft' : './tft'
   }
-  
-  constructor(private router: Router, private userService: UsersService) {
-    this.userService.profile.subscribe(x => this.originalGames = x.games);
+
+  constructor(
+    private authService: AuthService,
+    ) {
+
   }
 
   ngOnInit(): void {
+    this.originalGames = this.authService.userData.games;
+
     this.games = this.originalGames.map(game => {
       let gameName: any, gameRoute: any;
 
@@ -48,7 +56,7 @@ export class ProfileStatisticsComponent implements OnInit {
 
   existGames(): boolean {
     if (this.games && this.games.length > 0) return true;
-   
+
     return false;
   }
 

@@ -1,27 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark home-nav">
-    <a *ngIf="user" class="navbar-brand title" href="/home" [routerLink]="'/home'"><img class="logo" src="./assets/logo/LOGO.png"/></a>
-    <a *ngIf="!user" class="navbar-brand title"><img class="logo" src="./assets/logo/LOGO.png"/></a>
-
-    <div *ngIf="user" class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav m-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/home" [routerLink]="'/home'">Home</a>
-        </li>
-    </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Menu
-          </a>
-          <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item p-2" href="{{'/' + user.username}}" [routerLink]="['/', user.username]">My Profile</a>
-            <div class="dropdown-divider m-0"></div>
-            <button class="dropdown-item bg-danger text-white p-2" (click)="logout()">Log Out</button>
-          </div>
-        </li>
-      </ul>
+<div class="navbar">
+  <div class="grid-container">
+    <div *ngIf="user" class="grid-item" [routerLink]="['/', user.username]">
+      <a class="text-white">PROFILE</a>
     </div>
-    <button *ngIf="user" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </nav>
+    <div *ngIf="!user" class="grid-item" [routerLink]="['/login']">
+      <a class="text-white">LOGIN</a>
+    </div>
+    <div class="grid-item-center">
+      <div class=logo>
+        <a class="navbar-logo" [routerLink]="['/']"><img class="logo" src="./assets/logo/LOGO.png"/></a>
+      </div>
+    </div>
+    <div *ngIf="user" class="grid-item">
+      <a class="text-white">CHAT</a>
+    </div>
+    <div *ngIf="!user" class="grid-item" [routerLink]="['/register']">
+      <a class="text-white">REGISTER</a>
+    </div>
+  </div>
+
+  <div class="text-white" *ngIf="user" class="grid-vertical">
+    <div>
+      <a (click)="logout()" class="a-vertical">
+        <img class="icon" src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgaWQ9IlNvbGlkIj48cGF0aCBkPSJtNDgwLjk3MSAyMzkuMDI5LTkwLjUxLTkwLjUwOWEyNCAyNCAwIDAgMCAtMzMuOTQyIDAgMjQgMjQgMCAwIDAgMCAzMy45NDFsNDkuNTQgNDkuNTM5aC0yNjIuMDU5YTI0IDI0IDAgMCAwIC0yNCAyNCAyNCAyNCAwIDAgMCAyNCAyNGgyNjIuMDU5bC00OS41NCA0OS41MzlhMjQgMjQgMCAwIDAgMzMuOTQyIDMzLjk0MWw5MC41MS05MC41MWEyNCAyNCAwIDAgMCAwLTMzLjk0MXoiLz48cGF0aCBkPSJtMzA0IDM5MmEyNCAyNCAwIDAgMCAtMjQgMjR2MjRoLTIwOHYtMzY4aDIwOHYyNGEyNCAyNCAwIDAgMCA0OCAwdi0zMmE0MCA0MCAwIDAgMCAtNDAtNDBoLTIyNGE0MCA0MCAwIDAgMCAtNDAgNDB2Mzg0YTQwIDQwIDAgMCAwIDQwIDQwaDIyNGE0MCA0MCAwIDAgMCA0MC00MHYtMzJhMjQgMjQgMCAwIDAgLTI0LTI0eiIvPjwvZz48L3N2Zz4=" />
+      </a>
+    </div>
+  </div>
+</div>

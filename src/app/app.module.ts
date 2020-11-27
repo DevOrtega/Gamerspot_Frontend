@@ -30,6 +30,8 @@ import { ProfilePostsComponent } from './components/profile-posts/profile-posts.
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { FeedsPostComponent } from './components/feed-post/feed-post.component';
 import { FeedsGetComponent } from './components/feed-get/feed-get.component';
+import { PrettyJsonPipe } from './pretty-json.pipe';
+import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { FeedsGetComponent } from './components/feed-get/feed-get.component';
     LolStatisticsComponent,
     ProfileEditorComponent,
     FeedsPostComponent,
-    FeedsGetComponent
+    FeedsGetComponent,
+    PrettyJsonPipe,
+    TftStatisticsComponent
   ],
   imports: [
     BrowserModule,

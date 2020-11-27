@@ -1,9 +1,8 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Userprofiledata } from 'src/app/interfaces/userprofiledata';
+import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CountriesService } from 'src/app/services/countries/countries.service';
 import { UsersService } from 'src/app/services/users/users.service';
@@ -14,26 +13,29 @@ import { UsersService } from 'src/app/services/users/users.service';
   styleUrls: ['./profile-editor.component.css']
 })
 export class ProfileEditorComponent implements OnInit, OnDestroy {
-  public userProfileData: Userprofiledata;
-  public newProfile: FormGroup;
+  public userProfileData: User;
   public countries: string[];
+
+  public userRole: string;
+  public userPublicName: string;
+  public isGamer: boolean;
+  public isTeam: boolean;
+  public isSponsor: boolean;
+  public formattedDate: string;
+
+  public newProfile: FormGroup;
   public submitted: boolean = false;
   public gameUser: string = '';
   public gameName: string = '';
   public link: string = '';
-  public dateFormated: string = '';
   private gameGroups = [];
   private linkGroups = [];
 
   public games: string[] = [
-    "Apex",
-    "League Of Legends"
+    "apex",
+    "lol",
+    "tft"
   ]
-
-  public currentName: string;
-
-  loading = false;
-  error = '';
 
   private getParamsSubscription: Subscription;
   private getUserSubscription: Subscription;
@@ -42,46 +44,55 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private datePipe: DatePipe,
     private router: Router,
     private route: ActivatedRoute,
-    private auth: AuthService,
+    private authService: AuthService,
     private userService: UsersService,
     private countryService: CountriesService
-  ) {}
+  ) {
+    this.userProfileData = JSON.parse(JSON.stringify(this.authService.userData));
 
-  setCurrentName(data: string) {
-    this.currentName = data;
+    this.userRole = this.userService.getRole(this.userProfileData);
+    this.userPublicName = this.userService.getName(this.userProfileData);
+    this.isGamer = this.userService.isGamer(this.userProfileData);
+    this.isTeam = this.userService.isTeam(this.userProfileData);
+    this.isSponsor = this.userService.isSponsor(this.userProfileData);
   }
 
   onChangeCountry(data: string) {
-    console.log(data);
     this.newProfile['controls'].country.setValue(data);
   }
 
+  onClickSocial(social, index) {
+    this.link = social.toString().replace('fab ', '');
+    this.link = this.link.toString().replace('fa-','');
+    this.link = this.link.toString().replace(' fa-2x','');
+    let linkValue = (<HTMLInputElement>document.querySelector("#link-" + index));
+    if (this.link == 'twitch') {
+      linkValue.value = "https://www." + this.link + ".tv/";
+    } else {
+      linkValue.value = "https://www." + this.link + ".com/";
+    }
+  }
+
   ngOnInit(): void {
+    if (this.userProfileData.gamer && this.userProfileData.gamer.bornDate) {
+      this.formattedDate = this.userService.formatDateToYYYYMMDD(this.userProfileData.gamer.bornDate);
+    }
+
     this.getParamsSubscription = this.route.parent.params.subscribe(params => {
-      if (params.username !== this.auth.userData.username) {
-        this.router.navigate([`/${this.auth.userData.username}`]);
+      if (this.userProfileData.username !== params.username) {
+        this.router.navigate([`/${this.userProfileData.username}`]);
       }
     })
 
-    this.loading = true;
     this.getCountriesSubscription = this.countryService.getCountries()
     .subscribe({
       next: countries => {
         const countriesObj : any = Object.values({ ...countries });
         this.countries = countriesObj.map((country: { name: any; }) => country.name);
-      },
-      error: error => {
-        this.error = error;
-        this.loading = false;
       }
     })
-    this.getUserSubscription = this.userService.profile.subscribe(user => {
-      this.userProfileData = user;
-      this.getCurrentName();
-    });
 
     this.userProfileData.games.forEach(game => {
       this.gameName = game.gameName;
@@ -89,24 +100,16 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       this.gameGroups.push(this.initGame());
     });
 
-    this.userProfileData.links.forEach(link =>{
+    this.userProfileData.links.forEach(link => {
       this.link = link.link;
       this.linkGroups.push(this.initLink());
     });
 
-    let dateFormated = '';
-
-    if (this.userProfileData.bornDate) {
-      let dateWithoutZ = this.userProfileData.bornDate.toString().substring(0, this.userProfileData.bornDate.toString().length - 1);
-      this.dateFormated = this.datePipe.transform(dateWithoutZ,"yyyy-MM-dd");
-    }
-
     this.newProfile = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: [this.userPublicName, Validators.required],
       password: [''],
       country: [this.userProfileData.country, Validators.required],
-      //validates date format yyyy-mm-dd
-      bornDate: [dateFormated, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)],
+      bornDate: [this.formattedDate], // Validates date format 'yyyy-mm-dd'
       biography: [this.userProfileData.biography],
       'games': this.formBuilder.array(this.gameGroups),
       'links': this.formBuilder.array(this.linkGroups)
@@ -115,14 +118,15 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.submitted = true;
+
     if (this.newProfile.invalid) {
       return;
     }
-    //alert('niiiice'+ JSON.stringify(this.newProfile.value, null, 6));
+
     this.saveUser();
   }
 
-  //LINK
+  // LINK
   addLink() {
     const control = <FormArray>this.newProfile.controls['links'];
     control.push(this.newLink());
@@ -145,7 +149,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  //GAME
+  // GAME
   get gamesData() {
     return <FormArray>this.newProfile.get('games');
   }
@@ -157,13 +161,13 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   initGame() {
     return this.formBuilder.group({
-        'gameName': [this.gameName], 'gameUser': [this.gameUser]
+      'gameName': [this.gameName], 'gameUser': [this.gameUser]
     })
   }
 
   newGame() {
     return this.formBuilder.group({
-        'gameName': [''], 'gameUser': ['']
+      'gameName': [''], 'gameUser': ['']
     })
   }
 
@@ -196,68 +200,24 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       password: this.newProfile['controls'].password.value,
       role: role,
       country: this.newProfile['controls'].country.value,
-      bornDate: newBornDate,
+      bornDate: Date.parse(this.newProfile['controls'].bornDate.value),
       games: this.newProfile['controls'].games.value,
       links: this.newProfile['controls'].links.value,
       biography: this.newProfile['controls'].biography.value
     }
 
-    console.log(user.password);
-
     if (!user.password) {
       delete user.password;
-      console.log(user);
     }
 
-    this.loading = true;
     this.editUserSubscription = this.userService.editUser(this.userProfileData.username, user)
     .subscribe(() => {
       window.location.reload();
-    },
-    err => {
-      this.error = err;
-      this.loading = false;
-    });
+    })
   }
 
   get f() {
     return this.newProfile.controls;
-  }
-
-  public isGamer(): boolean {
-    if (this.userProfileData.gamer && Object.entries(this.userProfileData.gamer).length > 0) {
-      return true;
-    }
-
-    return false;
-  }
-
-  public isTeam(): boolean {
-    if (this.userProfileData.team && Object.entries(this.userProfileData.team).length > 0) {
-      return true;
-    }
-
-    return false;
-  }
-
-  public isSponsor(): boolean {
-    if (this.userProfileData.sponsor && Object.entries(this.userProfileData.sponsor).length > 0) {
-      return true;
-    }
-
-    return false;
-  }
-
-  public getCurrentName(): void{
-    if (this.isGamer()) {
-      this.currentName = this.userProfileData.gamer.name;
-    }
-    if (this.isTeam()) {
-      this.currentName = this.userProfileData.team.name;
-    }
-    if (this.isSponsor()) {
-      this.currentName = this.userProfileData.sponsor.name;
-    }
   }
 
   ngOnDestroy(): void {

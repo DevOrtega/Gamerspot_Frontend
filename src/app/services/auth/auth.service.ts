@@ -15,6 +15,8 @@ export class AuthService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
 
+  private _refreshTokenTimeout;
+
   constructor(private router: Router, private http: HttpClient) {
     this.userSubject = new BehaviorSubject<User>(null);
     this.user = this.userSubject.asObservable();
@@ -24,7 +26,7 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  login(username: string, password: string) {
+  public login(username: string, password: string) {
     return this.http.post<any>(`${environment.apiUrl}/users/login`, { username, password }, { withCredentials: true })
     .pipe(map(user => {
       const tokenData : any = jwtDecode(user.token);
@@ -36,28 +38,36 @@ export class AuthService {
 
       this.startRefreshTokenTimer(tokenData.exp);
       localStorage.setItem('token', JSON.stringify(user.token));
-      
+
       return user;
     }))
   }
 
-  isLoggedIn(): boolean {
+  public isLoggedIn(): boolean {
     const token = localStorage.getItem('token');
 
     if (this.userData && token) return true;
-    
+
     return false;
   }
 
-  logout() {
-    this.http.post<any>(`${environment.apiUrl}/users/revoke-token`, {}, { withCredentials: true }).subscribe();
-    this.stopRefreshTokenTimer();
-    this.userSubject.next(null);
-    localStorage.removeItem('token');
-    this.router.navigate(['/']);
+  public itsMe(username: string): boolean {
+    return this.userData.username === username;
   }
 
-  refreshToken() {
+  public logout() {
+    this.http.post<any>(`${environment.apiUrl}/users/revoke-token`, {}, { withCredentials: true }).subscribe();
+
+    this.stopRefreshTokenTimer();
+
+    this.userSubject.next(null);
+
+    localStorage.removeItem('token');
+
+    this.router.navigate(['/login']);
+  }
+
+  public refreshToken() {
     return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {}, { withCredentials: true })
     .pipe(map((user) => {
       const tokenData : any = jwtDecode(user.token);
@@ -73,15 +83,13 @@ export class AuthService {
     }))
   }
 
-  private refreshTokenTimeout;
-
   private startRefreshTokenTimer(exp: number) {
     const expires = new Date(exp * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);
-    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+    this._refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
   }
 
   private stopRefreshTokenTimer() {
-    clearTimeout(this.refreshTokenTimeout);
+    clearTimeout(this._refreshTokenTimeout);
   }
 }

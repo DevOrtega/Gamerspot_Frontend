@@ -1,22 +1,39 @@
-<div class="card feed">
-  <div class="feed-header">
-      <div class="feed-header__photo">
-        <span> <img class="photoprofile" src='../../../assets/profile/image-profile.png'/> </span>
+  <div class="container">
+    <div
+    [class.color-border-gamer]="post.role == 'Gamer'"
+    [class.color-border-team]="post.role == 'Team'"
+    [class.color-border-sponsor]="post.role == 'Sponsor'"
+    class="card feed">
+      <div class="feed-header">
+          <div
+          [class.color-gamer]="post.role == 'Gamer'"
+          [class.color-team]="post.role == 'Team'"
+          [class.color-sponsor]="post.role == 'Sponsor'"
+          class="feed-header__photo">
+            <span> <img class="photoprofile" src='../../../assets/profile/image-profile.png'/> </span>
+          </div>
+          <div
+          [class.color-gamer]="post.role == 'Gamer'"
+          [class.color-team]="post.role == 'Team'"
+          [class.color-sponsor]="post.role == 'Sponsor'"
+          class="feed-header__p">
+            <p class="name"><strong>{{post.name}}</strong><i class="role">{{post.role}}</i></p>
+            <p><small>{{post.username}}</small></p>
+          </div>
+          <div
+          [class.color-gamer]="post.role == 'Gamer'"
+          [class.color-team]="post.role == 'Team'"
+          [class.color-sponsor]="post.role == 'Sponsor'"
+          class="feed-header__created">
+            <span><small>{{post.createdAt}}</small></span>
+          </div>
       </div>
-      <div class="feed-header__p">
-        <p class="name"><strong>{{feedMade.name}}</strong><i class="role">{{getRole()}}</i></p>
-        <p class="username">{{feedMade.username}}</p>
+      <div class="feed-content">
+        <p class="card-text feed-content__p text-break">{{post.text}}</p>
       </div>
-      <div class="feed-header__created">
-        <span><small>{{feedMade.created}}</small></span>
-      </div>
-      <div class="feed-header__button" *ngIf="itsMe()">
+      <div class="feed-header__button" *ngIf="isLoggedIn() && itsMe()">
         <button type="button" class="btn btn-danger" (click)="emitToDelete()">
           <i class="far fa-trash-alt"></i>
         </button>
       </div>
   </div>
-  <div class="feed-content">
-    <p class="card-text feed-content__p">{{feedMade.text}}</p>
-  </div>
-</div>

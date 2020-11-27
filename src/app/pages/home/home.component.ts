@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from 'src/app/services/countries/countries.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { FeedsService } from 'src/app/services/feeds/feeds.service';
 
 @Component({
@@ -22,7 +23,12 @@ export class HomeComponent implements OnInit {
   public roleSelected:string = 'All roles';
   public errorSearch:boolean = false;
 
-  constructor(private feedService:FeedsService, private countriesService:CountriesService) {}
+  constructor(
+    private authService: AuthService,
+    private feedService: FeedsService,
+    private countriesService:CountriesService
+    ) {
+  }
 
   ngOnInit() {
     this.showFeeds();
@@ -104,6 +110,7 @@ export class HomeComponent implements OnInit {
      response => {
       this.feedsToFilter = response;
       this.feeds = response;
+      console.log(this.feeds);
       this.feeds.sort( (a,b) => {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
@@ -115,6 +122,7 @@ export class HomeComponent implements OnInit {
   }
 
   removePost(feed) {
+    console.log(feed);
     this.feeds = this.feeds.filter(f => {
       return f._id != feed._id
     });
@@ -122,5 +130,9 @@ export class HomeComponent implements OnInit {
     .subscribe(response => {
       return response;
     })
+  }
+
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
   }
 }

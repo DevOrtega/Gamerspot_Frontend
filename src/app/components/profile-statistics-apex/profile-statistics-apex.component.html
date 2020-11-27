@@ -1,4 +1,8 @@
 <div class="page-inner-container text-center">
+    <div *ngIf="!statistics" class="default-text">
+        <p>Loading...</p>
+        <i class="fas fa-spinner loading"></i>
+    </div>
     <div *ngIf="statistics">
         <p>Platform: {{statistics.data.platformInfo.platformSlug}}</p>
         <!-- <p>Matches played: {{statistics.data.segments[0].stats.matchesPlayed.displayValue}}</p> -->
@@ -9,9 +13,5 @@
         <p>Level: {{statistics.data.segments[0].stats.level.displayValue}}</p>
         <p>Kills: {{statistics.data.segments[0].stats.kills.displayValue}}</p>
         <!-- <p>Kills Per Match: {{statistics.data.segments[0].stats.killsPerMatch.displayValue}}</p> -->
-    </div>
-    <div *ngIf="!statistics">
-        <p>Loading...</p>
-        <i class="fas fa-spinner loading"></i>
     </div>
 </div>

@@ -1,143 +1,237 @@
 <div class="page-inner-container">
-    <form [formGroup]="newProfile" (ngSubmit)="onSubmit()" class="form">
-        <div class="row">
-            <div class="col">
-                <h6>Name</h6>
-            </div>
-            <div class="col">
-                <h6>Password</h6>
-            </div>
+  <form [formGroup]="newProfile" (ngSubmit)="onSubmit()" class="form">
+    <div class="row">
+      <div class="col">
+        <h6>Name</h6>
+      </div>
+      <div class="col">
+        <h6>Password</h6>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-auto">
+        <input
+          type="text"
+          class="form-control resize"
+          placeholder="Enter your new name"
+          formControlName="name"
+        />
+      </div>
+      <div class="form-group col-auto">
+        <input
+          type="password"
+          class="form-control resize"
+          placeholder="You can change your password here"
+          formControlName="password"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6>Country</h6>
+      </div>
+      <div *ngIf="isGamer" class="col">
+        <h6>Born Date</h6>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-auto">
+        <select
+          class="custom-select custom-select mb-3"
+          [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+          (change)="onChangeCountry($event.target.value)"
+        >
+          <option selected disabled>{{ userProfileData.country }}</option>
+          <option *ngFor="let country of countries">{{ country }}</option>
+        </select>
+        <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+          <div *ngIf="f.country.errors.required">User Country is required</div>
         </div>
-        <div class="form-row">
-            <div class="form-group col-auto">
-                <input type="text" class="form-control resize" placeholder="Enter your new name" [ngModel]="currentName" (ngModelChange)="setCurrentName($event)" formControlName="name" />
-            </div>
-            <div class="form-group col-auto">
-                <input type="password" class="form-control resize" placeholder="You can change your password here" formControlName="password" />
-            </div>
+      </div>
+      <div *ngIf="isGamer" class="form-group col-auto">
+        <input
+          type="date"
+          formControlName="bornDate"
+          class="form-control resize"
+          value="'{formattedDate}'"
+          [ngClass]="{ 'is-invalid': submitted && f.bornDate.errors }"
+        />
+        <div *ngIf="submitted && f.bornDate.errors" class="invalid-feedback">
+          <div *ngIf="f.bornDate.errors.required">
+            Date of Birth is required
+          </div>
+          <div *ngIf="f.bornDate.errors.pattern">
+            Date of Birth must be a valid date in the format YYYY-MM-DD
+          </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <h6>Country</h6>
-            </div>
-            <div *ngIf="isGamer()" class="col">
-                <h6>Born Date</h6>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-auto">
-                <select
-                class="custom-select custom-select mb-3"
-                [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
-                (change)="onChangeCountry($event.target.value)"
-                >
-                    <option selected disabled>{{userProfileData.country}}</option>
-                    <option *ngFor="let country of countries">{{ country }}</option>
-                </select>
-                <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
-                    <div *ngIf="f.country.errors.required">Debes elegir uno</div>
-                </div>
-            </div>
-            <div *ngIf="isGamer()" class="form-group col-auto">
-                <input
-                type="date"
-                formControlName="bornDate"
-                class="form-control resize"
-                value="'{userProfileData.bornDate}'"
-                [ngClass]="{ 'is-invalid': submitted && f.bornDate.errors }"
-                />
-                <div *ngIf="submitted && f.bornDate.errors" class="invalid-feedback">
-                    <div *ngIf="f.bornDate.errors.required">Date of Birth is required</div>
-                    <div *ngIf="f.bornDate.errors.pattern">
-                        Date of Birth must be a valid date in the format YYYY-MM-DD
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div *ngIf="isGamer()" class="col">
-                <h6>Games</h6>
-            </div>
-            <div class="col">
-                <h6>Contact Links</h6>
-            </div>
-        </div>
-        <div class="form-row">
-            <div *ngIf="isGamer()" class="form-group col">
-                <div formArrayName="games">
-                    <input
-                        class="btn btn-success resize"
-                        type="button"
-                        (click)="addGame()"
-                        value="Add Game"
-                    />
-                    <div
-                        *ngFor="
-                        let game of newProfile['controls'].games['controls'];
-                        let i = index
-                        "
-                        class="py-3 resize"
-                    >
-                        <div [formGroupName]="i" class="games">
-                            <input type="text" class="form-control resize" placeholder="Enter the game name" formControlName="gameName" />
-                            <input type="text" class="form-control resize" placeholder="Enter your game username" formControlName="gameUser" />
-                            <span *ngIf="newProfile['controls'].games['controls'].length > 1">
-                                <input
-                                *ngIf="i !== 0"
-                                class="btn btn-danger btn-sm my-2"
-                                type="button"
-                                (click)="removeGame(i)"
-                                value="Remove"
-                                />
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col">
-                <div formArrayName="links">
-                    <input
-                    class="btn btn-success resize"
-                    type="button"
-                    (click)="addLink()"
-                    value="Add Link"
-                    />
-                    <div
-                    *ngFor="
-                    let link of newProfile['controls'].links['controls'];
-                    let i = index
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="isGamer" class="col">
+        <h6>Games</h6>
+      </div>
+      <div class="col">
+        <h6>Contact Links</h6>
+      </div>
+    </div>
+    <div class="form-row">
+      <div *ngIf="isGamer" class="form-group col">
+        <div formArrayName="games">
+          <input
+            class="btn btn-success resize"
+            type="button"
+            (click)="addGame()"
+            value="Add Game"
+          />
+          <div
+            *ngFor="
+              let game of newProfile['controls'].games['controls'];
+              let i = index
+            "
+            class="py-3 resize"
+          >
+            <div [formGroupName]="i" class="games">
+                <div class="btn-group" role="group" *ngFor="let game of games">
+                  <label
+                    *ngIf="userProfileData.games[i] != undefined"
+                    [class.focus]="
+                      (userProfileData.games[i].gameName | prettyJson) == game
                     "
-                    class="resize link-padding"
-                    >
-                        <div [formGroupName]="i" class="links">
-                            <input type="text" class="form-control resize" placeholder="Enter your contact link" formControlName="link" [value]="userProfileData.links" />
-                            <span *ngIf="newProfile['controls'].links['controls'].length > 1">
-                                <input
-                                name="link"
-                                *ngIf="i !== 0"
-                                class="btn btn-danger btn-sm my-2"
-                                type="button"
-                                (click)="removeLink(i)"
-                                value="Remove"
-                                />
-                            </span>
-                        </div>
-                    </div>
+                    [class.active]="
+                      (userProfileData.games[i].gameName | prettyJson) == game
+                    "
+                    class="btn
+                    bt-sm btn-secondary mr-2"
+                  >
+                    <input
+                      type="radio"
+                      formControlName="gameName"
+                      value="{{ game }}"
+                    />
+                    {{ game }}
+                  </label>
+                  <label
+                    *ngIf="userProfileData.games[i] == undefined"
+                    class="btn btn-sm btn-secondary mr-2"
+                  >
+                    <input
+                      type="radio"
+                      formControlName="gameName"
+                      value="{{ game }}"
+                    />
+                    {{ game }}
+                  </label>
                 </div>
+              <input
+                type="text"
+                class="form-control resize"
+                placeholder="Enter your game username"
+                formControlName="gameUser"
+              />
+              <span *ngIf="newProfile['controls'].games['controls'].length > 0">
+                <input
+                  class="btn btn-danger btn-sm my-2"
+                  type="button"
+                  (click)="removeGame(i)"
+                  value="Remove"
+                />
+              </span>
             </div>
+          </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <h6>Biography</h6>
+      </div>
+      <div class="form-group col">
+        <div formArrayName="links">
+          <input
+            class="btn btn-success resize"
+            type="button"
+            (click)="addLink()"
+            value="Add Link"
+          />
+          <div
+            *ngFor="
+              let link of newProfile['controls'].links['controls'];
+              let i = index
+            "
+            class="link-padding"
+          >
+            <div [formGroupName]="i" class="links">
+              <div class="row mb-2">
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col ml-1"
+                >
+                  <i alt="twitch" class="fab fa-twitch fa-2x"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col"
+                >
+                  <i alt="youtube" class="fab fa-youtube fa-2x"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col"
+                >
+                  <i alt="twitter" class="fab fa-twitter fa-2x"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col"
+                >
+                  <i alt="facebook" class="fab fa-facebook fa-2x"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onClickSocial($event.srcElement.className, i)"
+                  class="btn btn-sm col mr-1"
+                >
+                  <i alt="instagram" class="fab fa-instagram fa-2x"></i>
+                </button>
+              </div>
+              <input
+                type="text"
+                id="{{ 'link-' + i }}"
+                class="form-control resize"
+                placeholder="Enter your contact link"
+                formControlName="link"
+                [value]="userProfileData.links"
+              />
+              <span *ngIf="newProfile['controls'].links['controls'].length > 0">
+                <input
+                  class="btn btn-danger btn-sm my-2"
+                  type="button"
+                  (click)="removeLink(i)"
+                  value="Remove"
+                />
+              </span>
             </div>
+          </div>
         </div>
-        <div class="form-row">
-            <div class="form-group col">
-                <textarea class="form-control" [placeholder]="userProfileData.biography" formControlName="biography"></textarea>
-            </div>
-        </div>
-        <div class="text-right">
-            <button class="btn btn-lg btn-dark save" (click)="saveUser()">Save</button>
-        </div>
-    </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6>Biography</h6>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col">
+        <textarea
+          class="form-control"
+          placeholder="Add your bio"
+          formControlName="biography"
+        ></textarea>
+      </div>
+    </div>
+    <div class="text-right">
+      <button class="btn btn-lg btn-dark save" (click)="saveUser()">
+        Save
+      </button>
+    </div>
+  </form>
 </div>

@@ -13,11 +13,12 @@ import { ProfileStatisticsNodataComponent } from './components/profile-statistic
 import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main.component';
 import { ProfilePostsComponent } from './components/profile-posts/profile-posts.component';
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
+import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
 
 const routes: Routes = [
-  { path:'', component: LoginComponent },
+  { path:'', component: HomeComponent },
+  { path:'login', component: LoginComponent },
   { path:'register', component: RegisterComponent },
-  { path:'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path:':username',
     component: ProfileComponent,
     children: [
@@ -29,10 +30,11 @@ const routes: Routes = [
           { path: '', component: ProfileStatisticsMainComponent },
           { path: 'apex', component: ProfileStatisticsApexComponent },
           { path:'lol', component: LolStatisticsComponent },
+          { path:'tft', component: TftStatisticsComponent },
           { path: 'nodata', component: ProfileStatisticsNodataComponent }
         ]
       },
-      { path: 'ranking', component: ProfileRankingComponent },
+     // { path: 'ranking', component: ProfileRankingComponent },
       { path: 'configuration', component: ProfileEditorComponent }
     ],
     canActivate: [AuthGuard]
