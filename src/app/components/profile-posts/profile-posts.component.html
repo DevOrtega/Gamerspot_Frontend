@@ -4,8 +4,12 @@
         <i class="fas fa-spinner loading"></i>
     </div>
     <div *ngIf="exist()">
-        <div class="profile-posts__feed-get" *ngFor="let post of posts">
-            <app-feed-get [feed]="post"></app-feed-get>
+        <div class="profile-posts__feed-get" *ngFor="let post of posts; let idx = index">
+            <app-feed-get
+            [feed]="post"
+            [modalIndex]="idx"
+            (feedToDelete)="removePost($event)">
+            </app-feed-get>
         </div>
     </div>
     <div *ngIf="exist() && isEmpty()" class="default-text">

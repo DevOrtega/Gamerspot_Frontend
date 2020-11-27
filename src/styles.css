@@ -38,6 +38,30 @@ a, a:hover, a:visited {
   color: inherit;
 }
 
+.modal-content {
+  background-color: #23272A;
+}
+
+.modal-header, .modal-footer {
+  border: none;
+}
+
+button.close, button.close:hover {
+  color: white;
+  text-shadow: none;
+}
+
+.modal-footer .btn.btn-outline-secondary {
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.modal-footer .btn.btn-outline-secondary:hover {
+  color: black;
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
 .color-gamer {
   color: #851DE0;
 }

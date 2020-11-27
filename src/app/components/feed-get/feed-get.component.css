@@ -42,8 +42,9 @@ p {
   float: right;
 }
 
-.feed-header__button button {
-  background-color: rgba(255, 0, 0, 1);
+.feed-content {
+  display: grid;
+  grid-template-columns: 10fr 1fr;
 }
 
 .feed-content__p {
@@ -60,3 +61,8 @@ p {
   width: 50px;
   border-radius: 50%;
 }
+
+.btn:focus, .btn:active {
+  box-shadow: none !important;
+  outline: none !important;
+} 
