@@ -120,7 +120,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.getPostsSubscriptor) {
       this.getPostsSubscriptor.unsubscribe();
     }
-
-    console.log("Bye");
   }
 }
