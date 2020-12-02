@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   activeButton: string;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
     private userService: UsersService,
@@ -38,6 +39,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
     
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     this.getParamsSubscriptor = this.route.params.subscribe(params => {
       this.usernameParam = params['username'];
     })
@@ -117,5 +120,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.getPostsSubscriptor) {
       this.getPostsSubscriptor.unsubscribe();
     }
+
+    console.log("Bye");
   }
 }
