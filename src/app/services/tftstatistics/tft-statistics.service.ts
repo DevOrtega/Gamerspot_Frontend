@@ -13,7 +13,7 @@ export class TftStatisticsService {
   constructor() { }
 
   async getTftProfile(gameuser: String) {
-    const servers: string[] = ['BR1', 'EUN1', 'EUW1', 'JP1', 'KR', 'LA1', 'LA2', 'NA1', 'OC1', 'TR1', 'RU'];
+    const servers: string[] = ['EUW1', 'EUN1', 'BR1', 'JP1', 'KR', 'LA1', 'LA2', 'NA1', 'OC1', 'TR1', 'RU'];
 
     for (let server of servers) {
       await this.checkLolServer(gameuser, server);
