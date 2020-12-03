@@ -20,7 +20,7 @@ div.page-inner-container {
     margin: auto;
     color: white;
     background-color: var(--black);
-    min-width: 350px;
+    min-width: 1000px;
 }
 
 div.default-text {

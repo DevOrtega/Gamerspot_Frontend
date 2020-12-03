@@ -3,7 +3,6 @@
     <h5>About Me</h5>
     <p>{{ userProfileData.biography }}</p>
   </div>
-  <hr/>
 
   <div class="side-data">
     <div>
@@ -20,71 +19,69 @@
     </div>
   </div>
 
-  <div class="bottom-grid">
-    <div *ngIf="existGames()" class="grid-container">
-      <h5 style="padding-top: 20px;">Games</h5>
-      <div class="games-container">
-        <p *ngFor="let game of userProfileData.games; let idx = index">
-          <img *ngIf="game.gameName=='lol'" width="50" height="50" src="{{'./assets/LoL/logo.png'}}" alt="{{'logo-'+game.gameName}}">
-          <img *ngIf="game.gameName=='apex'" width="50" height="50" src="{{'./assets/Apex/logo.png'}}" alt="{{'logo-'+game.gameName}}">
-          <img *ngIf="game.gameName=='tft'" width="50" height="50" src="{{'./assets/TFT/logo.png'}}" alt="{{'logo-'+game.gameName}}">
-        </p>
+  <div *ngIf="existGames()" class="grid-container">
+    <h5>Games</h5>
+    <div class="games-container">
+      <div *ngFor="let game of userProfileData.games; let idx = index">
+        <img *ngIf="game.gameName=='lol'" width="50" height="50" src="{{'./assets/LoL/logo.png'}}" alt="{{'logo-'+game.gameName}}">
+        <img *ngIf="game.gameName=='apex'" width="50" height="50" src="{{'./assets/Apex/logo.png'}}" alt="{{'logo-'+game.gameName}}">
+        <img *ngIf="game.gameName=='tft'" width="50" height="50" src="{{'./assets/TFT/logo.png'}}" alt="{{'logo-'+game.gameName}}">
       </div>
     </div>
+  </div>
 
-    <div *ngIf="existLinks()" class="contact-links">
-      <h5>Social links</h5>
-      <div class="links" *ngFor="let link of userProfileData.links; let idx = index">
-        <button
-          *ngIf="link.link.includes('twitch')"
-          type="button"
-          class="btn btn-sm col ml-1"
-        >
-          <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
-            ><i alt="twitch" class="fab fa-twitch fa-2x"></i
-          ></a>
-        </button>
+  <div *ngIf="existLinks()" class="contact-links">
+    <h5>Social links</h5>
+    <div class="links" *ngFor="let link of userProfileData.links; let idx = index">
+      <button
+        *ngIf="link.link.includes('twitch')"
+        type="button"
+        class="btn btn-sm col ml-1"
+      >
+        <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
+          ><i alt="twitch" class="fab fa-twitch fa-2x"></i
+        ></a>
+      </button>
 
-        <button
-          *ngIf="link.link.includes('youtube')"
-          type="button"
-          class="btn btn-sm col ml-1"
-        >
-          <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
-            ><i alt="youtube" class="fab fa-youtube fa-2x"></i
-          ></a>
-        </button>
+      <button
+        *ngIf="link.link.includes('youtube')"
+        type="button"
+        class="btn btn-sm col ml-1"
+      >
+        <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
+          ><i alt="youtube" class="fab fa-youtube fa-2x"></i
+        ></a>
+      </button>
 
-        <button
-          *ngIf="link.link.includes('twitter')"
-          type="button"
-          class="btn btn-sm col ml-1"
-        >
-          <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
-            <i alt="twitter" class="fab fa-twitter fa-2x"></i>
-          </a>
-        </button>
+      <button
+        *ngIf="link.link.includes('twitter')"
+        type="button"
+        class="btn btn-sm col ml-1"
+      >
+        <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+          <i alt="twitter" class="fab fa-twitter fa-2x"></i>
+        </a>
+      </button>
 
-        <button
-          *ngIf="link.link.includes('facebook')"
-          type="button"
-          class="btn btn-sm col ml-1"
-        >
-          <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
-            ><i alt="facebook" class="fab fa-facebook fa-2x"></i
-          ></a>
-        </button>
+      <button
+        *ngIf="link.link.includes('facebook')"
+        type="button"
+        class="btn btn-sm col ml-1"
+      >
+        <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
+          ><i alt="facebook" class="fab fa-facebook fa-2x"></i
+        ></a>
+      </button>
 
-        <button
-          *ngIf="link.link.includes('instagram')"
-          type="button"
-          class="btn btn-sm col ml-1"
-        >
-          <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
-            ><i alt="instagram" class="fab fa-instagram fa-2x"></i
-          ></a>
-        </button>
-      </div>
+      <button
+        *ngIf="link.link.includes('instagram')"
+        type="button"
+        class="btn btn-sm col ml-1"
+      >
+        <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
+          ><i alt="instagram" class="fab fa-instagram fa-2x"></i
+        ></a>
+      </button>
     </div>
   </div>
 </div>
