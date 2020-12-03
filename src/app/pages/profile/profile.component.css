@@ -2,6 +2,14 @@
   min-height: 380px;
 }
 
+.profile-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 20px;
+  border: 3px solid #851DE0;
+  border-radius: 30px;
+}
+
 img.profile-photo {
   margin: 20px;
   width: 250px;

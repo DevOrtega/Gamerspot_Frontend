@@ -1,30 +1,28 @@
 <div class="page-inner-container nav-separator">
   <div *ngIf="existProfile()">
     <div class="profile-main">
-      <div class="container">
-        <div class="row">
-          <div class="col-4 fixed-col left">
-            <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfileData.photoUrl">
-            <img *ngIf="!existPhoto()" class="profile-photo" src="../../../../assets/profile/image-profile.png">
-            <div *ngIf="isGamer" class="mt-4">
-              <h2>{{userProfileData.gamer.name}}</h2>
-              <p>{{userProfileData.username}}</p>
-              <h5 class="gamer">Gamer</h5>
-            </div>
-            <div *ngIf="isTeam" class="mt-4">
-              <h2>{{userProfileData.team.name}}</h2>
-              <p>{{userProfileData.username}}</p>
-              <h5 class="team">Team</h5>
-            </div>
-            <div *ngIf="isSponsor" class="mt-4">
-              <h2>{{userProfileData.sponsor.name}}</h2>
-              <p>{{userProfileData.username}}</p>
-              <h5 class="sponsor">Sponsor</h5>
-            </div>
+      <div class="profile-grid">
+        <div class="fixed-col left">
+          <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfileData.photoUrl">
+          <img *ngIf="!existPhoto()" class="profile-photo" src="../../../../assets/profile/image-profile.png">
+          <div *ngIf="isGamer" class="mt-4">
+            <h2>{{userProfileData.gamer.name}}</h2>
+            <p>{{userProfileData.username}}</p>
+            <h5 class="gamer">Gamer</h5>
           </div>
-          <div class="col fixed-col p-5">
-            <app-profile-data [userProfileData]="userProfileData"></app-profile-data>
+          <div *ngIf="isTeam" class="mt-4">
+            <h2>{{userProfileData.team.name}}</h2>
+            <p>{{userProfileData.username}}</p>
+            <h5 class="team">Team</h5>
           </div>
+          <div *ngIf="isSponsor" class="mt-4">
+            <h2>{{userProfileData.sponsor.name}}</h2>
+            <p>{{userProfileData.username}}</p>
+            <h5 class="sponsor">Sponsor</h5>
+          </div>
+        </div>
+        <div class="fixed-col">
+          <app-profile-data [userProfileData]="userProfileData"></app-profile-data>
         </div>
       </div>
     </div>
