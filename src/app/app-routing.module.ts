@@ -14,6 +14,7 @@ import { ProfileStatisticsMainComponent } from './components/profile-statistics-
 import { ProfilePostsComponent } from './components/profile-posts/profile-posts.component';
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
+import { AddPlayersComponent } from './components/add-players/add-players.component';
 
 const routes: Routes = [
   { path:'', component: HomeComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
         ]
       },
      // { path: 'ranking', component: ProfileRankingComponent },
+      { path: 'players', component: AddPlayersComponent },
       { path: 'configuration', component: ProfileEditorComponent }
     ],
     canActivate: [AuthGuard]

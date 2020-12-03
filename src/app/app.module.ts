@@ -32,6 +32,7 @@ import { FeedsPostComponent } from './components/feed-post/feed-post.component';
 import { FeedsGetComponent } from './components/feed-get/feed-get.component';
 import { PrettyJsonPipe } from './pretty-json.pipe';
 import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
+import { AddPlayersComponent } from './components/add-players/add-players.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { TftStatisticsComponent } from './components/tft-statistics/tft-statisti
     FeedsPostComponent,
     FeedsGetComponent,
     PrettyJsonPipe,
-    TftStatisticsComponent
+    TftStatisticsComponent,
+    AddPlayersComponent
   ],
   imports: [
     BrowserModule,

@@ -25,7 +25,7 @@
       <h5 style="padding-top: 20px;">Games</h5>
       <div class="games-container">
         <p *ngFor="let game of userProfileData.games; let idx = index">
-          <img *ngIf="game.gameName=='lol'" width="50" height="50" src="{{'./assets/lol/logo.png'}}" alt="{{'logo-'+game.gameName}}">
+          <img *ngIf="game.gameName=='lol'" width="50" height="50" src="{{'./assets/LoL/logo.png'}}" alt="{{'logo-'+game.gameName}}">
           <img *ngIf="game.gameName=='apex'" width="50" height="50" src="{{'./assets/Apex/logo.png'}}" alt="{{'logo-'+game.gameName}}">
           <img *ngIf="game.gameName=='tft'" width="50" height="50" src="{{'./assets/TFT/logo.png'}}" alt="{{'logo-'+game.gameName}}">
         </p>
