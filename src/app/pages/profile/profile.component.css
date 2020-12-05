@@ -2,6 +2,7 @@
   min-height: 380px;
 }
 img.default-profile-photo {
+  cursor: pointer;
   margin: 20px;
   width: 250px;
   height: 250px;
@@ -32,8 +33,8 @@ img.profile-photo {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-#fileInput {
-
+.profile-photo input {
+  display: none;
 }
 
 div.container {
