@@ -33,7 +33,10 @@ import { FeedsGetComponent } from './components/feed-get/feed-get.component';
 import { PrettyJsonPipe } from './pretty-json.pipe';
 import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
 import { AddPlayersComponent } from './components/add-players/add-players.component';
-
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,11 @@ import { AddPlayersComponent } from './components/add-players/add-players.compon
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFirestoreModule
+
   ],
   providers: [
     CookieService,

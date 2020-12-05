@@ -4,8 +4,17 @@
       <div class="container">
         <div class="row">
           <div class="col-4 fixed-col left">
-            <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfileData.photoUrl">
-            <img *ngIf="!existPhoto()" class="profile-photo" src="../../../../assets/profile/image-profile.png">
+            <div *ngIf="loading" class="loading-photo">
+              <div class="loading-text">
+                <p>Loading...</p>
+                <i class="fas fa-spinner loading"></i>
+              </div>
+            </div>
+            <img *ngIf="existPhoto() && !loading" class="profile-photo" [src]="userProfileData.photoUrl">
+            <img *ngIf="!existPhoto() && !loading" class="default-profile-photo" src="https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6">
+            <i type="button" class="btn cover-text p-3 material-icons big-bold p-2 ">photo_camera</i>
+            <i type="button" class="fas fa-camera btn cover-text p-3 big-bold"></i>
+            <input type="file" id="fileInput" (change)="upload($event)"/>
             <div *ngIf="isGamer" class="mt-4">
               <h2>{{userProfileData.gamer.name}}</h2>
               <p>{{userProfileData.username}}</p>

@@ -52,7 +52,6 @@ export class UsersService {
     return this.http.patch(`${environment.apiUrl}/users/${username}`, user_data, {withCredentials: true})
     .pipe(map((user: Userprofiledata) => {
       this.profileSubject.next(user);
-
       return user;
     }))
   }
@@ -91,7 +90,7 @@ export class UsersService {
     }
 
     if (this.isSponsor(user)) {
-      return user.sponsor.name; 
+      return user.sponsor.name;
     }
   }
 
@@ -105,7 +104,7 @@ export class UsersService {
     }
 
     if (this.isSponsor(user)) {
-      return "Sponsor"; 
+      return "Sponsor";
     }
   }
 
