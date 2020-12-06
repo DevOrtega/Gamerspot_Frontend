@@ -8,8 +8,19 @@
         [class.sponsor-outer-border]="isSponsor(userProfileData)"
       >
         <div class="fixed-col left">
-          <img *ngIf="userProfileData.photoUrl" class="profile-photo" [src]="userProfileData.photoUrl">
-          <img *ngIf="!userProfileData.photoUrl" class="profile-photo" src="../../../../assets/profile/image-profile.png">
+          <div *ngIf="loading" class="loading-photo">
+            <div class="loading-text">
+              <p>Loading...</p>
+              <i class="fas fa-spinner loading"></i>
+            </div>
+          </div>
+          <div class="profile-photo">
+            <label for="file-input">
+              <img *ngIf="userProfileData.photoUrl && !loading" class="profile-photo" [src]="userProfileData.photoUrl">
+              <img *ngIf="!userProfileData.photoUrl && !loading" class="default-profile-photo" src="https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6">
+            </label>
+            <input type="file" id="file-input" (change)="upload($event)"/>
+          </div>
           <div *ngIf="userProfileData.gamer" class="mt-4">
             <h2>{{userProfileData.gamer.name}}</h2>
             <p>{{userProfileData.username}}</p>
@@ -125,7 +136,7 @@
                       ><i alt="twitch" class="fab fa-twitch fa-2x"></i
                     ></a>
                   </button>
-            
+
                   <button
                     *ngIf="link.link.includes('youtube')"
                     type="button"
@@ -135,7 +146,7 @@
                       ><i alt="youtube" class="fab fa-youtube fa-2x"></i
                     ></a>
                   </button>
-            
+
                   <button
                     *ngIf="link.link.includes('twitter')"
                     type="button"
@@ -145,7 +156,7 @@
                       <i alt="twitter" class="fab fa-twitter fa-2x"></i>
                     </a>
                   </button>
-            
+
                   <button
                     *ngIf="link.link.includes('facebook')"
                     type="button"
@@ -155,7 +166,7 @@
                       ><i alt="facebook" class="fab fa-facebook fa-2x"></i
                     ></a>
                   </button>
-            
+
                   <button
                     *ngIf="link.link.includes('instagram')"
                     type="button"

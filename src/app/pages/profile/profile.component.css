@@ -4,13 +4,40 @@ img {
   margin-right: 20px;
   margin-left: 20px;
 }
-
-img.profile-photo {
+img.default-profile-photo {
+  cursor: pointer;
   margin: 20px;
   width: 250px;
   height: 250px;
-  background-color: rgba(255, 255, 255, 0.6) !important;
   border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+img.profile-photo {
+  cursor: pointer;
+  margin: 20px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+.loading-photo {
+  cursor: pointer;
+  margin: 20px;
+  margin-left: 32px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  position: relative;
+  background-color: black;
+}
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 36%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.profile-photo input {
+  display: none;
 }
 
 div.fixed-col {

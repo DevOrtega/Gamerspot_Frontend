@@ -10,5 +10,13 @@ export const environment = {
   tftStatsUrl:"tft/league/v1/entries/by-summoner/",
   restCountriesUrl: "https://restcountries.eu/rest/v2",
   riotAPIKey: "RGAPI-3d9d9818-5bc4-47cf-9b3c-c87373244dcd",
-  trackerAPIKey: "cfe19ea4-d2a6-4667-b9bd-da5f473c6baf"
+  trackerAPIKey: "cfe19ea4-d2a6-4667-b9bd-da5f473c6baf",
+  firebaseConfig: {
+    apiKey: "AIzaSyD3MSbJI8LsE8kQPfRN8QV8MMhE4KcUg9k",
+    authDomain: "photos-gallery-a06e9.firebaseapp.com",
+    projectId: "photos-gallery-a06e9",
+    storageBucket: "photos-gallery-a06e9.appspot.com",
+    messagingSenderId: "659362710075",
+    appId: "1:659362710075:web:87f96984aed2e5b4f5921e"
+  }
 };
