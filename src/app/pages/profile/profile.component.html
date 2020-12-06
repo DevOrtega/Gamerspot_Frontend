@@ -8,6 +8,12 @@
         [class.sponsor-outer-border]="isSponsor(userProfileData)"
       >
         <div class="fixed-col left">
+          <div *ngIf="loading" class="loading-photo">
+            <div class="loading-text">
+              <p>Loading...</p>
+              <i class="fas fa-spinner loading"></i>
+            </div>
+          </div>
           <div class="profile-photo">
             <label for="file-input">
               <img *ngIf="userProfileData.photoUrl && !loading" class="profile-photo" [src]="userProfileData.photoUrl">

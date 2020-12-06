@@ -100,6 +100,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     })
   }
 
+  public upload($event) {
+    this.photoService.postPhoto($event.target.files[0], this.userProfileData.username)
+    .then(()=>{
+      this.loading = true;
+      setTimeout(() => {
+        this.showPhoto();
+        this.editPhotoProfile(this.userProfileData);
+      }, 1000);
+    })
+  }
+
   public showPhoto() {
     this.photoSubscription = this.photoService.getPhotoByUsername(this.userProfileData.username).
     getDownloadURL().subscribe(photo => {
@@ -108,8 +119,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       let user: any = {
         photoUrl: this.userProfileData.photoUrl
       }
-      this.editPhotoProfile(this.userProfileData)
-
       return this.userProfileData.photoUrl;
     })
   }
@@ -119,16 +128,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     .subscribe()
   }
 
-  public upload($event) {
 
-    this.photoService.postPhoto($event.target.files[0], this.userProfileData.username)
-    .then(()=>{
-      this.loading = true;
-      setTimeout(() => {
-        this.showPhoto();
-      }, 1000);
-    })
-  }
 
   public itsMe = ((username: string) => this.authService.itsMe(username));
   public isGamer = ((user: User) => this.userService.isGamer(user));
