@@ -1,12 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UsersService } from 'src/app/services/users/users.service';
-import { User } from '../../interfaces/user'
-import { FeedsService } from 'src/app/services/feeds/feeds.service';
+import { PostsService } from 'src/app/services/posts/posts.service';
+
+import { User } from '../../interfaces/user';
+import { Link } from '../../interfaces/link';
+import { Game } from '../../interfaces/game';
 import { Post } from 'src/app/interfaces/post';
+import { ButtonsService } from 'src/app/services/buttons/buttons.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,98 +21,80 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private usernameParam: string;
   public userProfileData: User;
   public userPostsData: Post[];
-  public isGamer: boolean;
-  public isTeam: boolean;
-  public isSponsor: boolean;
-  public itsMe: boolean;
 
   private getParamsSubscriptor: Subscription;
   private getUserSubscriptor: Subscription;
   private getPostsSubscriptor: Subscription;
 
-  activeButton: string;
-
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
     private userService: UsersService,
-    private postService: FeedsService
+    private postService: PostsService,
+    private buttonService: ButtonsService
   ) {
-    this.activeButton = 'btn1';
+
   }
     
   ngOnInit(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-
     this.getParamsSubscriptor = this.route.params.subscribe(params => {
       this.usernameParam = params['username'];
-    })
 
-    if (this.authService.itsMe(this.usernameParam)) {
-      this.userProfileData = JSON.parse(JSON.stringify(this.authService.userData));
+      if (this.authService.itsMe(this.usernameParam)) {
+        this.userProfileData = JSON.parse(JSON.stringify(this.authService.userData));
 
-      this.userProfileData.createdAt = this.userService.formatDateToDDMMYYYY(this.userProfileData.createdAt);
+        this.userProfileData.createdAt = this.userService.formatDateToDDMMYYYY(this.userProfileData.createdAt);
 
-      if (this.userProfileData.bornDate) {
-        this.userProfileData.bornDate = this.userService.formatDateToDDMMYYYY(this.userProfileData.bornDate);
+        if (this.userProfileData.bornDate) {
+          this.userProfileData.bornDate = this.userService.formatDateToDDMMYYYY(this.userProfileData.bornDate);
+        }
+      } else {
+        this.getUserSubscriptor = this.userService.getUserByUsername(this.usernameParam)
+        .pipe(first())
+        .subscribe({
+          next: user => {
+            this.userProfileData = user;
+
+            this.userProfileData.createdAt = this.userService.formatDateToDDMMYYYY(this.userProfileData.createdAt);
+
+            if (this.userProfileData.bornDate) {
+              this.userProfileData.bornDate = this.userService.formatDateToDDMMYYYY(this.userProfileData.bornDate);
+            }
+          }
+        })
       }
 
-      this.isGamer = this.userService.isGamer(this.userProfileData);
-      this.isTeam = this.userService.isTeam(this.userProfileData);
-      this.isSponsor = this.userService.isSponsor(this.userProfileData);
-      this.itsMe = this.authService.itsMe(this.userProfileData.username);
-    } else {
-      this.getUserSubscriptor = this.userService.getUserByUsername(this.usernameParam)
+      this.getPostsSubscriptor = this.postService.getPosts(this.usernameParam)
       .pipe(first())
-      .subscribe({
-        next: user => {
-          this.userProfileData = user;
-
-          this.userProfileData.createdAt = this.userService.formatDateToDDMMYYYY(this.userProfileData.createdAt);
-
-          if (this.userProfileData.bornDate) {
-            this.userProfileData.bornDate = this.userService.formatDateToDDMMYYYY(this.userProfileData.bornDate);
-          }
-
-          this.isGamer = this.userService.isGamer(this.userProfileData);
-          this.isTeam = this.userService.isTeam(this.userProfileData);
-          this.isSponsor = this.userService.isSponsor(this.userProfileData);
-          this.itsMe = this.authService.itsMe(this.userProfileData.username);
-        }
-      })
-    }
-
-    this.getPostsSubscriptor = this.postService.getPosts(this.usernameParam)
-    .pipe(first())
-    .subscribe((posts: Post[]) => this.userPostsData = posts)
+      .subscribe((posts: Post[]) => this.userPostsData = posts)
+    })
   }
 
-  public existPhoto(): boolean {
-    if (this.userProfileData.photoUrl) {
+  public itsMe = ((username: string) => this.authService.itsMe(username));
+  public isGamer = ((user: User) => this.userService.isGamer(user));
+  public isTeam = ((user: User) => this.userService.isTeam(user));
+  public isSponsor = ((user: User) => this.userService.isSponsor(user));
+
+  public existGames(games: Game[]): boolean {
+    if (games && games.length > 0) {
       return true;
     }
 
     return false;
   }
 
-  public existProfile(): boolean {
-    if (this.getUserSubscriptor) {
-      return this.getUserSubscriptor.closed;
+  public existLinks(links: Link[]): boolean {
+    if (links && links.length > 0) {
+      return true;
     }
 
-    return true;
+    return false;
   }
 
-  public setActive(buttonName: string): void {
-    this.activeButton = buttonName;
-  }
+  public setActive = ((buttonName: string) => this.buttonService.setActive(buttonName));
+  public isActive = ((buttonName: string) => this.buttonService.isActive(buttonName));
 
-  isActive(buttonName: string): boolean {
-    return this.activeButton === buttonName;
-  }
-
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.getParamsSubscriptor) {
       this.getParamsSubscriptor.unsubscribe();
     }

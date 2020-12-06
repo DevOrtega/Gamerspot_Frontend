@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from 'src/app/services/countries/countries.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { FeedsService } from 'src/app/services/feeds/feeds.service';
+import { PostsService } from 'src/app/services/posts/posts.service';
+import { Post } from 'src/app/interfaces/post';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,32 +11,35 @@ import { FeedsService } from 'src/app/services/feeds/feeds.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  public posts: Post[];
+  public countries: string[];
+  private postsToFilter: Post[];
+  private postsForCountry: Post[];
+  private postsForRole: Post[];
+  private postsForSearch: Post[];
+  
 
-  public feeds: any;
-  private feedsToFilter: any;
-  private feedsForCountry: any;
-  private feedsForRole: any;
-  private feedsForSearch: any
-  public countries: any;
-  public getCountriesSubscription: any;
+  public getCountriesSubscription: Subscription;
+
   public error: any;
   public loading: boolean;
-  public submitted:boolean = false;
-  public roles:string[] = ['Gamer', 'Team', 'Sponsor'];
-  public searched:string = '';
-  public countrySelected:string = 'All countries';
-  public roleSelected:string = 'All roles';
-  public errorSearch:boolean = false;
+
+  public submitted: boolean = false;
+  public roles: string[] = ['Gamer', 'Team', 'Sponsor'];
+  public searched: string = '';
+  public countrySelected: string = 'All countries';
+  public roleSelected: string = 'All roles';
+  public errorSearch: boolean = false;
 
   constructor(
     private authService: AuthService,
-    private feedService: FeedsService,
+    private postService: PostsService,
     private countryService: CountriesService,
     ) {
   }
 
   ngOnInit() {
-    this.showFeeds();
+    this.showPosts();
     this.getCountriesSubscription = this.countryService.getCountries()
     .subscribe({
       next: countries => {
@@ -48,26 +53,20 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  //home
-  async getCountries() {
-    this.countries = await this.countryService.getCountries();
-    return this.countries;
-  }
-
-  filterFeeds () {
+  filterPosts(): void {
     this.errorSearch = false;
 
     if (this.countrySelected != 'All countries') {
-      this.feedsForCountry = this.feedsToFilter.filter(feed => feed.owner.country === this.countrySelected);
+      this.postsForCountry = this.postsToFilter.filter(post => post.owner.country === this.countrySelected);
     } else {
-      this.feedsForCountry = Array.from(this.feedsToFilter);
+      this.postsForCountry = Array.from(this.postsToFilter);
     }
 
-    let intersect = this.feedsForRole.filter(value => this.feedsForSearch.includes(value))
-    this.feeds = this.feedsForCountry.filter(value => intersect.includes(value))
+    let intersect = this.postsForRole.filter(value => this.postsForSearch.includes(value))
+    this.posts = this.postsForCountry.filter(value => intersect.includes(value))
 
 
-    if (this.feeds.length === 0) {
+    if (this.posts.length === 0) {
       this.errorSearch = true;
     } else {
       this.errorSearch = false;
@@ -76,26 +75,26 @@ export class HomeComponent implements OnInit {
     this.nextFilter();
   }
 
-  nextFilter() {
+  nextFilter(): void {
     if (this.roleSelected === 'Gamer') {
-      this.feedsForRole = this.feedsToFilter.filter(feed => feed.owner.gamer);
+      this.postsForRole = this.postsToFilter.filter(post => post.owner.gamer);
     } else if (this.roleSelected === 'Team') {
-      this.feedsForRole = this.feedsToFilter.filter(feed => feed.owner.team);
+      this.postsForRole = this.postsToFilter.filter(post => post.owner.team);
     } else if (this.roleSelected === 'Sponsor') {
-      this.feedsForRole = this.feedsToFilter.filter(feed => feed.owner.sponsor);
+      this.postsForRole = this.postsToFilter.filter(post => post.owner.sponsor);
     } else {
-      this.feedsForRole = Array.from(this.feedsToFilter);
+      this.postsForRole = Array.from(this.postsToFilter);
     }
 
-    let intersect = this.feedsForCountry.filter(value => this.feedsForSearch.includes(value));
-    this.feeds = this.feedsForRole.filter(value => intersect.includes(value));
+    let intersect = this.postsForCountry.filter(value => this.postsForSearch.includes(value));
+    this.posts = this.postsForRole.filter(value => intersect.includes(value));
 
-    if (this.feeds.length === 0) {
+    if (this.posts.length === 0) {
       this.errorSearch = true;
     } else {
       this.errorSearch = false;
 
-      this.feeds.sort( (a,b) => {
+      this.posts.sort( (a,b) => {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;
@@ -103,90 +102,89 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  search() {
+  search(): Post[] {
     this.errorSearch = false;
 
     if (this.searched === '') {
-      this.feedsForSearch = Array.from(this.feedsToFilter);
+      this.postsForSearch = Array.from(this.postsToFilter);
     }
     else {
-      //this.feeds = this.feedsToFilter.filter(feed => feed.owner.username === this.searched);
-      this.feedsForSearch = this.feedsToFilter.filter(feed => {
-        if (feed.owner.gamer) {
-          return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
-          || feed.owner.gamer.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+      this.postsForSearch = this.postsToFilter.filter(post => {
+        if (post.owner.gamer) {
+          return post.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+          || post.owner.gamer.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
         }
 
-        if (feed.owner.team) {
-          return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
-          || feed.owner.team.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+        if (post.owner.team) {
+          return post.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+          || post.owner.team.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
         }
 
-        if (feed.owner.sponsor) {
-          return feed.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
-          || feed.owner.sponsor.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
+        if (post.owner.sponsor) {
+          return post.owner.username.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase())
+          || post.owner.sponsor.name.toLocaleLowerCase().startsWith(this.searched.toLocaleLowerCase());
         }
       })
     }
 
-    let intersect = this.feedsForCountry.filter(value => this.feedsForRole.includes(value));
-    this.feeds = this.feedsForSearch.filter(value => intersect.includes(value));
+    let intersect = this.postsForCountry.filter(value => this.postsForRole.includes(value));
+    this.posts = this.postsForSearch.filter(value => intersect.includes(value));
 
 
-    if (this.feeds.length === 0) {
+    if (this.posts.length === 0) {
       this.errorSearch = true;
     } else {
       this.errorSearch = false;
 
-      this.feeds.sort( (a,b) => {
+      this.posts.sort( (a,b) => {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;
       });
     }
 
-    return this.feeds;
+    return this.posts;
   }
 
-
-  //feed-post
-  saveFeed(event) {
-    this.feedService.createPost(event).subscribe(() => {
-      this.showFeeds();
+  savePost(event: any): void {
+    this.postService.createPost(event).subscribe(() => {
+      this.showPosts();
     });
   }
 
-  //feed-get
-  showFeeds() {
-   this.feedService.getPosts().subscribe(
-     response => {
-      this.feedsToFilter = Array.from(response);
-      this.feeds = Array.from(response);
-      this.feedsForCountry = Array.from(response);
-      this.feedsForRole = Array.from(response);
-      this.feedsForSearch = Array.from(response);
+  showPosts(): void {
+    this.postService.getPosts().subscribe(response => {
+      this.postsToFilter = Array.from(response);
+      this.posts = Array.from(response);
+      this.postsForCountry = Array.from(response);
+      this.postsForRole = Array.from(response);
+      this.postsForSearch = Array.from(response);
 
-      this.feeds.sort( (a,b) => {
+      this.posts.sort( (a,b) => {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;
       });
 
-      return this.feeds;
+      return this.posts;
     });
   }
 
-  removePost(feed) {
-    this.feeds = this.feeds.filter(f => {
-      return f._id != feed._id
+  deletePost(post: Post): void {
+    this.posts = this.posts.filter(f => {
+      return f._id != post._id
     });
-    this.feedService.removePost(feed)
+    this.postService.deletePost(post)
     .subscribe(response => {
       return response;
     })
   }
 
-  isLoggedIn() {
-    return this.authService.isLoggedIn();
+  public isLoggedIn = (() => this.authService.isLoggedIn())
+
+  ngOnDestroy(): void {
+    if (this.getCountriesSubscription) {
+      this.getCountriesSubscription.unsubscribe();
+    }
   }
 }

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "p4t4p-front": {
+    "gamerspot-front": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/p4t4p-front",
+            "outputPath": "dist/gamerspot-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "p4t4p-front:build"
+            "browserTarget": "gamerspot-front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "p4t4p-front:build:production"
+              "browserTarget": "gamerspot-front:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "p4t4p-front:build"
+            "browserTarget": "gamerspot-front:build"
           }
         },
         "test": {
@@ -110,18 +110,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "p4t4p-front:serve"
+            "devServerTarget": "gamerspot-front:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "p4t4p-front:serve:production"
+              "devServerTarget": "gamerspot-front:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "p4t4p-front",
+  "defaultProject": "gamerspot-front",
   "cli": {
     "analytics": false
   }
