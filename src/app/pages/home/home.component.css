@@ -3,22 +3,6 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-.home-main__feed-get {
-  margin: 10px 20px 70px 20px;
-}
-
-.home-main__feed-post {
-  margin: 170px 20px 0 20px;
-}
-
-.home-main__feed-get__filter {
-  margin: 70px auto 20px auto;
-  width: 600px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 select {
   width: 150px;
   border:2px solid #851DE0;
@@ -30,19 +14,58 @@ select:focus, select:active {
   outline: none !important;
 }
 
-.feed-post__comp {
+input.form-control {
+  background-color: #23272A;
+  color: white;
+  outline: none;
+  border: 2px solid #851DE0 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+}
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.home-main__post-create {
+  margin: 170px 20px 0 20px;
+}
+
+.home-main__post-get {
+  margin: 10px 20px 70px 20px;
+}
+
+.home-main__post-get__filter {
+  margin: 70px auto 20px auto;
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.post-create__comp {
   margin-right: 10%;
   width: 100%;
   height: 100px;
 }
 
-.feed-get__comp {
+.post-get__comp {
   overflow-y: scroll;
   width: 100%;
   margin-top: 30px;
 }
 
-.feed-get__comp, .feed-get__comp * {
+.post-get__comp, .post-get__comp * {
   display: block;
   height: auto;
   overflow: hidden;
@@ -72,27 +95,4 @@ i {
 
 .search-button:active {
   background-color: #851DE0 !important;
-}
-
-input.form-control {
-  background-color: #23272A;
-  color: white;
-  outline: none;
-  border: 2px solid #851DE0 !important;
-  box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-}
-
-::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-  opacity: 1;
-}
-
-:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-::-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.6);
 }

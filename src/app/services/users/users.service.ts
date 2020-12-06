@@ -4,25 +4,24 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/user';
-import { Userprofiledata } from 'src/app/interfaces/userprofiledata';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  private profileSubject: BehaviorSubject<Userprofiledata>;
-  public profile: Observable<Userprofiledata>;
+  private profileSubject: BehaviorSubject<User>;
+  public profile: Observable<User>;
 
   constructor(
     private http: HttpClient,
     private datePipe: DatePipe
     ) {
-    this.profileSubject = new BehaviorSubject<Userprofiledata>(null);
+    this.profileSubject = new BehaviorSubject<User>(null);
     this.profile = this.profileSubject.asObservable();
   }
 
-  public get profileData(): Userprofiledata {
+  public get profileData(): User {
     return this.profileSubject.value;
   }
 
@@ -37,7 +36,7 @@ export class UsersService {
 
   public getUserByUsername(username: string) {
     return this.http.get<any>(`${environment.apiUrl}/users/${username}`, { withCredentials: true })
-    .pipe(map((user: Userprofiledata) => {
+    .pipe(map((user: User) => {
       this.profileSubject.next(user);
 
       return user;
@@ -48,9 +47,9 @@ export class UsersService {
     return this.http.post<any>(`${environment.apiUrl}/users/register`, userdata);
   }
 
-  public editUser(username: string, user_data: Userprofiledata) {
+  public editUser(username: string, user_data: User) {
     return this.http.patch(`${environment.apiUrl}/users/${username}`, user_data, {withCredentials: true})
-    .pipe(map((user: Userprofiledata) => {
+    .pipe(map((user: User) => {
       this.profileSubject.next(user);
 
       return user;
@@ -109,15 +108,15 @@ export class UsersService {
     }
   }
 
-  public formatDateToDDMMYYYY(date: string) {
+  public formatDateToDDMMYYYY(date: Date | string) {
     return this.datePipe.transform(date, "dd/MM/yyyy");
   }
 
-  public formatDateToYYYYMMDD(date: string) {
+  public formatDateToYYYYMMDD(date: Date | string) {
     return this.datePipe.transform(date, "yyyy/MM/dd");
   }
 
-  public formatDateToMMMMDDYYYY(date: string) {
+  public formatDateToMMMMDDYYYY(date: Date | string) {
     return this.datePipe.transform(date, "MMMM dd, yyyy - H:mm:ss");
   }
 }

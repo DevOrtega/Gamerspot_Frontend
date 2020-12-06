@@ -16,11 +16,11 @@ body {
 }
 
 div.page-inner-container {
-    width: 65%;
+    width: 55%;
+    min-width: 1050px;
     margin: auto;
     color: white;
     background-color: var(--black);
-    min-width: 1000px;
 }
 
 div.default-text {
@@ -32,6 +32,28 @@ div.default-text {
 
 div.nav-separator {
   margin-top: 170px;
+}
+
+div.statistics-container {
+  min-height: 648px;
+}
+
+div.statistics {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-top: -200px;
+}
+
+div.statistics > p {
+  display: grid;
+  grid-template-rows: auto auto;
+  font-size: 17px;
+}
+
+img.statistics-rank {
+  width: 180px;
+  height: 180px;
+  margin-top: 50px;
 }
 
 a, a:hover, a:visited {
