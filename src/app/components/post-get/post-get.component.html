@@ -10,7 +10,8 @@
         [class.color-team]="postView.role == 'Team'"
         [class.color-sponsor]="postView.role == 'Sponsor'"
         class="post-header__photo">
-          <span><a [routerLink]="['/', postView.username]"><img class="post-owner-photo" src='../../../assets/profile/image-profile.png'/></a></span>
+        <span *ngIf="postView.photoUrl"><a [routerLink]="['/', postView.username]"><img class="post-owner-photo" [src]='postView.photoUrl'/></a></span>
+        <span *ngIf="!postView.photoUrl"><a [routerLink]="['/', postView.username]"><img class="post-owner-photo" src='https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6'/></a></span>
         </div>
         <div
         [class.color-gamer]="postView.role == 'Gamer'"
