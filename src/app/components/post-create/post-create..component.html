@@ -1,0 +1,12 @@
+<div class="main container">
+  <form [formGroup]="newPost" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form__textarea">
+        <textarea placeholder="What's new?" formControlName="text" (ngModelChange)="writting = true;"></textarea>
+      </div>
+      <div class="form__button ml-auto py-3">
+        <button class="btn">Publish</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -7,56 +7,66 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class TftStatisticsService {
+  private riotKey = environment.riotAPIKey;
+
+  public gameuser: string;
   public statistics: any;
-  private key= environment.lolAPIKey;
 
   constructor() { }
 
-  async getTftProfile(gameuser: String) {
+  async getTftProfile(gameuser: string): Promise<any> {
     const servers: string[] = ['EUW1', 'EUN1', 'BR1', 'JP1', 'KR', 'LA1', 'LA2', 'NA1', 'OC1', 'TR1', 'RU'];
 
     for (let server of servers) {
       await this.checkLolServer(gameuser, server);
-      if (this.statistics && !this.statistics.errors) break;
+      if (this.statistics) break;
     }
+
+    this.gameuser = gameuser;
 
     return this.statistics;
   }
 
-  async checkLolServer(gameuser: String, server: String) {
-    return axios.get(`${environment.corsProxy}/https://${server}${environment.lolApiUrl}${environment.tftUrl}${gameuser}`, {
+  async checkLolServer(gameuser: string, server: string): Promise<any> {
+    return axios.get(`${environment.corsProxy}/https://${server}${environment.riotApiUrl}${environment.tftUrl}${gameuser}`, {
       headers: {
-        "X-Riot-Token": this.key
+        "X-Riot-Token": this.riotKey
       },
       withCredentials: false
     })
-    .then(response => {
-      this.getTftStats(response.data, server);
+    .then(async response => {
+      await this.getTftStats(response.data, server);
     })
-    .catch(() =>  null)
+    .catch(() => this.statistics = undefined)
   }
 
-  async getTftStats(profile_response, server) {
-    return axios.get(`${environment.corsProxy}/https://${server}${environment.lolApiUrl}${environment.tftStatsUrl}${profile_response.id}`, {
+  async getTftStats(profile_response, server): Promise<any> {
+    return axios.get(`${environment.corsProxy}/https://${server}${environment.riotApiUrl}${environment.tftStatsUrl}${profile_response.id}`, {
       headers: {
-        "X-Riot-Token": this.key
+        "X-Riot-Token": this.riotKey
       },
       withCredentials: false
     })
     .then(response => {
       this.statistics = response.data;
-      // para mostrar el nivel en la vista
+
+      // Show the level in the view
       this.statistics[0].summonerLevel=profile_response.summonerLevel;
-      // comprueba si el servidor tiene número y se lo quita, para después mostrarlo en vista
+
+      // All Tier letters to lowercase except the first one, to compare them with the images in the view
+      this.statistics[0].tier= this.statistics[0].tier.charAt(0) + this.statistics[0].tier.substring(1).toLowerCase();
+
+      // Check if the server name has a number in it and removes it and then convert it to uppercase to show it in the view
       let hasNumber = /\d/;
       if (hasNumber.test(server)) {
         let serverWithNoDigits = server.replace(/[0-9]/g, '');
         server = serverWithNoDigits
+      } else {
+        server = server.toUpperCase()
       }
-      this.statistics[0].server= server;
-      // Se pasa a minúsculas todas las letras del Tier menos la primera, para poder comparar con las imágenes en vista
-      this.statistics[0].tier= this.statistics[0].tier.charAt(0) + this.statistics[0].tier.substring(1).toLowerCase();
+
+      this.statistics[0].server = server;
     })
-    .catch(() =>  null)
+    .catch(() => null)
   }
 }

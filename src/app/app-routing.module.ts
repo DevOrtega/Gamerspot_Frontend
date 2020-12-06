@@ -5,7 +5,7 @@ import { ProfileStatisticsApexComponent } from './components/profile-statistics-
 import { ProfileRankingComponent } from './components/profile-ranking/profile-ranking.component';
 import { AuthGuard } from './guards/authguard/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
-import { LolStatisticsComponent } from './components/lol-statistics/lol-statistics.component';
+import { ProfileStatisticsLolComponent } from './components/profile-statistics-lol/profile-statistics-lol.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -13,7 +13,7 @@ import { ProfileStatisticsNodataComponent } from './components/profile-statistic
 import { ProfileStatisticsMainComponent } from './components/profile-statistics-main/profile-statistics-main.component';
 import { ProfilePostsComponent } from './components/profile-posts/profile-posts.component';
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
-import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
+import { ProfileStatisticsTftComponent } from './components/profile-statistics-tft/profile-statistics-tft.component';
 import { AddPlayersComponent } from './components/add-players/add-players.component';
 
 const routes: Routes = [
@@ -29,8 +29,8 @@ const routes: Routes = [
         children: [
           { path: '', component: ProfileStatisticsMainComponent },
           { path: 'apex', component: ProfileStatisticsApexComponent },
-          { path:'lol', component: LolStatisticsComponent },
-          { path:'tft', component: TftStatisticsComponent },
+          { path:'lol', component: ProfileStatisticsLolComponent },
+          { path:'tft', component: ProfileStatisticsTftComponent },
           { path: 'nodata', component: ProfileStatisticsNodataComponent }
         ]
       },
