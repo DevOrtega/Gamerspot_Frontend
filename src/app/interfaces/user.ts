@@ -1,3 +1,5 @@
+import { Link } from './link';
+import { Game } from './game';
 import { Post } from './post';
 
 export interface User {
@@ -11,8 +13,8 @@ export interface User {
   country: string,
   bornDate?: string,
   biography: string
-  links: { link: string }[],
-  games: { gameName: string, gameUser: string }[],
+  links: Link[],
+  games: Game[],
   posts?: Post[],
   createdAt?: string  
 }

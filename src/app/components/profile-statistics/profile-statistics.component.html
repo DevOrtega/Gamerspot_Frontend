@@ -1,5 +1,5 @@
 <div class="page-inner-container">
-    <nav *ngIf="existGames()" class="nav nav-tabs nav-fill">
+    <nav *ngIf="games && games.length > 0" class="nav nav-tabs nav-fill">
         <a
             *ngFor="let game of games; let idx = index"
             class="nav-link btn btn-outline-secondary"

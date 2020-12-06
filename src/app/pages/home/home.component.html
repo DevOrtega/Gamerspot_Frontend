@@ -1,17 +1,16 @@
-<div *ngIf="isLoggedIn()" class="home-main__feed-post">
-  <div class="feed-post__comp">
-    <app-feed-post (feedEmitter)="saveFeed($event)"></app-feed-post>
+<div *ngIf="isLoggedIn()" class="home-main__post-create">
+  <div class="post-create__comp">
+    <app-post-create (createPostEmitter)="savePost($event)"></app-post-create>
   </div>
 </div>
-<div *ngIf="!isLoggedIn()" class="home-main__feed-post"></div>
-<div class="home-main__feed-get">
-  <!--Filtros-->
-  <div class="home-main__feed-get__filter">
+<div *ngIf="!isLoggedIn()" class="home-main__post-create"></div>
+<div class="home-main__post-get">
+  <div class="home-main__post-get__filter">
     <span>
       <select
-        class="inline custom-select custom-select-xs countries"
+        class="inline custom-select custom-select-xs"
         [(ngModel)]="countrySelected"
-        (change)="filterFeeds()"
+        (change)="filterPosts()"
       >
         <option selected>All countries</option>
         <option class="select-options" *ngFor="let country of countries">{{ country }}</option>
@@ -19,9 +18,9 @@
     </span>
     <span>
       <select
-        class="inline custom-select custom-select-xs countries"
+        class="inline custom-select custom-select-xs"
         [(ngModel)]="roleSelected"
-        (change)="filterFeeds()"
+        (change)="filterPosts()"
       >
         <option selected>All roles</option>
         <option class="select-options" *ngFor="let role of roles">{{ role }}</option>
@@ -38,17 +37,15 @@
       </div>
     </span>
   </div>
-  <!--No se encuentra-->
   <div class="search-error" *ngIf="errorSearch">
     <span>Sorry, we can't find who are you looking for</span>
   </div>
-  <!--Los posts-->
-  <div class="feed-get__comp" *ngFor="let feed of feeds; let idx = index">
-    <app-feed-get
-      [feed]="feed"
+  <div class="post-get__comp" *ngFor="let post of posts; let idx = index">
+    <app-post-get
+      [post]="post"
       [modalIndex]="idx"
-      (feedToDelete)="removePost($event)">
-    </app-feed-get>
+      (deletePostEmitter)="deletePost($event)">
+    </app-post-get>
   </div>
 </div>
 
