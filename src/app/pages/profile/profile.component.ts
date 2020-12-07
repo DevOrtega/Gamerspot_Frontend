@@ -106,7 +106,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.loading = true;
       setTimeout(() => {
         this.showPhoto();
-        this.editPhotoProfile(this.userProfileData);
+        this.editPhotoProfile();
       }, 1000);
     })
   }
@@ -116,16 +116,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     getDownloadURL().subscribe(photo => {
       this.userProfileData.photoUrl = photo;
       this.loading = false;
-      let user: any = {
-        photoUrl: this.userProfileData.photoUrl
-      }
       return this.userProfileData.photoUrl;
     })
   }
 
-  public editPhotoProfile(user) {
-    this.editPhotoSubscription = this.userService.editUser(this.userProfileData.username, user)
-    .subscribe()
+  public editPhotoProfile() {
+    this.photoSubscription = this.photoService.getPhotoByUsername(this.userProfileData.username).
+    getDownloadURL().subscribe(photo => {
+      this.userProfileData.photoUrl = photo;
+      this.loading = false;
+      let user: any = {
+        photoUrl: this.userProfileData.photoUrl
+      }
+      this.editPhotoSubscription = this.userService.editUser(this.userProfileData.username, user)
+      .subscribe()
+      return this.userProfileData.photoUrl;
+    });
   }
 
 
