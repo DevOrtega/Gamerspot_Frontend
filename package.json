@@ -1,5 +1,5 @@
 {
-  "name": "p4t4p-front",
+  "name": "gamerspot-front",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -15,6 +15,7 @@
     "@angular/common": "~10.1.6",
     "@angular/compiler": "~10.1.6",
     "@angular/core": "~10.1.6",
+    "@angular/fire": "^6.1.4",
     "@angular/forms": "~10.1.6",
     "@angular/platform-browser": "~10.1.6",
     "@angular/platform-browser-dynamic": "~10.1.6",
@@ -24,6 +25,7 @@
     "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.3",
+    "firebase": "^8.1.2",
     "jquery": "^3.5.1",
     "jwt-decode": "^3.1.1",
     "ngx-cookie-service": "^10.1.1",

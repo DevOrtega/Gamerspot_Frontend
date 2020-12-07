@@ -1,25 +1,25 @@
 select {
-    width: 295px;
+  width: 295px;
 }
 
 input.btn {
-    box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 textarea {
-    resize: none;
-    width: 600px;
-    height: 200px;
+  resize: none;
+  width: 600px;
+  height: 200px;
 }
 
 .form {
-    width: 700px;
-    margin: auto;
-    padding: 50px;
+  width: 700px;
+  margin: auto;
+  padding: 50px;
 }
 
 .resize {
-    width: 295px;
+  width: 295px;
 }
 
 .link-padding {
@@ -28,7 +28,11 @@ textarea {
 }
 
 button.btn.save {
-    background-color: blueviolet;
-    border: none;
+  background-color: blueviolet;
+  border: none;
+}
+
+label.btn.bt-sm.focus.active {
+  z-index: 0 !important;
 }
 
