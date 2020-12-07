@@ -15,6 +15,7 @@ import { ProfilePostsComponent } from './components/profile-posts/profile-posts.
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { TftStatisticsComponent } from './components/tft-statistics/tft-statistics.component';
 import { AddPlayersComponent } from './components/add-players/add-players.component';
+//import { AddPlayersComponent } from './components/add-players/add-players.component';
 
 const routes: Routes = [
   { path:'', component: HomeComponent },

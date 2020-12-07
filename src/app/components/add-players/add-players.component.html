@@ -1,1 +1,9 @@
-<p>add-players works!</p>
+<div class="ml-5"><button class="btn btn-primary " type="button" (click)="addPlayer()">Add player</button>
+
+  <select
+  class="custom-select custom-select mb-3"
+  (change)="onChangePlayer($event.target.value)"
+>
+  <option *ngFor="let player of players" value={{player._id}}>{{ player.name | json }}</option>
+</select>
+</div>

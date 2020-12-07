@@ -39,7 +39,6 @@ export class UsersService {
     return this.http.get<any>(`${environment.apiUrl}/users/${username}`, { withCredentials: true })
     .pipe(map((user: Userprofiledata) => {
       this.profileSubject.next(user);
-
       return user;
     }))
   }
@@ -91,7 +90,7 @@ export class UsersService {
     }
 
     if (this.isSponsor(user)) {
-      return user.sponsor.name; 
+      return user.sponsor.name;
     }
   }
 
@@ -105,7 +104,7 @@ export class UsersService {
     }
 
     if (this.isSponsor(user)) {
-      return "Sponsor"; 
+      return "Sponsor";
     }
   }
 
