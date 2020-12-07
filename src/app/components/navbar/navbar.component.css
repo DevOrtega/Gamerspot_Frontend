@@ -7,6 +7,7 @@
   align-items: center;
   background-color: #23272A;
   padding-top: 150px;
+  padding-bottom: 10px;
 }
 
 .grid-vertical {
@@ -16,11 +17,6 @@
   bottom: 20px;
   z-index: 1;
   left: 20px;
-  /*margin-top: 32%;
-  margin-left: 1%;
-  margin-right: 95%;
-  margin-bottom: 2%;*/
-  background-color: #23272A;
 }
 
 a {
@@ -74,7 +70,7 @@ a:hover{
 }
 
 .a-vertical {
-  background-color: #23272A;
+  background-color: transparent;
   text-align: center;
 }
 

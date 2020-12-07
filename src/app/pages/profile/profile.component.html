@@ -1,40 +1,198 @@
 <div class="page-inner-container nav-separator">
-  <div *ngIf="existProfile()">
+  <div *ngIf="userProfileData">
     <div class="profile-main">
-      <div class="container">
-        <div class="row">
-          <div class="col-4 fixed-col left">
-            <img *ngIf="existPhoto()" class="profile-photo" [src]="userProfileData.photoUrl">
-            <img *ngIf="!existPhoto()" class="profile-photo" src="../../../../assets/profile/image-profile.png">
-            <div *ngIf="isGamer" class="mt-4">
-              <h2>{{userProfileData.gamer.name}}</h2>
-              <p>{{userProfileData.username}}</p>
-              <h5 class="gamer">Gamer</h5>
-            </div>
-            <div *ngIf="isTeam" class="mt-4">
-              <h2>{{userProfileData.team.name}}</h2>
-              <p>{{userProfileData.username}}</p>
-              <h5 class="team">Team</h5>
-            </div>
-            <div *ngIf="isSponsor" class="mt-4">
-              <h2>{{userProfileData.sponsor.name}}</h2>
-              <p>{{userProfileData.username}}</p>
-              <h5 class="sponsor">Sponsor</h5>
+      <div
+        class="profile-grid"
+        [class.gamer-outer-border]="isGamer(userProfileData)"
+        [class.team-outer-border]="isTeam(userProfileData)"
+        [class.sponsor-outer-border]="isSponsor(userProfileData)"
+      >
+        <div class="fixed-col left">
+          <div *ngIf="loading" class="loading-photo">
+            <div class="loading-text">
+              <p>Loading...</p>
+              <i class="fas fa-spinner loading"></i>
             </div>
           </div>
-          <div class="col fixed-col p-5">
-            <app-profile-data [userProfileData]="userProfileData"></app-profile-data>
+          <div class="profile-photo">
+            <label for="file-input">
+              <img *ngIf="userProfileData.photoUrl && !loading" class="profile-photo" [src]="userProfileData.photoUrl">
+              <img *ngIf="!userProfileData.photoUrl && !loading" class="default-profile-photo" src="https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6">
+            </label>
+            <input type="file" id="file-input" (change)="upload($event)"/>
+          </div>
+          <div *ngIf="userProfileData.gamer" class="mt-4">
+            <h2>{{userProfileData.gamer.name}}</h2>
+            <p>{{userProfileData.username}}</p>
+            <h5 class="gamer-title-color">Gamer</h5>
+          </div>
+          <div *ngIf="userProfileData.team" class="mt-4">
+            <h2>{{userProfileData.team.name}}</h2>
+            <p>{{userProfileData.username}}</p>
+            <h5 class="team-title-color">Team</h5>
+          </div>
+          <div *ngIf="userProfileData.sponsor" class="mt-4">
+            <h2>{{userProfileData.sponsor.name}}</h2>
+            <p>{{userProfileData.username}}</p>
+            <h5 class="sponsor-title-color">Sponsor</h5>
+          </div>
+        </div>
+        <div class="fixed-col">
+          <div class="overall-grid">
+            <div class="biography">
+              <h5
+                [class.gamer-title-color]="isGamer(userProfileData)"
+                [class.team-title-color]="isTeam(userProfileData)"
+                [class.sponsor-title-color]="isSponsor(userProfileData)"
+              >
+                About Me
+              </h5>
+              <p *ngIf="userProfileData.biography">{{ userProfileData.biography }}</p>
+              <i *ngIf="!userProfileData.biography && itsMe(userProfileData.username)" class="empty-field">You don't have a bio yet</i>
+              <i *ngIf="!userProfileData.biography && !itsMe(userProfileData.username)" class="empty-field">This user doesn't have a bio yet</i>
+            </div>
+            <div class="side-data">
+              <div>
+                <h5
+                  [class.gamer-title-color]="isGamer(userProfileData)"
+                  [class.team-title-color]="isTeam(userProfileData)"
+                  [class.sponsor-title-color]="isSponsor(userProfileData)"
+                >
+                  Country
+                </h5>
+                <p>{{ userProfileData.country }}</p>
+              </div>
+              <div *ngIf="userProfileData.bornDate">
+                <h5
+                  [class.gamer-title-color]="isGamer(userProfileData)"
+                  [class.team-title-color]="isTeam(userProfileData)"
+                  [class.sponsor-title-color]="isSponsor(userProfileData)"
+                >
+                  Born Date
+                </h5>
+                <p>{{ userProfileData.bornDate }}</p>
+              </div>
+              <div>
+                <h5
+                  [class.gamer-title-color]="isGamer(userProfileData)"
+                  [class.team-title-color]="isTeam(userProfileData)"
+                  [class.sponsor-title-color]="isSponsor(userProfileData)"
+                >
+                  Joined At
+                </h5>
+                <p>{{ userProfileData.createdAt }}</p>
+              </div>
+            </div>
+            <div
+              *ngIf="isGamer(userProfileData)"
+              [class.grid-container]="existGames(userProfileData.games)"
+              [class.default-container]="!existGames(userProfileData.games) "
+              [class.gamer-inner-borders]="isGamer(userProfileData)"
+              [class.team-inner-borders]="isTeam(userProfileData)"
+              [class.sponsor-inner-borders]="isSponsor(userProfileData)"
+            >
+              <h5
+                [class.gamer-title-color]="isGamer(userProfileData)"
+                [class.team-title-color]="isTeam(userProfileData)"
+                [class.sponsor-title-color]="isSponsor(userProfileData)"
+              >
+                Games
+              </h5>
+              <div *ngIf="existGames(userProfileData.games)" class="games-container">
+                <div *ngFor="let game of userProfileData.games; let idx = index">
+                  <img *ngIf="game.gameName=='lol'" width="50" height="50" src="{{'./assets/LoL/logo.png'}}" alt="{{'logo-'+game.gameName}}">
+                  <img *ngIf="game.gameName=='apex'" width="50" height="50" src="{{'./assets/Apex/logo.png'}}" alt="{{'logo-'+game.gameName}}">
+                  <img *ngIf="game.gameName=='tft'" width="50" height="50" src="{{'./assets/TFT/logo.png'}}" alt="{{'logo-'+game.gameName}}">
+                </div>
+              </div>
+              <i *ngIf="!existGames(userProfileData.games) && itsMe(userProfileData.username)" class="empty-field me">You don't have games yet</i>
+              <i *ngIf="!existGames(userProfileData.games) && !itsMe(userProfileData.username)" class="empty-field not-me">This user doesn't have games yet</i>
+            </div>
+            <div *ngIf="!isGamer(userProfileData)"></div>
+            <div
+              *ngIf="existLinks(userProfileData.links)"
+              class="contact-links-container"
+            >
+              <div
+                class="contact-links"
+                [class.gamer-inner-borders]="isGamer(userProfileData)"
+                [class.team-inner-borders]="isTeam(userProfileData)"
+                [class.sponsor-inner-borders]="isSponsor(userProfileData)"
+              >
+                <h5
+                  [class.gamer-title-color]="isGamer(userProfileData)"
+                  [class.team-title-color]="isTeam(userProfileData)"
+                  [class.sponsor-title-color]="isSponsor(userProfileData)"
+                >
+                  Social links
+                </h5>
+                <div class="links" *ngFor="let link of userProfileData.links; let idx = index">
+                  <button
+                    *ngIf="link.link.includes('twitch')"
+                    type="button"
+                    class="btn btn-sm col ml-1"
+                  >
+                    <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
+                      ><i alt="twitch" class="fab fa-twitch fa-2x"></i
+                    ></a>
+                  </button>
+
+                  <button
+                    *ngIf="link.link.includes('youtube')"
+                    type="button"
+                    class="btn btn-sm col ml-1"
+                  >
+                    <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
+                      ><i alt="youtube" class="fab fa-youtube fa-2x"></i
+                    ></a>
+                  </button>
+
+                  <button
+                    *ngIf="link.link.includes('twitter')"
+                    type="button"
+                    class="btn btn-sm col ml-1"
+                  >
+                    <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+                      <i alt="twitter" class="fab fa-twitter fa-2x"></i>
+                    </a>
+                  </button>
+
+                  <button
+                    *ngIf="link.link.includes('facebook')"
+                    type="button"
+                    class="btn btn-sm col ml-1"
+                  >
+                    <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
+                      ><i alt="facebook" class="fab fa-facebook fa-2x"></i
+                    ></a>
+                  </button>
+
+                  <button
+                    *ngIf="link.link.includes('instagram')"
+                    type="button"
+                    class="btn btn-sm col ml-1"
+                  >
+                    <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer"
+                      ><i alt="instagram" class="fab fa-instagram fa-2x"></i
+                    ></a>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <nav class="nav nav-tabs nav-fill">
       <a class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn1')" (click)="setActive('btn1')" [routerLink]="'./posts'" skipLocationChange>POSTS</a>
-      <a *ngIf="isGamer" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" [state]="userPostsData" skipLocationChange>STATS</a>
-      <!-- <a *ngIf="isGamer" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./ranking'" skipLocationChange>Ranking</a> -->
-      <a *ngIf="isTeam" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./players'" skipLocationChange>PLAYERS</a>
-      <a *ngIf="itsMe" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./configuration'" skipLocationChange>CONFIG</a>
+      <a *ngIf="isGamer(userProfileData)" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" [state]="userPostsData" skipLocationChange>STATS</a>
+      <!-- <a *ngIf="isGamer(userProfileData)" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./ranking'" skipLocationChange>Ranking</a> -->
+      <a *ngIf="isTeam(userProfileData)" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./players'" skipLocationChange>PLAYERS</a>
+      <a *ngIf="itsMe(userProfileData.username)" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./configuration'" skipLocationChange>CONFIG</a>
     </nav>
+  </div>
+  <div *ngIf="!userProfileData">
+    <p>Error</p>
   </div>
 </div>
 
