@@ -1,9 +1,9 @@
 import { AuthService } from '../services/auth/auth.service';
 
 export function appInitializer(authService: AuthService) {
-    return () => new Promise(resolve => {
-        authService.refreshToken()
-        .subscribe()
-        .add(resolve)
-    });
+    return async () => {
+        await authService.refreshToken()
+        .pipe()
+        .toPromise()
+    }
 }
