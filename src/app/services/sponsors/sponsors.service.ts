@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Sponsor } from 'src/app/interfaces/sponsor';
 import { Sponsorprofiledata } from 'src/app/interfaces/sponsorprofiledata';
 import { environment } from 'src/environments/environment';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +68,49 @@ export class SponsorsService {
 
         return sponsor;
       }))
+  }
+
+  public addPlayer(id: string, player_id: any) {
+    const player_data={
+      player_id:player_id
+    }
+    return axios.patch(`${environment.apiUrl}/sponsors/${id}/add_player`, player_data, {
+      withCredentials: true
+    })
+    .then(response => {
+
+
+    })
+    .catch(() =>  null)
+    /*return this.http.patch(`${environment.apiUrl}/teams/${id}/add_player`, player_id, { withCredentials: true })
+      .pipe(map((team: Teamprofiledata) => {
+
+
+        this.profileSubject.next(team);
+
+        return team;
+      }))*/
+  }
+
+  public deletePlayer(id: string, player_id: any) {
+    const player_data={
+      player_id:player_id
+    }
+    return axios.patch(`${environment.apiUrl}/sponsors/${id}/delete_player`, player_data, {
+      withCredentials: true
+    })
+    .then(response => {
+
+
+    })
+    .catch(() =>  null)
+    /*return this.http.patch(`${environment.apiUrl}/teams/${id}/add_player`, player_id, { withCredentials: true })
+      .pipe(map((team: Teamprofiledata) => {
+
+
+        this.profileSubject.next(team);
+
+        return team;
+      }))*/
   }
 }

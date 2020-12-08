@@ -25,7 +25,14 @@ export class TeamsService {
     return this.profileSubject.value;
   }
 
-  public getTeams(sponsor) {
+  public getTeams(player?:any, sponsor?:any) {
+    if (player) {
+      return this.http.get<any>(`${environment.apiUrl}/teams?players=${player}`, { withCredentials: true })
+      .pipe(map(teams => {
+        this.profileSubject.next(teams);
+        return teams;
+      }));
+    }
     if (sponsor) {
       return this.http.get<any>(`${environment.apiUrl}/teams?sponsor=${sponsor}`, { withCredentials: true })
       .pipe(map(teams => {
@@ -69,6 +76,28 @@ export class TeamsService {
       player_id:player_id
     }
     return axios.patch(`${environment.apiUrl}/teams/${id}/add_player`, player_data, {
+      withCredentials: true
+    })
+    .then(response => {
+
+
+    })
+    .catch(() =>  null)
+    /*return this.http.patch(`${environment.apiUrl}/teams/${id}/add_player`, player_id, { withCredentials: true })
+      .pipe(map((team: Teamprofiledata) => {
+
+
+        this.profileSubject.next(team);
+
+        return team;
+      }))*/
+  }
+
+  public deletePlayer(id: string, player_id: any) {
+    const player_data={
+      player_id:player_id
+    }
+    return axios.patch(`${environment.apiUrl}/teams/${id}/delete_player`, player_data, {
       withCredentials: true
     })
     .then(response => {

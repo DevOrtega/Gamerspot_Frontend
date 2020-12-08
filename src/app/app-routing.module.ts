@@ -15,6 +15,9 @@ import { ProfilePostsComponent } from './components/profile-posts/profile-posts.
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { ProfileStatisticsTftComponent } from './components/profile-statistics-tft/profile-statistics-tft.component';
 import { AddPlayersComponent } from './components/add-players/add-players.component';
+import { ShowTeamComponent } from './components/show-team/show-team.component';
+import { PrettyJsonPipe } from './pretty-json.pipe';
+import { ShowSponsorsComponent } from './components/show-sponsors/show-sponsors.component';
 //import { AddPlayersComponent } from './components/add-players/add-players.component';
 
 const routes: Routes = [
@@ -37,6 +40,8 @@ const routes: Routes = [
       },
      // { path: 'ranking', component: ProfileRankingComponent },
       { path: 'players', component: AddPlayersComponent },
+      { path: 'team', component: ShowTeamComponent },
+      { path: 'sponsors', component: ShowSponsorsComponent },
       { path: 'configuration', component: ProfileEditorComponent }
     ],
     canActivate: [AuthGuard]
