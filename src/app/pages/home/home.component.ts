@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   private postsForCountry: Post[];
   private postsForRole: Post[];
   private postsForSearch: Post[];
-  
+
 
   public getCountriesSubscription: Subscription;
 
@@ -146,8 +146,8 @@ export class HomeComponent implements OnInit {
     return this.posts;
   }
 
-  savePost(event: any): void {
-    this.postService.createPost(event).subscribe(() => {
+  savePost(post: Post): void {
+    this.postService.createPost(post).subscribe(() => {
       this.showPosts();
     });
   }
