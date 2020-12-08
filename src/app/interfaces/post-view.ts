@@ -1,3 +1,5 @@
+import { Tag } from './tag';
+
 export interface PostView {
     _id: string,
     username: string,
@@ -5,5 +7,6 @@ export interface PostView {
     role: string,
     text: string,
     photoUrl: string,
+    tags?: Tag[],
     createdAt: string
 }
