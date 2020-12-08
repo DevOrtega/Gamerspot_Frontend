@@ -37,7 +37,9 @@
           src="https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6"
           [alt]="player.name | prettyJson"
       /></a>
-      <span>{{ player.name | prettyJson }}</span>
+      <a
+      [routerLink]="['/', player.owner.username]"
+      ><span>{{ player.name | prettyJson }}</span></a>
       <button
         *ngIf="user.username == userProfileData.username"
         type="button"
@@ -137,7 +139,9 @@
           src="https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6"
           [alt]="player.name | prettyJson"
       /></a>
-      <span>{{ player.name | prettyJson }}</span>
+      <a
+      [routerLink]="['/', player.owner.username]"
+      ><span>{{ player.name | prettyJson }}</span></a>
       <button
         *ngIf="user.username == userProfileData.username"
         type="button"

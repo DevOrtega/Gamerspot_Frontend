@@ -34,7 +34,7 @@ export class TeamsService {
       }));
     }
     if (sponsor) {
-      return this.http.get<any>(`${environment.apiUrl}/teams?sponsor=${sponsor}`, { withCredentials: true })
+      return this.http.get<any>(`${environment.apiUrl}/teams?sponsors=${sponsor}`, { withCredentials: true })
       .pipe(map(teams => {
         this.profileSubject.next(teams);
         return teams;

@@ -82,14 +82,6 @@ export class SponsorsService {
 
     })
     .catch(() =>  null)
-    /*return this.http.patch(`${environment.apiUrl}/teams/${id}/add_player`, player_id, { withCredentials: true })
-      .pipe(map((team: Teamprofiledata) => {
-
-
-        this.profileSubject.next(team);
-
-        return team;
-      }))*/
   }
 
   public deletePlayer(id: string, player_id: any) {
@@ -104,13 +96,33 @@ export class SponsorsService {
 
     })
     .catch(() =>  null)
-    /*return this.http.patch(`${environment.apiUrl}/teams/${id}/add_player`, player_id, { withCredentials: true })
-      .pipe(map((team: Teamprofiledata) => {
+  }
+
+  public addTeam(id: string, team_id: any) {
+    const team_data={
+      team_id:team_id
+    }
+    return axios.patch(`${environment.apiUrl}/sponsors/${id}/add_team`, team_data, {
+      withCredentials: true
+    })
+    .then(response => {
 
 
-        this.profileSubject.next(team);
+    })
+    .catch(() =>  null)
+  }
 
-        return team;
-      }))*/
+  public deleteTeam(id: string, team_id: any) {
+    const team_data={
+      team_id:team_id
+    }
+    return axios.patch(`${environment.apiUrl}/sponsors/${id}/delete_team`, team_data, {
+      withCredentials: true
+    })
+    .then(response => {
+
+
+    })
+    .catch(() =>  null)
   }
 }

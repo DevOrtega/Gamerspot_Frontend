@@ -18,6 +18,7 @@ import { AddPlayersComponent } from './components/add-players/add-players.compon
 import { ShowTeamComponent } from './components/show-team/show-team.component';
 import { PrettyJsonPipe } from './pretty-json.pipe';
 import { ShowSponsorsComponent } from './components/show-sponsors/show-sponsors.component';
+import { AddTeamsComponent } from './components/add-teams/add-teams.component';
 //import { AddPlayersComponent } from './components/add-players/add-players.component';
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
       },
      // { path: 'ranking', component: ProfileRankingComponent },
       { path: 'players', component: AddPlayersComponent },
+      { path: 'teams', component: AddTeamsComponent },
       { path: 'team', component: ShowTeamComponent },
       { path: 'sponsors', component: ShowSponsorsComponent },
       { path: 'configuration', component: ProfileEditorComponent }

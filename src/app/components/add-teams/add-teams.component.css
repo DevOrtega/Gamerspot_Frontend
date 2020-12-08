@@ -3,7 +3,7 @@ select {
 }
 
 button.btn.save {
-  background-color: blueviolet;
+  background-color: #FFD300;
   border: none;
   color: white;
   margin-left: 30%;
@@ -20,7 +20,7 @@ span {
 }
 
 .team-photo {
-  margin-left: 25px;
+  margin-left: 10px;
   background-color: rgba(255, 255, 255, 0.6) !important;
   width: 100px;
   height: 100px;
