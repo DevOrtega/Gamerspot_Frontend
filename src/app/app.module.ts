@@ -34,6 +34,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { TagComponent } from './pages/tag/tag.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     PostGetComponent,
     PrettyJsonPipe,
     ProfileStatisticsTftComponent,
-    AddPlayersComponent
+    AddPlayersComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,

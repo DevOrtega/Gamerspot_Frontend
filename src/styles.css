@@ -61,6 +61,7 @@ a, a:hover, a:visited {
 }
 
 .modal-content {
+  color: white;
   background-color: #23272A;
 }
 

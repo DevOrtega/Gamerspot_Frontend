@@ -160,7 +160,7 @@ export class HomeComponent implements OnInit {
       this.postsForRole = Array.from(response);
       this.postsForSearch = Array.from(response);
 
-      this.posts.sort( (a,b) => {
+      this.posts.sort((a,b) => {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
         return dateB - dateA;

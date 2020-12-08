@@ -22,5 +22,13 @@ export class TagsService {
     return this.tagSubject.value;
   }
 
+  public getTagByName(name: string) {
+    return this.http.get<any>(`${environment.apiUrl}/tags/${name}`)
+    .pipe(map((tag: Tag) => {
+      this.tagSubject.next(tag);
+
+      return tag;
+    }))
+  }
 
 }

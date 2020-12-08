@@ -6,7 +6,7 @@
   border-radius: 0%;
 }
 
-.post-header{
+.post-header {
   display: grid;
   grid-template-columns: 90px 4fr 4fr;
   color: rgba(255, 255, 255, 1);
@@ -70,9 +70,4 @@ p {
 .btn:focus, .btn:active {
   box-shadow: none !important;
   outline: none !important;
-}
-
-.tag-link {
-  cursor: pointer !important;
-  color: pink !important;
 }
