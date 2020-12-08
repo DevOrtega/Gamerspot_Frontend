@@ -11,16 +11,16 @@ button.btn.save {
 
 span {
   display: flow-root;
-  margin-left: 15px;
+  margin-left: 25px;
 }
 
-.players-container {
-  border:2px solid #851DE0;
+.sponsors-container {
+  border:2px solid#DE38C8;
 
 }
 
-.player-photo {
-  margin-left: 10px;
+.sponsor-photo {
+  margin-left: 20px;
   background-color: rgba(255, 255, 255, 0.6) !important;
   width: 100px;
   height: 100px;

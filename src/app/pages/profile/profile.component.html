@@ -187,8 +187,11 @@
       <a class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn1')" (click)="setActive('btn1')" [routerLink]="'./posts'" skipLocationChange>POSTS</a>
       <a *ngIf="isGamer(userProfileData)" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./statistics'" [state]="userPostsData" skipLocationChange>STATS</a>
       <!-- <a *ngIf="isGamer(userProfileData)" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./ranking'" skipLocationChange>Ranking</a> -->
-      <a *ngIf="isTeam(userProfileData)" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./players'" skipLocationChange>PLAYERS</a>
-      <a *ngIf="itsMe(userProfileData.username)" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./configuration'" skipLocationChange>CONFIG</a>
+      <a *ngIf="isGamer(userProfileData)" class="nav-link btn btn-outline-dark text-white" [class.active]="isActive('btn3')" (click)="setActive('btn3')" [routerLink]="'./team'" skipLocationChange>TEAM</a>
+      <a *ngIf="isTeam(userProfileData)" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./players'" skipLocationChange>PLAYERS</a>
+      <a *ngIf="isSponsor(userProfileData)" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn2')" (click)="setActive('btn2')" [routerLink]="'./players'" skipLocationChange>SPONSORIZED PLAYERS</a>
+      <a *ngIf="isTeam(userProfileData) || isGamer(userProfileData)" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn4')" (click)="setActive('btn4')" [routerLink]="'./sponsors'" skipLocationChange>SPONSORS</a>
+      <a *ngIf="itsMe(userProfileData.username)" class="nav-link btn btn-outline-dark btn-conf text-white" [class.active]="isActive('btn5')" (click)="setActive('btn5')" [routerLink]="'./configuration'" skipLocationChange>CONFIG</a>
     </nav>
   </div>
   <div *ngIf="!userProfileData">
