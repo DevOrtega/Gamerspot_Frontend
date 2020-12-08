@@ -39,7 +39,7 @@ export class PostsService {
 
 
   public createPost(post) {
-    return this.http.post<any>(`${environment.apiUrl}/posts`, {'text': post}, { withCredentials: true });
+    return this.http.post<any>(`${environment.apiUrl}/posts`, post, { withCredentials: true });
   }
 
   public deletePost(post) {

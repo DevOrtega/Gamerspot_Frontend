@@ -32,7 +32,7 @@
     <div class="post-content">
       <div></div>
       <div>
-        <p class="card-text post-content__p text-break ">{{postView.text}}</p>
+        <p [id]="modalIndex" class="card-text post-content__p text-break ">{{postView.text}}</p>
       </div>
       <div class="post-header__button ml-auto mt-auto pb-2" *ngIf="isLoggedIn() && itsMe()">
         <button type="button" class="btn btn-outline-danger" data-toggle="modal" [attr.data-target]="'#confirmationModal' + modalIndex">

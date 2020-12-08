@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Tag } from 'src/app/interfaces/tag';
 
 @Component({
   selector: 'app-post-create',
@@ -11,6 +12,8 @@ export class PostCreateComponent implements OnInit {
 
   public newPost: FormGroup;
   public writting: boolean = false;
+  private regexTag: RegExp = new RegExp('^#\\w+$');
+  private newTag:Tag;
 
   constructor(private formBuilder:FormBuilder) { }
 
@@ -27,8 +30,31 @@ export class PostCreateComponent implements OnInit {
 
   onSubmit(): void {
     this.writting = false;
-    this.createPostEmitter.emit(this.newPost['controls'].text.value);
+    const post = this.hasTags(this.newPost['controls'].text.value);
+    this.createPostEmitter.emit(post);
     this.newPost.reset();
+  }
+
+  hasTags(text: string) {
+    const textWords = text.split(' ');
+    let tags: Tag[] = [];
+
+    textWords.forEach(word => {
+      if (this.regexTag.test(word)) {
+        tags.push({'name': word});
+      }
+    });
+
+    if (tags.length > 0) {
+      return {
+        'text': text,
+        'tags': tags
+      }
+    } else {
+      return {
+        'text': text
+      }
+    }
   }
 
   isWritting(): void {
