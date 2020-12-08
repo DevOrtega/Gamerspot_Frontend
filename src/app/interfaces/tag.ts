@@ -1,3 +1,6 @@
+import { Post} from './post';
+
 export interface Tag {
-  name: string
+  name: string,
+  posts?: Post[]
 }

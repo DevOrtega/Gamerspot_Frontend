@@ -15,6 +15,7 @@ import { ProfilePostsComponent } from './components/profile-posts/profile-posts.
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { ProfileStatisticsTftComponent } from './components/profile-statistics-tft/profile-statistics-tft.component';
 import { AddPlayersComponent } from './components/add-players/add-players.component';
+import { TagComponent } from './pages/tag/tag.component';
 import { ShowTeamComponent } from './components/show-team/show-team.component';
 import { PrettyJsonPipe } from './pretty-json.pipe';
 import { ShowSponsorsComponent } from './components/show-sponsors/show-sponsors.component';
@@ -23,6 +24,7 @@ import { AddTeamsComponent } from './components/add-teams/add-teams.component';
 
 const routes: Routes = [
   { path:'', component: HomeComponent },
+  { path: 'tags/:name', component: TagComponent},
   { path:'login', component: LoginComponent },
   { path:'register', component: RegisterComponent },
   { path:':username', component: ProfileComponent,
