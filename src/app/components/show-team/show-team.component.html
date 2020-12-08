@@ -1,0 +1,28 @@
+<div *ngIf="team" class="page-inner-container d-flex justify-content-center mt-3 mb-3">
+  <div class="teams-container">
+
+    <div class="mt-3 mb-3 mr-3">
+      <a
+        *ngIf="user.gamer.team.owner.photoUrl"
+        [routerLink]="['/', user.gamer.team.owner.username]"
+        ><img
+          class="team-photo"
+          [src]="user.gamer.team.owner.photoUrl"
+          [alt]="user.gamer.team.name | prettyJson"
+      /></a>
+      <a
+        *ngIf="!user.gamer.team.owner.photoUrl"
+        [routerLink]="['/', team.owner.username]"
+        ><img
+          class="team-photo"
+          src="https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6"
+          [alt]="user.gamer.team.name | prettyJson"
+      /></a>
+      <a
+      [routerLink]="['/', user.gamer.team.owner.username]"
+      ><span>{{ user.gamer.team.name | prettyJson }}</span></a>
+
+    </div>
+  </div>
+</div>
+

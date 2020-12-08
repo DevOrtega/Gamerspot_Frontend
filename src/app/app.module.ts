@@ -34,6 +34,9 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ShowTeamComponent } from './components/show-team/show-team.component';
+import { ShowSponsorsComponent } from './components/show-sponsors/show-sponsors.component';
+import { AddTeamsComponent } from './components/add-teams/add-teams.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     PostGetComponent,
     PrettyJsonPipe,
     ProfileStatisticsTftComponent,
-    AddPlayersComponent
+    AddPlayersComponent,
+    AddTeamsComponent,
+    ShowTeamComponent,
+    ShowSponsorsComponent
   ],
   imports: [
     BrowserModule,

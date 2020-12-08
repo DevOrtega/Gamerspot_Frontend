@@ -14,13 +14,13 @@ span {
   margin-left: 15px;
 }
 
-.players-container {
-  border:2px solid #851DE0;
+.teams-container {
+  border:2px solid#FFD300;
 
 }
 
-.player-photo {
-  margin-left: 10px;
+.team-photo {
+  margin-left: 25px;
   background-color: rgba(255, 255, 255, 0.6) !important;
   width: 100px;
   height: 100px;
