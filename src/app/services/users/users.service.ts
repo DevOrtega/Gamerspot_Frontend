@@ -38,7 +38,6 @@ export class UsersService {
     return this.http.get<any>(`${environment.apiUrl}/users/${username}`, { withCredentials: true })
     .pipe(map((user: User) => {
       this.profileSubject.next(user);
-
       return user;
     }))
   }

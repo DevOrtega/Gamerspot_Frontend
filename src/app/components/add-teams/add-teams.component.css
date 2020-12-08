@@ -3,7 +3,7 @@ select {
 }
 
 button.btn.save {
-  background-color: blueviolet;
+  background-color: #FFD300;
   border: none;
   color: white;
   margin-left: 30%;
@@ -14,12 +14,12 @@ span {
   margin-left: 15px;
 }
 
-.players-container {
-  border:2px solid #851DE0;
+.teams-container {
+  border:2px solid#FFD300;
 
 }
 
-.player-photo {
+.team-photo {
   margin-left: 10px;
   background-color: rgba(255, 255, 255, 0.6) !important;
   width: 100px;
