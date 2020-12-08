@@ -89,17 +89,13 @@ export class AddPlayersComponent implements OnInit, OnDestroy {
       this.user = user;
       if (this.userProfileData.team !== undefined) {
         if (user.team._id == this.userProfileData.team._id) {
-
           this.gamerService.getGamers(this.userProfileData.team._id).subscribe(players => {
-
             this.playersOnTeam = players;
-
             this.playersOnTeam.sort((a, b) => {
               const dateA = new Date(a.createdAt).getTime();
               const dateB = new Date(b.createdAt).getTime();
               return dateB - dateA;
             });
-
             return this.playersOnTeam;
           });
         } else {

@@ -36,6 +36,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ShowTeamComponent } from './components/show-team/show-team.component';
 import { ShowSponsorsComponent } from './components/show-sponsors/show-sponsors.component';
+import { AddTeamsComponent } from './components/add-teams/add-teams.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ShowSponsorsComponent } from './components/show-sponsors/show-sponsors.
     PrettyJsonPipe,
     ProfileStatisticsTftComponent,
     AddPlayersComponent,
+    AddTeamsComponent,
     ShowTeamComponent,
     ShowSponsorsComponent
   ],

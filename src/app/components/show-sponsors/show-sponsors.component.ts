@@ -15,7 +15,8 @@ import { UsersService } from 'src/app/services/users/users.service';
 })
 export class ShowSponsorsComponent implements OnInit, OnDestroy {
   public userProfileData: User;
-  public sponsors: Sponsor[];
+  public sponsorsOnPlayer: Sponsor[];
+  public sponsorsOnTeam: Sponsor[];
   private usernameParam: string;
   public user: any;
 
@@ -30,11 +31,22 @@ export class ShowSponsorsComponent implements OnInit, OnDestroy {
       this.usernameParam = params['username'];
     })
 
-    this.showSponsors();
+    this.userService.getUserByUsername(this.usernameParam).subscribe(user => {
+      if (user.gamer==undefined) {
+        this.showSponsorsOnTeam();
+      }
+      else{
+      if (this.userProfileData.gamer !==undefined || user.gamer!==undefined) {
+        this.showSponsorsOnPlayer();
+      } else {
+        this.showSponsorsOnTeam();
+      }
+    }
+    })
   }
 
   public exist(): boolean {
-    if (this.sponsors) {
+    if (this.sponsorsOnPlayer) {
       return true;
     }
 
@@ -42,24 +54,42 @@ export class ShowSponsorsComponent implements OnInit, OnDestroy {
   }
 
   isEmpty(): boolean {
-    if (this.exist() && this.sponsors.length === 0) return true;
+    if (this.exist() && this.sponsorsOnPlayer.length === 0) return true;
 
     return false;
   }
 
-  private showSponsors() {
+  private showSponsorsOnPlayer() {
     this.userService.getUserByUsername(this.usernameParam).subscribe(user => {
       this.user = user
 
       if (this.userProfileData.gamer !== undefined) {
         if (user.gamer._id == this.userProfileData.gamer._id) {
-          this.sponsors = this.userProfileData.gamer.sponsors;
+          this.sponsorsOnPlayer = this.userProfileData.gamer.sponsors;
         } else {
-          this.sponsors = user.gamer.sponsors;
+          this.sponsorsOnPlayer = user.gamer.sponsors;
         }
 
       } else {
-        this.sponsors = user.gamer.sponsors;
+        this.sponsorsOnPlayer = user.gamer.sponsors;
+
+      }
+    });
+  }
+
+  private showSponsorsOnTeam() {
+    this.userService.getUserByUsername(this.usernameParam).subscribe(user => {
+      this.user = user
+
+      if (this.userProfileData.team !== undefined) {
+        if (user.team._id == this.userProfileData.team._id) {
+          this.sponsorsOnTeam = this.userProfileData.team.sponsors;
+        } else {
+          this.sponsorsOnTeam = user.team.sponsors;
+        }
+
+      } else {
+        this.sponsorsOnTeam = user.team.sponsors;
 
       }
     });
