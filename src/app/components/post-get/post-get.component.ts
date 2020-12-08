@@ -58,7 +58,7 @@ export class PostGetComponent implements OnInit, AfterViewInit {
   private makeTags() {
     const selectPosts = document.getElementById(this.modalIndex);
     selectPosts.innerHTML = selectPosts.innerHTML.replace(/#(\w+)/g,
-      `<a class="tag-link" href="/">#$1</a>`
+      `<a class="tag-link" style="color:rgb(51,159,255)" href="/tags/$1">#$1</a>`
     );
   }
 }
