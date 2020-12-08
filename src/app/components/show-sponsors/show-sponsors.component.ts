@@ -74,6 +74,8 @@ export class ShowSponsorsComponent implements OnInit, OnDestroy {
         this.sponsorsOnPlayer = user.gamer.sponsors;
 
       }
+      console.log(this.sponsorsOnPlayer)
+
     });
   }
 

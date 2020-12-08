@@ -21,8 +21,10 @@
       <a
       [routerLink]="['/', user.gamer.team.owner.username]"
       ><span>{{ user.gamer.team.name | prettyJson }}</span></a>
-
     </div>
   </div>
+</div>
+<div *ngIf="!team" class="page-inner-container default-text">
+  <h4>No team added yet</h4>
 </div>
 

@@ -1,4 +1,4 @@
-<div *ngIf="sponsorsOnPlayer" class="page-inner-container d-flex justify-content-center mt-3 mb-3">
+<div *ngIf="sponsorsOnPlayer && sponsorsOnPlayer.length > 0" class="page-inner-container d-flex justify-content-center mt-3 mb-3">
   <div class="sponsors-container">
 
     <div *ngFor="let sponsor of sponsorsOnPlayer;let i = index" class="mt-3 mb-3 mr-3">
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div *ngIf="sponsorsOnTeam" class="page-inner-container d-flex justify-content-center mt-3 mb-3">
+<div *ngIf="sponsorsOnTeam && sponsorsOnTeam.length > 0" class="page-inner-container d-flex justify-content-center mt-3 mb-3">
   <div class="sponsors-container">
 
     <div *ngFor="let sponsor of sponsorsOnTeam;let i = index" class="mt-3 mb-3 mr-3">
@@ -53,3 +53,7 @@
     </div>
   </div>
 </div>
+<div *ngIf="!sponsorsOnPlayer || sponsorsOnPlayer.length === 0 && !sponsorsOnTeam || sponsorsOnTeam.length === 0" class="page-inner-container default-text">
+  <h4>No sponsors added yet</h4>
+</div>
+
