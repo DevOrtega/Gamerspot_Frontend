@@ -35,6 +35,9 @@ import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { TagComponent } from './pages/tag/tag.component';
+import { ShowTeamComponent } from './components/show-team/show-team.component';
+import { ShowSponsorsComponent } from './components/show-sponsors/show-sponsors.component';
+import { AddTeamsComponent } from './components/add-teams/add-teams.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { TagComponent } from './pages/tag/tag.component';
     PrettyJsonPipe,
     ProfileStatisticsTftComponent,
     AddPlayersComponent,
-    TagComponent
+    TagComponent,
+    AddTeamsComponent,
+    ShowTeamComponent,
+    ShowSponsorsComponent
   ],
   imports: [
     BrowserModule,

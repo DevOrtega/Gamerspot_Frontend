@@ -1,1 +1,203 @@
-<p>add-players works!</p>
+<div
+  *ngIf="playersOnTeam"
+  class="page-inner-container d-flex justify-content-center mt-3 mb-3"
+>
+  <div class="row players-container">
+    <div
+      *ngIf="user.username == userProfileData.username"
+      class="col mt-3 mb-3"
+    >
+      <select
+        class="custom-select custom-select"
+        (change)="onChangePlayer($event.target.value)"
+      >
+        <option *ngFor="let player of players" value="{{ player._id }}">
+          {{ player.name + " (" + player.owner.username + ")" | prettyJson }}
+        </option>
+      </select>
+      <button class="btn save mt-3" type="button" (click)="addPlayer()">
+        Add player
+      </button>
+    </div>
+
+    <div class="col mt-3 mb-3" *ngFor="let player of playersOnTeam">
+      <a
+        *ngIf="player.owner.photoUrl"
+        [routerLink]="['/', player.owner.username]"
+        ><img
+          class="player-photo"
+          [src]="player.owner.photoUrl"
+          [alt]="player.name | prettyJson"
+      /></a>
+      <a
+        *ngIf="!player.owner.photoUrl"
+        [routerLink]="['/', player.owner.username]"
+        ><img
+          class="player-photo"
+          src="https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6"
+          [alt]="player.name | prettyJson"
+      /></a>
+      <a
+      [routerLink]="['/', player.owner.username]"
+      ><span>{{ player.name | prettyJson }}</span></a>
+      <button
+        *ngIf="user.username == userProfileData.username"
+        type="button"
+        class="btn btn-outline-danger delete"
+        data-toggle="modal"
+        [attr.data-target]="'#confirmationModal' + player._id"
+      >
+        <i class="far fa-trash-alt"></i>
+      </button>
+      <div
+        *ngIf="user.username == userProfileData.username"
+        class="modal fade"
+        [id]="'confirmationModal' + player._id"
+        tabindex="-1"
+        role="dialog"
+        [attr.aria-labelledby]="'#confirmationModal' + player._id"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                Delete player?
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this player?
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="removePlayer(player._id)"
+                data-dismiss="modal"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="playersOnSponsor"
+  class="page-inner-container d-flex justify-content-center mt-3 mb-3"
+>
+  <div class="row players-container">
+    <div
+      *ngIf="user.username == userProfileData.username"
+      class="col mt-3 mb-3"
+    >
+      <select
+        class="custom-select custom-select"
+        (change)="onChangePlayer($event.target.value)"
+      >
+        <option *ngFor="let player of players" value="{{ player._id }}">
+          {{ player.name + " (" + player.owner.username + ")" | prettyJson }}
+        </option>
+      </select>
+      <button class="btn save mt-3" type="button" (click)="addPlayer()">
+        Add player
+      </button>
+    </div>
+
+    <div class="col mt-3 mb-3" *ngFor="let player of playersOnSponsor">
+      <a
+        *ngIf="player.owner.photoUrl"
+        [routerLink]="['/', player.owner.username]"
+        ><img
+          class="player-photo"
+          [src]="player.owner.photoUrl"
+          [alt]="player.name | prettyJson"
+      /></a>
+      <a
+        *ngIf="!player.owner.photoUrl"
+        [routerLink]="['/', player.owner.username]"
+        ><img
+          class="player-photo"
+          src="https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/profilephotos%2Fimage-profile.png?alt=media&token=5c38edcd-ab6d-45a6-9784-dd1e542ecde6"
+          [alt]="player.name | prettyJson"
+      /></a>
+      <a
+      [routerLink]="['/', player.owner.username]"
+      ><span>{{ player.name | prettyJson }}</span></a>
+      <button
+        *ngIf="user.username == userProfileData.username"
+        type="button"
+        class="btn btn-outline-danger delete"
+        data-toggle="modal"
+        [attr.data-target]="'#confirmationModal' + player._id"
+      >
+        <i class="far fa-trash-alt"></i>
+      </button>
+      <div
+        *ngIf="user.username == userProfileData.username"
+        class="modal fade"
+        [id]="'confirmationModal' + player._id"
+        tabindex="-1"
+        role="dialog"
+        [attr.aria-labelledby]="'#confirmationModal' + player._id"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                Delete player?
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this player?
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="removePlayer(player._id)"
+                data-dismiss="modal"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
