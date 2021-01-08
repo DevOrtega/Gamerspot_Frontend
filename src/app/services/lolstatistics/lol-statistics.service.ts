@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LolStatisticsService {
-  private riotKey: string = environment.riotAPIKey;
+  private riotKey: string = environment.riotLOLAPIKey;
 
   public gameuser: string;
   public statistics: any;

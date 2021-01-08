@@ -20,10 +20,7 @@ export class PostGetComponent implements OnInit, AfterViewInit {
   constructor(private userService: UsersService, private authService: AuthService) { }
 
   ngOnInit(): void {
-
     this.makePost();
-
-    console.log('empezamos!!')
   }
 
   emitToDelete() {

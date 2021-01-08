@@ -7,7 +7,7 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class TftStatisticsService {
-  private riotKey = environment.riotAPIKey;
+  private riotKey = environment.riotTFTAPIKey;
 
   public gameuser: string;
   public statistics: any;

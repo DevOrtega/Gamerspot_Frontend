@@ -116,7 +116,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.userService.registerUser(user);
   }
 
-  loginUser(username: string, password: string): Observable<Promise<any>> {
+  loginUser(username: string, password: string): Observable<User> {
     this.loading = true;
 
     return this.authService.login(username, password)

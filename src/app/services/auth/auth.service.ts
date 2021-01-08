@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { UsersService } from 'src/app/services/users/users.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import jwtDecode from 'jwt-decode';
 
 import { User } from 'src/app/interfaces/user';
@@ -20,8 +19,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private userService: UsersService
+    private router: Router
   ) {
     this.userSubject = new BehaviorSubject<User>(null);
     this.user = this.userSubject.asObservable();
@@ -33,10 +31,11 @@ export class AuthService {
 
   public login(username: string, password: string) {
     return this.http.post<any>(`${environment.apiUrl}/users/login`, { username, password }, { withCredentials: true })
-    .pipe(map(async user => {
+    .pipe(map(user => {
       const tokenData : any = jwtDecode(user.token);
+      const userData = JSON.parse(JSON.stringify(tokenData.user));
 
-      const userData = await this.userService.getUserByUsername(username).pipe(first()).toPromise();
+      delete userData.password;
 
       this.userSubject.next(userData);
 
@@ -73,10 +72,11 @@ export class AuthService {
 
   public refreshToken() {
     return this.http.post<any>(`${environment.apiUrl}/users/refresh-token`, {}, { withCredentials: true })
-    .pipe(map(async user => {
+    .pipe(map(user => {
       const tokenData : any = jwtDecode(user.token);
+      const userData = JSON.parse(JSON.stringify(tokenData.user));
 
-      const userData = await this.userService.getUserByUsername(tokenData.user.username).pipe(first()).toPromise();
+      delete userData.password;
 
       this.userSubject.next(userData);
 
