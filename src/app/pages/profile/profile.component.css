@@ -149,12 +149,36 @@ div.fixed-col.left {
   border-radius: 0;
 }
 
+.nav-tabs > a.btn.btn-gamer:hover {
+  background-color: var(--gamer);
+}
+
+.nav-tabs > a.btn.btn-gamer.active {
+  background-color: var(--gamer);
+}
+
+.nav-tabs > a.btn.btn-team:hover {
+  background-color: var(--team);
+}
+
+.nav-tabs > a.btn.btn-team.active {
+  background-color: var(--team);
+}
+
+.nav-tabs > a.btn.btn-sponsor:hover {
+  background-color: var(--sponsor);
+}
+
+.nav-tabs > a.btn.btn-sponsor.active {
+  background-color: var(--sponsor);
+}
+
 .nav-tabs > a.btn.btn-conf:hover {
-  background-color: #851DE0;
+  background-color: #1d5be0;
 }
 
 .nav-tabs > a.btn.btn-conf.active {
-  background-color:#851DE0;
+  background-color: #1d5be0;
 }
 
 .nav-tabs > a > i {

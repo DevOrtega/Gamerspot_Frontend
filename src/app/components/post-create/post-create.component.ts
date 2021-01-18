@@ -35,7 +35,9 @@ export class PostCreateComponent implements OnInit {
     this.newPost.reset();
   }
 
-  hasTags(text: string) {
+  hasTags(text: string) {    
+    text = text.trim();
+
     const textWords = text.split(' ');
     let tags: Tag[] = [];
 
