@@ -1,4 +1,20 @@
 <div class="page-inner-container">
+  <!--
+  <nav class="nav nav-tabs nav-fill">
+    <a
+      class="profile-tab nav-link btn btn-outline-secondary"
+      [class.active]="isActive('btn1')"
+      (click)="setActive('btn1')"
+    >Profile
+    </a>
+    <a
+      class="profile-tab nav-link btn btn-outline-secondary"
+      [class.active]="isActive('btn2')"
+      (click)="setActive('btn2')"
+    >Security and Privacy
+    </a>
+  </nav>
+  -->
   <form [formGroup]="newProfile" (ngSubmit)="onSubmit()" class="form">
     <div class="row">
       <div class="col">
@@ -70,15 +86,12 @@
       <div *ngIf="isGamer" class="col">
         <h6>Games</h6>
       </div>
-      <div class="col">
-        <h6>Contact Links</h6>
-      </div>
     </div>
     <div class="form-row">
       <div *ngIf="isGamer" class="form-group col">
         <div formArrayName="games">
           <input
-            class="btn btn-success resize"
+            class="btn btn-success"
             type="button"
             (click)="addGame()"
             value="Add Game"
@@ -88,7 +101,7 @@
               let game of newProfile['controls'].games['controls'];
               let i = index
             "
-            class="py-3 resize"
+            class="py-3"
           >
             <div [formGroupName]="i" class="games">
                 <div class="btn-group" role="group" *ngFor="let game of games">
@@ -124,7 +137,7 @@
                 </div>
               <input
                 type="text"
-                class="form-control resize"
+                class="form-control"
                 placeholder="Enter your game username"
                 formControlName="gameUser"
               />
@@ -140,10 +153,17 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6>Contact Links</h6>
+      </div>
+    </div>
+    <div class="form-row">
       <div class="form-group col">
         <div formArrayName="links">
           <input
-            class="btn btn-success resize"
+            class="btn btn-success"
             type="button"
             (click)="addLink()"
             value="Add Link"
@@ -196,7 +216,7 @@
               <input
                 type="text"
                 id="{{ 'link-' + i }}"
-                class="form-control resize"
+                class="form-control"
                 placeholder="Enter your contact link"
                 formControlName="link"
                 [value]="userProfileData.links"

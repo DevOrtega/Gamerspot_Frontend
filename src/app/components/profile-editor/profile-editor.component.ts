@@ -37,6 +37,8 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     "tft"
   ]
 
+  private activeButton: string = 'btn1';
+
   private getParamsSubscription: Subscription;
   private getUserSubscription: Subscription;
   private editUserSubscription: Subscription;
@@ -218,6 +220,14 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   get f() {
     return this.newProfile.controls;
+  }
+
+  public setActive(buttonName: string): void {
+    this.activeButton = buttonName;
+  }
+
+  public isActive(buttonName: string): boolean {
+    return this.activeButton === buttonName;
   }
 
   ngOnDestroy(): void {

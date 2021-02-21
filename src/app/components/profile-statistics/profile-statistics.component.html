@@ -1,14 +1,14 @@
 <div class="page-inner-container">
-    <nav *ngIf="games && games.length > 0" class="nav nav-tabs nav-fill">
-        <a
-            *ngFor="let game of games; let idx = index"
-            class="nav-link btn btn-outline-secondary"
-            [class.active]="isActive('btn' + (idx+1))"
-            (click)="setActive('btn' + (idx+1))"
-            [routerLink]="game.gameRoute"
-            skipLocationChange
-        ><img width="50" height="50" src="{{'https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/'+game.gameName+'%2Flogo.png?alt=media&token=7ebd16c6-7d25-4dfa-971c-eb020565fbb6'}}" alt="{{'logo-'+game.gameName}}"></a>
-    </nav>
+  <nav *ngIf="games && games.length > 0" class="nav nav-tabs nav-fill">
+    <a
+      *ngFor="let game of games; let idx = index"
+      class="nav-link btn btn-outline-secondary"
+      [class.active]="isActive('btn' + (idx+1))"
+      (click)="setActive('btn' + (idx+1))"
+      [routerLink]="game.gameRoute"
+      skipLocationChange
+    ><img width="50" height="50" src="{{'https://firebasestorage.googleapis.com/v0/b/photos-gallery-a06e9.appspot.com/o/'+game.gameName+'%2Flogo.png?alt=media&token=7ebd16c6-7d25-4dfa-971c-eb020565fbb6'}}" alt="{{'logo-'+game.gameName}}"></a>
+  </nav>
 </div>
 
 <router-outlet></router-outlet>

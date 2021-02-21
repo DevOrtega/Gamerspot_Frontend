@@ -23,8 +23,13 @@
               "src/favicon.ico",
               "src/assets",
               {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
+              },
+              {
                 "glob": "riot.txt",
-                "input": "src/",
+                "input": "src",
                 "output": "/"
               }
             ],

@@ -6,6 +6,13 @@ input.btn {
   box-shadow: none !important;
 }
 
+.profile-tab {
+  padding-top: 19px;
+  padding-bottom: 19px;
+  color: white;
+  font-size: 19px;
+}
+
 textarea {
   resize: none;
   width: 600px;
